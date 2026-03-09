@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Censo Piracanga 2025 — Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --verde: #2d6a4f;
+    --verde-claro: #52b788;
+    --verde-menta: #95d5b2;
+    --areia: #f4e4c1;
+    --areia2: #fefae0;
+    --terra: #b7791f;
+    --azul: #1a6b8a;
+    --azul-claro: #48cae4;
+    --creme: #fffef5;
+    --cinza: #5f6368;
+    --sombra: 0 2px 12px rgba(0,0,0,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--creme);
+    color: #2d2d2d;
+    font-size: 14px;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--verde) 0%, #1b4332 100%);
+    color: white;
+    padding: 32px 40px 28px;
+    display: flex;
+    align-items: flex-end;
+    gap: 32px;
+  }
+  header .logo { font-size: 42px; margin-bottom: 4px; }
+  header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+  header p { font-size: 15px; opacity: 0.82; margin-top: 4px; }
+  header .badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 8px;
+    display: inline-block;
+  }
+
+  /* NAV TABS */
+  nav {
+    background: white;
+    border-bottom: 2px solid #e8f5e9;
+    padding: 0 32px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }
+  nav button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 14px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cinza);
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  nav button:hover { color: var(--verde); }
+  nav button.active { color: var(--verde); border-bottom-color: var(--verde); }
+
+  /* LAYOUT */
+  main { padding: 32px 40px; max-width: 1400px; margin: 0 auto; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--verde);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--verde-menta);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* GRID */
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 28px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 28px; }
+  .grid-1-2 { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; margin-bottom: 28px; }
+  .grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 28px; }
+
+  /* KPI CARDS */
+  .kpi {
+    background: white;
+    border-radius: 16px;
+    padding: 20px 22px;
+    box-shadow: var(--sombra);
+    border-left: 4px solid var(--verde-claro);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .kpi.accent-terra { border-left-color: var(--terra); }
+  .kpi.accent-azul { border-left-color: var(--azul); }
+  .kpi.accent-menta { border-left-color: var(--verde-menta); }
+  .kpi .kpi-icon { font-size: 22px; }
+  .kpi .kpi-value { font-size: 32px; font-weight: 800; color: var(--verde); line-height: 1; }
+  .kpi.accent-terra .kpi-value { color: var(--terra); }
+  .kpi.accent-azul .kpi-value { color: var(--azul); }
+  .kpi .kpi-label { font-size: 13px; color: var(--cinza); font-weight: 500; }
+  .kpi .kpi-sub { font-size: 11px; color: #aaa; }
+
+  /* CHART CARDS */
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: var(--sombra);
+  }
+  .card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #3a3a3a;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card h3 .icon { font-size: 16px; }
+  .card .chart-wrap { position: relative; }
+
+  /* PROGRESS BARS */
+  .progress-list { display: flex; flex-direction: column; gap: 10px; }
+  .progress-item { }
+  .progress-label { display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 12px; font-weight: 500; }
+  .progress-bar-bg { background: #f0f4f0; border-radius: 8px; height: 10px; overflow: hidden; }
+  .progress-bar-fill {
+    background: linear-gradient(90deg, var(--verde-claro), var(--verde));
+    height: 100%;
+    border-radius: 8px;
+    transition: width 0.8s ease;
+  }
+  .progress-bar-fill.orange { background: linear-gradient(90deg, #f6ad55, #dd6b20); }
+  .progress-bar-fill.azul { background: linear-gradient(90deg, var(--azul-claro), var(--azul)); }
+
+  /* GAUGE */
+  .gauge-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 0;
+  }
+  .gauge-num {
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--verde);
+    line-height: 1;
+  }
+  .gauge-label { font-size: 12px; color: var(--cinza); margin-top: 4px; }
+  .gauge-max { font-size: 11px; color: #bbb; }
+
+  /* INSIGHT BOX */
+  .insight {
+    background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+    border-left: 4px solid var(--verde-claro);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #2d5016;
+    line-height: 1.6;
+  }
+  .insight strong { color: var(--verde); }
+
+  /* TAG LIST */
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .tag {
+    background: #e8f5e9;
+    color: var(--verde);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .tag.orange { background: #fff3e0; color: #e65100; }
+  .tag.azul { background: #e3f2fd; color: var(--azul); }
+
+  /* RESP TABLE */
+  .resp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .resp-table th {
+    background: #f0faf4;
+    color: var(--verde);
+    font-weight: 700;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 2px solid #d0e8d8;
+  }
+  .resp-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #444;
+  }
+  .resp-table tr:last-child td { border-bottom: none; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 28px;
+    color: #aaa;
+    font-size: 12px;
+    border-top: 1px solid #eee;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 900px) {
+    main { padding: 20px; }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-2, .grid-1-2, .grid-2-1 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">🌿</div>
+  </div>
+  <div>
+    <h1>Censo Piracanga 2025</h1>
+    <p>Dashboard Interativo — Dados Socioeconômicos e Comunitários</p>
+    <span class="badge">116 respondentes • Janeiro 2026</span>
+  </div>
+</header>
+
+<nav id="nav">
+  <button class="active" onclick="showTab('visao-geral')">📊 Visão Geral</button>
+  <button onclick="showTab('demografia')">👥 Perfil Demográfico</button>
+  <button onclick="showTab('habitacao')">🏠 Habitação</button>
+  <button onclick="showTab('saude')">❤️ Saúde</button>
+  <button onclick="showTab('educacao')">📚 Educação & Digital</button>
+  <button onclick="showTab('trabalho')">💼 Trabalho & Renda</button>
+  <button onclick="showTab('comunidade')">🤝 Comunidade</button>
+  <button onclick="showTab('ambiente')">🌱 Meio Ambiente</button>
+  <button onclick="showTab('talentos')">✨ Talentos</button>
+</nav>
+
+<main>
+
+<!-- ============================================================ -->
+<!-- VISÃO GERAL -->
+<!-- ============================================================ -->
+<div class="section active" id="visao-geral">
+  <div class="section-title">📊 Visão Geral do Censo</div>
+
+  <!-- ÍNDICES DO TERRITÓRIO -->
+  <div style="margin-bottom:10px; font-size:13px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:1px;">Índices do Território</div>
+  <div class="indices-grid" style="display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:32px;">
+
+    <div class="indice-card" onclick="showTab('comunidade')" style="background:white; border-radius:16px; padding:18px 14px; box-shadow:var(--sombra); text-align:center; border-top:4px solid #2d6a4f; cursor:pointer; transition:transform .15s,box-shadow .15s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'">
+      <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px;">🌡️ NPS Piracanga</div>
+      <div style="position:relative; display:inline-block; width:80px; height:80px;">
+        <svg viewBox="0 0 80 80" style="transform:rotate(-90deg); width:80px; height:80px;">
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#e8f5e9" stroke-width="8"/>
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#2d6a4f" stroke-width="8" stroke-dasharray="201" stroke-dashoffset="104" stroke-linecap="round"/>
+        </svg>
+        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:22px; font-weight:900; color:#2d6a4f;">48</div>
+      </div>
+      <div style="font-size:11px; color:#888; margin-top:8px;">Escala −100 a 100<br><em>61% promotores</em></div>
+      <div style="font-size:10px; color:#aaa; margin-top:6px;">Ver detalhes →</div>
+    </div>
+
+    <div class="indice-card" onclick="showTab('saude')" style="background:white; border-radius:16px; padding:18px 14px; box-shadow:var(--sombra); text-align:center; border-top:4px solid #52b788; cursor:pointer; transition:transform .15s,box-shadow .15s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'">
+      <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px;">🪜 Qualidade de Vida</div>
+      <div style="position:relative; display:inline-block; width:80px; height:80px;">
+        <svg viewBox="0 0 80 80" style="transform:rotate(-90deg); width:80px; height:80px;">
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#e8f5e9" stroke-width="8"/>
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#52b788" stroke-width="8" stroke-dasharray="201" stroke-dashoffset="42" stroke-linecap="round"/>
+        </svg>
+        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:20px; font-weight:900; color:#52b788;">7,9</div>
+      </div>
+      <div style="font-size:11px; color:#888; margin-top:8px;">Escada da vida (Cantril)<br><em>73% ≥ 7</em></div>
+      <div style="font-size:10px; color:#aaa; margin-top:6px;">Ver detalhes →</div>
+    </div>
+
+    <div class="indice-card" onclick="showTab('saude')" style="background:white; border-radius:16px; padding:18px 14px; box-shadow:var(--sombra); text-align:center; border-top:4px solid #48cae4; cursor:pointer; transition:transform .15s,box-shadow .15s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'">
+      <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px;">❤️ Saúde Física</div>
+      <div style="position:relative; display:inline-block; width:80px; height:80px;">
+        <svg viewBox="0 0 80 80" style="transform:rotate(-90deg); width:80px; height:80px;">
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#e3f2fd" stroke-width="8"/>
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#48cae4" stroke-width="8" stroke-dasharray="201" stroke-dashoffset="38" stroke-linecap="round"/>
+        </svg>
+        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:20px; font-weight:900; color:#1a6b8a;">8,1</div>
+      </div>
+      <div style="font-size:11px; color:#888; margin-top:8px;">Autoavaliação 0–10<br><em>moda: 8</em></div>
+      <div style="font-size:10px; color:#aaa; margin-top:6px;">Ver detalhes →</div>
+    </div>
+
+    <div class="indice-card" onclick="showTab('saude')" style="background:white; border-radius:16px; padding:18px 14px; box-shadow:var(--sombra); text-align:center; border-top:4px solid #c084fc; cursor:pointer; transition:transform .15s,box-shadow .15s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'">
+      <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px;">🧠 Saúde Mental</div>
+      <div style="position:relative; display:inline-block; width:80px; height:80px;">
+        <svg viewBox="0 0 80 80" style="transform:rotate(-90deg); width:80px; height:80px;">
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#f5e6ff" stroke-width="8"/>
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#c084fc" stroke-width="8" stroke-dasharray="201" stroke-dashoffset="44" stroke-linecap="round"/>
+        </svg>
+        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:20px; font-weight:900; color:#7c3aed;">7,8</div>
+      </div>
+      <div style="font-size:11px; color:#888; margin-top:8px;">Autoavaliação 0–10<br><em>moda: 8</em></div>
+      <div style="font-size:10px; color:#aaa; margin-top:6px;">Ver detalhes →</div>
+    </div>
+
+    <div class="indice-card" onclick="showTab('comunidade')" style="background:white; border-radius:16px; padding:18px 14px; box-shadow:var(--sombra); text-align:center; border-top:4px solid #b7791f; cursor:pointer; transition:transform .15s,box-shadow .15s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'">
+      <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px;">🤝 Senso de Comunidade</div>
+      <div style="position:relative; display:inline-block; width:80px; height:80px;">
+        <svg viewBox="0 0 80 80" style="transform:rotate(-90deg); width:80px; height:80px;">
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#fef3e2" stroke-width="8"/>
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#b7791f" stroke-width="8" stroke-dasharray="201" stroke-dashoffset="66" stroke-linecap="round"/>
+        </svg>
+        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:20px; font-weight:900; color:#b7791f;">6,7</div>
+      </div>
+      <div style="font-size:11px; color:#888; margin-top:8px;">Percepção 0–10<br><em>convívio: 7,1</em></div>
+      <div style="font-size:10px; color:#aaa; margin-top:6px;">Ver detalhes →</div>
+    </div>
+
+  </div>
+
+  <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:32px;">
+    <div onclick="showTab('comunidade')" style="background:white; border-radius:12px; padding:16px; box-shadow:var(--sombra); display:flex; align-items:center; gap:14px; cursor:pointer; transition:transform .15s,box-shadow .15s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'">
+      <div style="font-size:28px; font-weight:900; color:#2d6a4f; min-width:52px;">94%</div>
+      <div><div style="font-size:12px; font-weight:700; color:#333;">🔒 Segurança</div><div style="font-size:11px; color:#888;">se sentem seguros no território</div><div style="font-size:10px; color:#aaa; margin-top:3px;">Ver detalhes →</div></div>
+    </div>
+    <div onclick="showTab('educacao')" style="background:white; border-radius:12px; padding:16px; box-shadow:var(--sombra); display:flex; align-items:center; gap:14px; cursor:pointer; transition:transform .15s,box-shadow .15s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'">
+      <div style="font-size:28px; font-weight:900; color:#1a6b8a; min-width:52px;">8,6</div>
+      <div><div style="font-size:12px; font-weight:700; color:#333;">💻 Inclusão Digital</div><div style="font-size:11px; color:#888;">índice médio de letramento digital</div><div style="font-size:10px; color:#aaa; margin-top:3px;">Ver detalhes →</div></div>
+    </div>
+    <div onclick="showTab('ambiente')" style="background:white; border-radius:12px; padding:16px; box-shadow:var(--sombra); display:flex; align-items:center; gap:14px; cursor:pointer; transition:transform .15s,box-shadow .15s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'">
+      <div style="font-size:28px; font-weight:900; color:#52b788; min-width:52px;">97%</div>
+      <div><div style="font-size:12px; font-weight:700; color:#333;">♻️ Sustentabilidade</div><div style="font-size:11px; color:#888;">reciclagem + compostagem ativas</div><div style="font-size:10px; color:#aaa; margin-top:3px;">Ver detalhes →</div></div>
+    </div>
+    <div onclick="showTab('comunidade')" style="background:white; border-radius:12px; padding:16px; box-shadow:var(--sombra); display:flex; align-items:center; gap:14px; cursor:pointer; transition:transform .15s,box-shadow .15s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'">
+      <div style="font-size:28px; font-weight:900; color:#b7791f; min-width:52px;">67%</div>
+      <div><div style="font-size:12px; font-weight:700; color:#333;">🏛️ Governança</div><div style="font-size:11px; color:#888;">confiam na A.Mor como representante</div><div style="font-size:10px; color:#aaa; margin-top:3px;">Ver detalhes →</div></div>
+    </div>
+  </div>
+
+  <!-- CONCLUSÕES -->
+  <div style="margin-bottom:10px; font-size:13px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:1px;">Principais Conclusões</div>
+
+  <div class="grid-3">
+
+    <div class="card" style="border-left:4px solid #2d6a4f;">
+      <h3><span class="icon">🌿</span> Piracanga é percebida como um lugar muito bom para viver</h3>
+      <p style="font-size:13px; color:#444; line-height:1.7;">O NPS de <strong>48</strong> e a qualidade de vida média de <strong>7,9</strong> — com mediana 10 em recomendação — indicam que a grande maioria dos moradores está profundamente satisfeita com o território. A natureza preservada (93% citaram como motivo de escolha), a cultura regenerativa e a vida em comunidade são os pilares desta satisfação. Piracanga oferece um nível de bem-estar percebido acima da média nacional.</p>
+    </div>
+
+    <div class="card" style="border-left:4px solid #48cae4;">
+      <h3><span class="icon">🎓</span> Capital humano excepcionalmente alto</h3>
+      <p style="font-size:13px; color:#444; line-height:1.7;">A comunidade tem <strong>35% de pós-graduados</strong> e índice de inclusão digital médio de <strong>8,6/10</strong>, com 63% usando inteligência artificial. Somado ao portfólio diverso de talentos — gestão (45), artes (39), terapias (31) e tecnologia (22) — Piracanga reúne um capital humano com potencial produtivo significativo. Esse ativo é um diferencial estratégico para projetos comunitários e geração de renda local.</p>
+    </div>
+
+    <div class="card" style="border-left:4px solid #52b788;">
+      <h3><span class="icon">🌱</span> Referência em consciência ambiental</h3>
+      <p style="font-size:13px; color:#444; line-height:1.7;"><strong>99% reciclam</strong> e <strong>97% compostam</strong> — taxas excepcionais que refletem a identidade regenerativa do território. <strong>74%</strong> sabem que Piracanga está na Mata Atlântica e conhecem a APA. As prioridades ambientais mais citadas são o cuidado com as águas, a gestão de resíduos sólidos e a resistência à chegada de energia elétrica de rede. <strong>75%</strong> reconhecem o bioma Mata Atlântica e a APA. O compromisso ambiental é estrutural, não apenas declaratório.</p>
+    </div>
+
+    <div class="card" style="border-left:4px solid #b7791f;">
+      <h3><span class="icon">⚠️ Vulnerabilidade econômica é o principal risco</span></h3>
+      <p style="font-size:13px; color:#444; line-height:1.7;"><strong>54%</strong> da renda depende do turismo, criando forte sazonalidade. Renda insuficiente e custo de vida lideram os motivos para possível saída do território. <strong>57%</strong> pensam em sair ou não sabem — um sinal de alerta relevante. A nota média de dificuldade financeira é <strong>3,6/10</strong>, concentrada em faixas intermediárias, o que indica pressão econômica real mesmo entre quem tem reservas (58%). Diversificar a base econômica é urgente.</p>
+    </div>
+
+    <div class="card" style="border-left:4px solid #c084fc;">
+      <h3><span class="icon">🤝</span> Comunidade forte, governança em construção</h3>
+      <p style="font-size:13px; color:#444; line-height:1.7;">O senso de comunidade é avaliado em <strong>6,7/10</strong> e o convívio harmonioso em <strong>7,1/10</strong> — sólidos, mas com espaço para crescimento. <strong>61%</strong> fazem voluntariado e outros <strong>30%</strong> gostariam de começar. A confiança na A.Mor é de <strong>67%</strong> e <strong>62%</strong> sentem que têm voz nas decisões — sinais positivos, mas que revelam que ainda <strong>1 em cada 3 moradores</strong> não se sente representado ou participante. Fortalecer os mecanismos de escuta e tomada de decisão coletiva é uma prioridade de governança.</p>
+    </div>
+
+    <div class="card" style="border-left:4px solid #f6ad55;">
+      <h3><span class="icon">🏘️ Tensão estrutural: propriedade vs. moradia</span></h3>
+      <p style="font-size:13px; color:#444; line-height:1.7;">Apenas <strong>28% dos moradores são proprietários residentes</strong> (22 de 79). A maioria — <strong>57 pessoas (72%)</strong> — mora sem ter propriedade, em condição de aluguel ou cessão. Dos 80 proprietários totais, apenas 22 residem no território. Essa assimetria gera tensões sobre participação nas decisões, estabilidade de vínculo e especulação imobiliária — citada pelos moradores como uma das principais ameaças ao modo de vida de Piracanga. A estrutura fundiária é um nó crítico para a coesão comunitária a longo prazo.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DEMOGRAFIA -->
+<!-- ============================================================ -->
+<div class="section" id="demografia">
+  <div class="section-title">👥 Perfil Demográfico</div>
+
+  <div class="grid-4">
+    <div class="kpi">
+      <span class="kpi-icon">📅</span>
+      <span class="kpi-value">43</span>
+      <span class="kpi-label">Idade Média</span>
+      <span class="kpi-sub">Faixa: 18–70+ anos</span>
+    </div>
+    <div class="kpi accent-azul">
+      <span class="kpi-icon">♀️</span>
+      <span class="kpi-value">56%</span>
+      <span class="kpi-label">Mulheres Cisgêneras</span>
+      <span class="kpi-sub">44 moradores</span>
+    </div>
+    <div class="kpi accent-terra">
+      <span class="kpi-icon">🏳️</span>
+      <span class="kpi-value">63%</span>
+      <span class="kpi-label">Raça Branca</span>
+      <span class="kpi-sub">50 de 79 moradores</span>
+    </div>
+    <div class="kpi accent-menta">
+      <span class="kpi-icon">⏳</span>
+      <span class="kpi-value">3,5</span>
+      <span class="kpi-label">Anos de Residência (mediana)</span>
+      <span class="kpi-sub">Média: 5,2 anos</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">⚧️</span> Gênero</h3>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="chartGenero"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">🎨</span> Raça / Cor</h3>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="chartRaca"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">🎂</span> Faixa Etária</h3>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="chartFaixaEtaria"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">📆</span> Tempo de Residência (anos)</h3>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="chartTempoResidencia"></canvas>
+      </div>
+      <div class="insight">
+        A maioria dos moradores chegou há <strong>menos de 5 anos</strong> (61%), indicando uma comunidade em crescimento. Cerca de 28% vivem há mais de 7 anos, com raízes consolidadas no território.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- HABITAÇÃO -->
+<!-- ============================================================ -->
+<div class="section" id="habitacao">
+  <div class="section-title">🏠 Habitação e Domicílios</div>
+
+  <!-- KPIs propriedade -->
+  <div class="grid-4">
+    <div class="kpi">
+      <span class="kpi-icon">🏠</span>
+      <span class="kpi-value">110</span>
+      <span class="kpi-label">Total de Proprietários</span>
+      <span class="kpi-sub">Cadastrados no território</span>
+    </div>
+    <div class="kpi accent-azul">
+      <span class="kpi-icon">👤</span>
+      <span class="kpi-value">22</span>
+      <span class="kpi-label">Proprietários Moradores</span>
+      <span class="kpi-sub">20% dos proprietários residem</span>
+    </div>
+    <div class="kpi accent-terra">
+      <span class="kpi-icon">📋</span>
+      <span class="kpi-value">88</span>
+      <span class="kpi-label">Prop. Não Moradores</span>
+      <span class="kpi-sub">Fora do território</span>
+    </div>
+    <div class="kpi accent-menta">
+      <span class="kpi-icon">🤝</span>
+      <span class="kpi-value">57</span>
+      <span class="kpi-label">Moradores Não Proprietários</span>
+      <span class="kpi-sub">Inquilinos ou cedidos</span>
+    </div>
+  </div>
+
+  <!-- CASAS POR LOTEAMENTO com filtro -->
+  <div class="card" style="margin-bottom:24px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
+      <h3 style="margin:0;"><span class="icon">🏡</span> Casas Mapeadas por Loteamento</h3>
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <span style="font-size:12px; color:var(--cinza); font-weight:600;">Filtrar:</span>
+        <button class="lot-filter-btn active" onclick="filterLot('todos')" style="padding:5px 12px; border-radius:20px; border:2px solid #2d6a4f; background:#2d6a4f; color:white; font-size:12px; font-weight:600; cursor:pointer;">Todas</button>
+        <button class="lot-filter-btn" onclick="filterLot('Ecovila 1')" style="padding:5px 12px; border-radius:20px; border:2px solid #2d6a4f; background:white; color:#2d6a4f; font-size:12px; font-weight:600; cursor:pointer;">Ecovila 1</button>
+        <button class="lot-filter-btn" onclick="filterLot('Ecovila 2')" style="padding:5px 12px; border-radius:20px; border:2px solid #1a6b8a; background:white; color:#1a6b8a; font-size:12px; font-weight:600; cursor:pointer;">Ecovila 2</button>
+        <button class="lot-filter-btn" onclick="filterLot('Ecovila 3')" style="padding:5px 12px; border-radius:20px; border:2px solid #b7791f; background:white; color:#b7791f; font-size:12px; font-weight:600; cursor:pointer;">Ecovila 3</button>
+        <button class="lot-filter-btn" onclick="filterLot('Ecovila 4')" style="padding:5px 12px; border-radius:20px; border:2px solid #7c3aed; background:white; color:#7c3aed; font-size:12px; font-weight:600; cursor:pointer;">Ecovila 4</button>
+        <button class="lot-filter-btn" onclick="filterLot('Ecovila 5')" style="padding:5px 12px; border-radius:20px; border:2px solid #e07a5f; background:white; color:#e07a5f; font-size:12px; font-weight:600; cursor:pointer;">Ecovila 5</button>
+        <button class="lot-filter-btn" onclick="filterLot('Outro')" style="padding:5px 12px; border-radius:20px; border:2px solid #6b7280; background:white; color:#6b7280; font-size:12px; font-weight:600; cursor:pointer;">Outro</button>
+      </div>
+    </div>
+
+    <!-- Cards de destaque por loteamento -->
+    <div id="lot-summary-cards" style="display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-bottom:20px;">
+      <div class="lot-summary" data-lot="Ecovila 1" style="background:#f0fdf4; border:2px solid #2d6a4f; border-radius:12px; padding:14px 10px; text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:#2d6a4f; margin-bottom:4px;">Ecovila 1</div>
+        <div style="font-size:28px; font-weight:900; color:#2d6a4f; line-height:1;">43</div>
+        <div style="font-size:10px; color:#666; margin-top:2px;">casas</div>
+        <div style="font-size:11px; color:#444; margin-top:6px; border-top:1px solid #d1fae5; padding-top:6px;">78 moradores</div>
+        <div style="font-size:10px; color:#888;">cap. 195 | 11 prop.</div>
+      </div>
+      <div class="lot-summary" data-lot="Ecovila 2" style="background:#eff6ff; border:2px solid #1a6b8a; border-radius:12px; padding:14px 10px; text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:#1a6b8a; margin-bottom:4px;">Ecovila 2</div>
+        <div style="font-size:28px; font-weight:900; color:#1a6b8a; line-height:1;">12</div>
+        <div style="font-size:10px; color:#666; margin-top:2px;">casas</div>
+        <div style="font-size:11px; color:#444; margin-top:6px; border-top:1px solid #dbeafe; padding-top:6px;">17 moradores</div>
+        <div style="font-size:10px; color:#888;">cap. 68 | 2 prop.</div>
+      </div>
+      <div class="lot-summary" data-lot="Ecovila 3" style="background:#fffbeb; border:2px solid #b7791f; border-radius:12px; padding:14px 10px; text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:#b7791f; margin-bottom:4px;">Ecovila 3</div>
+        <div style="font-size:28px; font-weight:900; color:#b7791f; line-height:1;">22</div>
+        <div style="font-size:10px; color:#666; margin-top:2px;">casas</div>
+        <div style="font-size:11px; color:#444; margin-top:6px; border-top:1px solid #fde68a; padding-top:6px;">39 moradores</div>
+        <div style="font-size:10px; color:#888;">cap. 78 | 5 prop.</div>
+      </div>
+      <div class="lot-summary" data-lot="Ecovila 4" style="background:#f5f3ff; border:2px solid #7c3aed; border-radius:12px; padding:14px 10px; text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:#7c3aed; margin-bottom:4px;">Ecovila 4</div>
+        <div style="font-size:28px; font-weight:900; color:#7c3aed; line-height:1;">4</div>
+        <div style="font-size:10px; color:#666; margin-top:2px;">casas</div>
+        <div style="font-size:11px; color:#444; margin-top:6px; border-top:1px solid #ede9fe; padding-top:6px;">2 moradores</div>
+        <div style="font-size:10px; color:#888;">cap. 10 | 1 prop.</div>
+      </div>
+      <div class="lot-summary" data-lot="Ecovila 5" style="background:#fff1ee; border:2px solid #e07a5f; border-radius:12px; padding:14px 10px; text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:#e07a5f; margin-bottom:4px;">Ecovila 5</div>
+        <div style="font-size:28px; font-weight:900; color:#e07a5f; line-height:1;">3</div>
+        <div style="font-size:10px; color:#666; margin-top:2px;">casas</div>
+        <div style="font-size:11px; color:#444; margin-top:6px; border-top:1px solid #fed7d0; padding-top:6px;">3 moradores</div>
+        <div style="font-size:10px; color:#888;">cap. 5 | 1 prop.</div>
+      </div>
+      <div class="lot-summary" data-lot="Outro" style="background:#f9fafb; border:2px solid #6b7280; border-radius:12px; padding:14px 10px; text-align:center;">
+        <div style="font-size:11px; font-weight:700; color:#6b7280; margin-bottom:4px;">Outro</div>
+        <div style="font-size:28px; font-weight:900; color:#6b7280; line-height:1;">3</div>
+        <div style="font-size:10px; color:#666; margin-top:2px;">casas</div>
+        <div style="font-size:11px; color:#444; margin-top:6px; border-top:1px solid #e5e7eb; padding-top:6px;">5 moradores</div>
+        <div style="font-size:10px; color:#888;">cap. 10 | 1 prop.</div>
+      </div>
+    </div>
+
+    <!-- Número total em destaque + contador filtrado -->
+    <div style="display:flex; align-items:center; gap:20px; padding:14px 18px; background:var(--areia2); border-radius:12px; margin-bottom:16px;">
+      <div style="text-align:center; min-width:80px;">
+        <div id="lot-count-big" style="font-size:42px; font-weight:900; color:var(--verde); line-height:1;">87</div>
+        <div style="font-size:12px; color:var(--cinza); font-weight:600;">casas mapeadas</div>
+      </div>
+      <div style="flex:1; display:grid; grid-template-columns:repeat(3,1fr); gap:12px;">
+        <div style="text-align:center;">
+          <div id="lot-moradores-big" style="font-size:22px; font-weight:800; color:#1a6b8a;">144</div>
+          <div style="font-size:11px; color:var(--cinza);">moradores</div>
+        </div>
+        <div style="text-align:center;">
+          <div id="lot-cap-big" style="font-size:22px; font-weight:800; color:#b7791f;">366</div>
+          <div style="font-size:11px; color:var(--cinza);">capacidade total</div>
+        </div>
+        <div style="text-align:center;">
+          <div id="lot-prop-big" style="font-size:22px; font-weight:800; color:#52b788;">21</div>
+          <div style="font-size:11px; color:var(--cinza);">prop. residentes</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabela de casas filtrável -->
+    <div style="overflow-x:auto;">
+      <table id="casas-table" style="width:100%; border-collapse:collapse; font-size:13px;">
+        <thead>
+          <tr style="background:#f0fdf4; color:var(--verde);">
+            <th style="padding:10px 12px; text-align:left; font-weight:700; border-bottom:2px solid var(--verde-menta);">Casa</th>
+            <th style="padding:10px 12px; text-align:left; font-weight:700; border-bottom:2px solid var(--verde-menta);">Loteamento</th>
+            <th style="padding:10px 8px; text-align:center; font-weight:700; border-bottom:2px solid var(--verde-menta);">Adultos</th>
+            <th style="padding:10px 8px; text-align:center; font-weight:700; border-bottom:2px solid var(--verde-menta);">Crianças</th>
+            <th style="padding:10px 8px; text-align:center; font-weight:700; border-bottom:2px solid var(--verde-menta);">Total</th>
+            <th style="padding:10px 8px; text-align:center; font-weight:700; border-bottom:2px solid var(--verde-menta);">Capacidade</th>
+            <th style="padding:10px 8px; text-align:center; font-weight:700; border-bottom:2px solid var(--verde-menta);">Prop. Mora?</th>
+          </tr>
+        </thead>
+        <tbody id="casas-tbody">
+          <!-- preenchido por JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Gráficos: tipo de domicílio + presença -->
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">🏡</span> Tipo de Domicílio (Censo)</h3>
+      <div class="chart-wrap" style="height:240px">
+        <canvas id="chartDomicilio"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">👁️</span> Presença no Território</h3>
+      <div class="chart-wrap" style="height:200px">
+        <canvas id="chartPresenca"></canvas>
+      </div>
+      <div class="insight">
+        <strong>57 pessoas</strong> (72%) são moradores mas não proprietários, indicando alta incidência de aluguel e moradia cedida no território.
+      </div>
+    </div>
+  </div>
+
+  <!-- Equipamentos domiciliares (censo) -->
+  <div class="card" style="margin-bottom:24px;">
+    <h3><span class="icon">🔌</span> Equipamentos e Infraestrutura Domiciliar <span style="font-size:11px; color:#888; font-weight:400; margin-left:6px;">Censo — moradores (n=79)</span></h3>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:16px;">
+      <div style="background:#f0fdf4; border-radius:12px; padding:18px; text-align:center; border:1px solid #d1fae5;">
+        <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px;">🧊 Geladeira</div>
+        <div style="font-size:32px; font-weight:900; color:#2d6a4f;">58%</div>
+        <div style="font-size:11px; color:#888; margin-top:4px;">46 de 79 moradores</div>
+        <div style="margin-top:10px; background:#e8f5e9; border-radius:8px; height:8px; overflow:hidden;">
+          <div style="background:#2d6a4f; width:58%; height:100%; border-radius:8px;"></div>
+        </div>
+      </div>
+      <div style="background:#eff6ff; border-radius:12px; padding:18px; text-align:center; border:1px solid #dbeafe;">
+        <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px;">👕 Lavadora de Roupas</div>
+        <div style="font-size:32px; font-weight:900; color:#1a6b8a;">25%</div>
+        <div style="font-size:11px; color:#888; margin-top:4px;">20 de 79 moradores</div>
+        <div style="margin-top:10px; background:#dbeafe; border-radius:8px; height:8px; overflow:hidden;">
+          <div style="background:#1a6b8a; width:25%; height:100%; border-radius:8px;"></div>
+        </div>
+      </div>
+      <div style="background:#fffbeb; border-radius:12px; padding:18px; text-align:center; border:1px solid #fde68a;">
+        <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px;">🌿 Banheiro Seco</div>
+        <div style="font-size:32px; font-weight:900; color:#b7791f;">34%</div>
+        <div style="font-size:11px; color:#888; margin-top:4px;">27 de 79 moradores</div>
+        <div style="margin-top:10px; background:#fef3c7; border-radius:8px; height:8px; overflow:hidden;">
+          <div style="background:#b7791f; width:34%; height:100%; border-radius:8px;"></div>
+        </div>
+      </div>
+      <div style="background:#f5f3ff; border-radius:12px; padding:18px; text-align:center; border:1px solid #ede9fe;">
+        <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px;">🚿 Banheiro Conv.</div>
+        <div style="font-size:32px; font-weight:900; color:#7c3aed;">72%</div>
+        <div style="font-size:11px; color:#888; margin-top:4px;">57 de 79 moradores</div>
+        <div style="margin-top:10px; background:#ede9fe; border-radius:8px; height:8px; overflow:hidden;">
+          <div style="background:#7c3aed; width:72%; height:100%; border-radius:8px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:16px;">
+      O baixo índice de lavadoras (25%) reflete tanto a opção por estilo de vida mais simples quanto as limitações de energia (ausência de rede elétrica). O banheiro seco — em 34% das casas — e a presença simultânea de banheiro convencional em 72% revelam uma transição em curso rumo a práticas mais sustentáveis.
+    </div>
+  </div>
+
+  <!-- Distribuição por categoria -->
+  <div class="card" style="margin-bottom:28px">
+    <h3><span class="icon">📊</span> Distribuição dos Moradores por Categoria (Censo)</h3>
+    <div class="progress-list">
+      <div class="progress-item">
+        <div class="progress-label"><span>🏠 Proprietário Morador</span><span>22 pessoas (28%)</span></div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:28%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label"><span>🔑 Proprietário Não Morador</span><span>88 de 110 prop. (80%)</span></div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill orange" style="width:80%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label"><span>🏘️ Morador Não Proprietário</span><span>57 pessoas (72%)</span></div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill azul" style="width:72%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label"><span>👶 Crianças Moradoras</span><span>21 crianças</span></div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:27%"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SAÚDE -->
+<!-- ============================================================ -->
+<div class="section" id="saude">
+  <div class="section-title">❤️ Saúde e Bem-Estar</div>
+
+  <div class="grid-4">
+    <div class="kpi">
+      <span class="kpi-icon">💪</span>
+      <span class="kpi-value">8,1</span>
+      <span class="kpi-label">Saúde Física (média)</span>
+      <span class="kpi-sub">Escala 0–10</span>
+    </div>
+    <div class="kpi accent-azul">
+      <span class="kpi-icon">🧠</span>
+      <span class="kpi-value">7,8</span>
+      <span class="kpi-label">Saúde Mental (média)</span>
+      <span class="kpi-sub">Escala 0–10</span>
+    </div>
+    <div class="kpi accent-terra">
+      <span class="kpi-icon">🩺</span>
+      <span class="kpi-value">10%</span>
+      <span class="kpi-label">Com Doença Crônica</span>
+      <span class="kpi-sub">Aprox. 8 de 79 moradores</span>
+    </div>
+    <div class="kpi accent-menta">
+      <span class="kpi-icon">🌿</span>
+      <span class="kpi-value">41%</span>
+      <span class="kpi-label">Usa Clínica Privada</span>
+      <span class="kpi-sub">Serviço mais utilizado</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">💪</span> Distribuição — Saúde Física</h3>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="chartSaudeFisica"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">🧠</span> Distribuição — Saúde Mental</h3>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="chartSaudeMental"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">🏥</span> Serviços de Saúde Utilizados</h3>
+      <div class="chart-wrap" style="height:240px">
+        <canvas id="chartServSaude"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">⚠️</span> Barreiras de Acesso à Saúde</h3>
+      <div class="chart-wrap" style="height:240px">
+        <canvas id="chartBarreirasSaude"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🩺</span> Situação de Saúde da Comunidade</h3>
+    <div class="progress-list">
+      <div class="progress-item">
+        <div class="progress-label"><span>✅ Sem Doença Crônica</span><span>85%</span></div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:85%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label"><span>⚠️ Com Doença Crônica</span><span>10%</span></div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill orange" style="width:10%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label"><span>❓ Não Sabe / Não Respondeu</span><span>4%</span></div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill azul" style="width:4%"></div></div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:16px">
+      A comunidade apresenta índices de saúde acima da média nacional. O principal serviço utilizado entre moradores é a <strong>clínica privada</strong>, seguido de <strong>terapias holísticas</strong> e do <strong>postinho local</strong>. A principal barreira de acesso é a <strong>distância</strong> (42 moradores).
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- EDUCAÇÃO & DIGITAL -->
+<!-- ============================================================ -->
+<div class="section" id="educacao">
+  <div class="section-title">📚 Educação & Inclusão Digital</div>
+
+  <div class="grid-4">
+    <div class="kpi">
+      <span class="kpi-icon">🎓</span>
+      <span class="kpi-value">35%</span>
+      <span class="kpi-label">Pós-Graduação</span>
+      <span class="kpi-sub">28 de 79 moradores</span>
+    </div>
+    <div class="kpi accent-azul">
+      <span class="kpi-icon">📱</span>
+      <span class="kpi-value">8,6</span>
+      <span class="kpi-label">Inclusão Digital (média)</span>
+      <span class="kpi-sub">Escala 0–10</span>
+    </div>
+    <div class="kpi accent-terra">
+      <span class="kpi-icon">🤖</span>
+      <span class="kpi-value">63%</span>
+      <span class="kpi-label">Usa Inteligência Artificial</span>
+      <span class="kpi-sub">Alta adoção tecnológica</span>
+    </div>
+    <div class="kpi accent-menta">
+      <span class="kpi-icon">💬</span>
+      <span class="kpi-value">18%</span>
+      <span class="kpi-label">Falam Língua Estrangeira</span>
+      <span class="kpi-sub">21 respondentes</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">📖</span> Escolaridade (escala 1–10)</h3>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="chartEscolaridade"></canvas>
+      </div>
+      <div class="insight">
+        Escala: 1=sem escolaridade, 6=Ensino Médio, 8=Superior Incompleto, 9=Superior Completo, 10=Pós-graduação. A comunidade tem <strong>altíssimo nível educacional</strong>.
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">💻</span> Inclusão Digital (escala 0–10)</h3>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="chartDigital"></canvas>
+      </div>
+      <div class="insight">
+        <strong>42%</strong> deram nota 10 e <strong>27%</strong> nota 9. Os moradores têm altíssima conectividade e letramento digital.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🤖</span> Uso de Inteligência Artificial</h3>
+    <div class="chart-wrap" style="height:180px">
+      <canvas id="chartIA"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TRABALHO & RENDA -->
+<!-- ============================================================ -->
+<div class="section" id="trabalho">
+  <div class="section-title">💼 Trabalho & Renda</div>
+
+  <div class="grid-4">
+    <div class="kpi">
+      <span class="kpi-icon">🚀</span>
+      <span class="kpi-value">57%</span>
+      <span class="kpi-label">Empreendedores</span>
+      <span class="kpi-sub">45 de 79 moradores</span>
+    </div>
+    <div class="kpi accent-azul">
+      <span class="kpi-icon">💵</span>
+      <span class="kpi-value">54%</span>
+      <span class="kpi-label">Renda ligada ao turismo</span>
+      <span class="kpi-sub">Alta dependência sazonal</span>
+    </div>
+    <div class="kpi accent-terra">
+      <span class="kpi-icon">💳</span>
+      <span class="kpi-value">58%</span>
+      <span class="kpi-label">Com Reserva Financeira</span>
+      <span class="kpi-sub">46 de 79 moradores</span>
+    </div>
+    <div class="kpi accent-menta">
+      <span class="kpi-icon">⏱️</span>
+      <span class="kpi-value">23%</span>
+      <span class="kpi-label">Sem dificuldade financeira</span>
+      <span class="kpi-sub">Nota 0 na escala de dificuldade</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">💼</span> Situação Profissional</h3>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="chartProfissional"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">📊</span> Faixa de Renda (escala 0–9)</h3>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="chartRenda"></canvas>
+      </div>
+      <div class="insight">
+        Escala 0=sem renda, 9=acima de R$15.000/mês. A distribuição mostra renda polarizada: <strong>25% nas faixas mais altas</strong> (8–9) e <strong>18% nas faixas mais baixas</strong> (0–2).
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">🌴</span> Dependência da Renda em Relação ao Turismo</h3>
+      <div class="chart-wrap" style="height:200px">
+        <canvas id="chartTurismo"></canvas>
+      </div>
+      <div class="insight">
+        <strong>54%</strong> dependem do turismo para gerar renda, o que indica vulnerabilidade sazonal e necessidade de diversificação econômica.
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">😟</span> Dificuldade para Pagar Despesas Básicas</h3>
+      <div class="chart-wrap" style="height:200px">
+        <canvas id="chartDificuldade"></canvas>
+      </div>
+      <div class="insight">
+        Escala 0=nenhuma dificuldade, 10=muita dificuldade. <strong>Nota média: 3,6</strong> — moderada dificuldade financeira para uma parcela significativa da comunidade.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🏦</span> Motivos para Deixar Piracanga</h3>
+    <div class="chart-wrap" style="height:200px">
+      <canvas id="chartMotivosSaida"></canvas>
+    </div>
+    <div class="insight">
+      Renda insuficiente e distância lideram as razões para possível saída, reforçando a necessidade de <strong>geração de renda local</strong> e <strong>melhoria de acesso/infraestrutura</strong>.
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- COMUNIDADE -->
+<!-- ============================================================ -->
+<div class="section" id="comunidade">
+  <div class="section-title">🤝 Comunidade & Governança</div>
+
+  <div class="grid-4">
+    <div class="kpi">
+      <span class="kpi-icon">💬</span>
+      <span class="kpi-value">6,7</span>
+      <span class="kpi-label">Senso de Comunidade</span>
+      <span class="kpi-sub">Média 0–10</span>
+    </div>
+    <div class="kpi accent-azul">
+      <span class="kpi-icon">🕊️</span>
+      <span class="kpi-value">7,1</span>
+      <span class="kpi-label">Convívio Harmonioso</span>
+      <span class="kpi-sub">Média 0–10</span>
+    </div>
+    <div class="kpi accent-terra">
+      <span class="kpi-icon">🛡️</span>
+      <span class="kpi-value">94%</span>
+      <span class="kpi-label">Sentem-se Seguros</span>
+      <span class="kpi-sub">74 de 79 moradores</span>
+    </div>
+    <div class="kpi accent-menta">
+      <span class="kpi-icon">🙋</span>
+      <span class="kpi-value">61%</span>
+      <span class="kpi-label">Fazem Voluntariado</span>
+      <span class="kpi-sub">48 moradores ativos</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">🕊️</span> Convívio Harmonioso (0–10)</h3>
+      <div class="chart-wrap" style="height:220px">
+        <canvas id="chartHarmonioso"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">🏛️</span> Confiança na A.Mor</h3>
+      <div class="chart-wrap" style="height:180px">
+        <canvas id="chartAMor"></canvas>
+      </div>
+      <div class="insight">
+        <strong>67%</strong> confiam na A.Mor como representante institucional. A construção de confiança é um ponto central de governança comunitária.
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">🗣️</span> Sente que tem voz nas decisões?</h3>
+      <div class="chart-wrap" style="height:180px">
+        <canvas id="chartVoz"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">🙏</span> Voluntariado Comunitário</h3>
+      <div class="chart-wrap" style="height:180px">
+        <canvas id="chartVoluntariado"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🌟</span> O que torna Piracanga única — Temas</h3>
+    <div class="tag-list">
+      <span class="tag">🌊 Natureza preservada</span>
+      <span class="tag">🌿 Cultura regenerativa</span>
+      <span class="tag">🤝 Comunidade intencional</span>
+      <span class="tag">🙏 Espiritualidade</span>
+      <span class="tag">🚫 Sem energia elétrica de rede</span>
+      <span class="tag">🐠 Biodiversidade</span>
+      <span class="tag">🏖️ Praias preservadas</span>
+      <span class="tag">👨‍👩‍👧‍👦 Diversidade de pessoas</span>
+      <span class="tag orange">💡 Inovação social</span>
+      <span class="tag orange">🌱 Agrofloresta</span>
+      <span class="tag orange">🔇 Ausência de turismo de massa</span>
+      <span class="tag azul">🌐 Rede de relações</span>
+      <span class="tag azul">🎨 Expressão artística</span>
+    </div>
+    <div class="insight" style="margin-top:16px">
+      Os moradores valorizam a <strong>combinação única</strong> de natureza preservada, comunidade intencional e cultura regenerativa — pilares que diferenciam Piracanga de outros territórios.
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- AMBIENTE -->
+<!-- ============================================================ -->
+<div class="section" id="ambiente">
+  <div class="section-title">🌱 Consciência e Práticas Ambientais</div>
+
+  <div class="grid-4">
+    <div class="kpi">
+      <span class="kpi-icon">🌳</span>
+      <span class="kpi-value">75%</span>
+      <span class="kpi-label">Sabe o Bioma Local</span>
+      <span class="kpi-sub">59 de 79 moradores (Mata Atlântica)</span>
+    </div>
+    <div class="kpi accent-azul">
+      <span class="kpi-icon">♻️</span>
+      <span class="kpi-value">99%</span>
+      <span class="kpi-label">Pratica Reciclagem</span>
+      <span class="kpi-sub">75 de 76 que responderam</span>
+    </div>
+    <div class="kpi accent-terra">
+      <span class="kpi-icon">🍂</span>
+      <span class="kpi-value">97%</span>
+      <span class="kpi-label">Pratica Compostagem</span>
+      <span class="kpi-sub">74 de 76 que responderam</span>
+    </div>
+    <div class="kpi accent-menta">
+      <span class="kpi-icon">🛡️</span>
+      <span class="kpi-value">74%</span>
+      <span class="kpi-label">Sabe o que é APA</span>
+      <span class="kpi-sub">Área de Proteção Ambiental</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3><span class="icon">🌿</span> Conhecimento sobre Bioma</h3>
+      <div class="chart-wrap" style="height:200px">
+        <canvas id="chartBioma"></canvas>
+      </div>
+      <div class="insight">
+        <strong>75%</strong> sabem que Piracanga está na Mata Atlântica. Importante continuar educação ambiental para os <strong>16%</strong> que não sabem.
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">♻️</span> Práticas Sustentáveis</h3>
+      <div class="chart-wrap" style="height:200px">
+        <canvas id="chartSustentavel"></canvas>
+      </div>
+      <div class="insight">
+        Taxas excepcionalmente altas de reciclagem e compostagem. A <strong>quase totalidade</strong> da comunidade pratica ambas — um diferencial ambiental notável.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">🌡️</span> Prioridades Ambientais Citadas pelos Moradores</h3>
+    <div class="tag-list">
+      <span class="tag">💧 Cuidado com as águas</span>
+      <span class="tag">🗑️ Resíduos sólidos</span>
+      <span class="tag">⚡ Evitar entrada de energia elétrica (Coelba)</span>
+      <span class="tag">🛤️ Preservar estrada de terra</span>
+      <span class="tag orange">🌱 Agrofloresta</span>
+      <span class="tag orange">🏖️ Cuidado com as praias</span>
+      <span class="tag orange">🏗️ Resistência à especulação imobiliária</span>
+      <span class="tag azul">🦋 Preservação da fauna e flora</span>
+      <span class="tag azul">📚 Educação ambiental</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TALENTOS -->
+<!-- ============================================================ -->
+<div class="section" id="talentos">
+  <div class="section-title">✨ Talentos da Comunidade</div>
+
+  <div class="grid-4">
+    <div class="kpi">
+      <span class="kpi-icon">💼</span>
+      <span class="kpi-value">45</span>
+      <span class="kpi-label">Gestão & Liderança</span>
+      <span class="kpi-sub">Talento mais frequente</span>
+    </div>
+    <div class="kpi accent-azul">
+      <span class="kpi-icon">🎨</span>
+      <span class="kpi-value">39</span>
+      <span class="kpi-label">Artes & Criatividade</span>
+      <span class="kpi-sub">2º mais frequente</span>
+    </div>
+    <div class="kpi accent-terra">
+      <span class="kpi-icon">🌿</span>
+      <span class="kpi-value">31</span>
+      <span class="kpi-label">Terapias & Bem-Estar</span>
+      <span class="kpi-sub">3º mais frequente</span>
+    </div>
+    <div class="kpi accent-menta">
+      <span class="kpi-icon">🍳</span>
+      <span class="kpi-value">26</span>
+      <span class="kpi-label">Culinária</span>
+      <span class="kpi-sub">4º mais frequente</span>
+    </div>
+  </div>
+
+  <div class="grid-1-2">
+    <div class="card">
+      <h3><span class="icon">🌟</span> Distribuição de Talentos</h3>
+      <div class="chart-wrap" style="height:300px">
+        <canvas id="chartTalentosPie"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">📊</span> Talentos por Frequência</h3>
+      <div class="progress-list">
+        <div class="progress-item">
+          <div class="progress-label"><span>💼 Gestão / Liderança</span><span>45</span></div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>🎨 Artes / Criatividade</span><span>39</span></div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:87%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>🌿 Terapias / Bem-Estar</span><span>31</span></div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:69%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>🍳 Culinária</span><span>26</span></div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:58%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>💻 Tecnologia</span><span>22</span></div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill azul" style="width:49%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>🌱 Agricultura / Permacultura</span><span>15</span></div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:33%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>💊 Cuidado / Saúde</span><span>17</span></div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill orange" style="width:38%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>💬 Língua Estrangeira</span><span>12</span></div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill azul" style="width:27%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>🤝 Tecnologia Social</span><span>11</span></div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:24%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>🧵 Costura / Artesanato</span><span>12</span></div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill orange" style="width:27%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span>🪚 Marcenaria / Construção</span><span>8</span></div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill orange" style="width:18%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon">💡</span> Mapeamento de Economia Circular por Talento</h3>
+    <div class="tag-list">
+      <span class="tag">🎨 Mercado de artes e cultura</span>
+      <span class="tag">🌿 Clínica de bem-estar local</span>
+      <span class="tag">🍳 Gastronomia / Catering</span>
+      <span class="tag orange">💼 Consultoria e gestão</span>
+      <span class="tag orange">🌱 Horta comunitária e biodinâmica</span>
+      <span class="tag orange">💻 Freelance digital e remoto</span>
+      <span class="tag azul">🧵 Moda sustentável</span>
+      <span class="tag azul">🌍 Tradução e internacionalização</span>
+      <span class="tag azul">🪚 Construção natural e bioconstrução</span>
+    </div>
+    <div class="insight" style="margin-top:16px">
+      A comunidade tem um <strong>portfólio rico de talentos</strong> que pode sustentar uma economia circular interna — desde gestão e tecnologia até artes, cuidado e agricultura regenerativa.
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  Censo Piracanga 2025 — Dashboard gerado automaticamente com base nos dados coletados &nbsp;|&nbsp; 79 moradores &nbsp;|&nbsp; A.Mor
+</footer>
+
+<script>
+const VERDE = '#2d6a4f';
+const VERDE_CLARO = '#52b788';
+const VERDE_MENTA = '#95d5b2';
+const AZUL = '#1a6b8a';
+const AZUL_CLARO = '#48cae4';
+const TERRA = '#b7791f';
+const AREIA = '#f4e4c1';
+const LARANJA = '#f6ad55';
+
+const PALETTE = [
+  '#2d6a4f','#52b788','#95d5b2','#1a6b8a','#48cae4',
+  '#b7791f','#f6ad55','#e8c46a','#e07a5f','#6b4226',
+  '#7a5c8c','#c084fc'
+];
+
+const defaultOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: { labels: { font: { family: 'Segoe UI', size: 12 }, boxWidth: 14 } }
+  }
+};
+
+function tab(nav) {
+  return { ...defaultOptions, ...nav };
+}
+
+// ---- TAB NAV ----
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  // mark the correct nav button (works when called from nav click or from index card)
+  document.querySelectorAll('nav button').forEach(b => {
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) {
+      b.classList.add('active');
+    }
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============================================================
+// DEMOGRAFIA CHARTS
+// ============================================================
+
+new Chart(document.getElementById('chartGenero'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Mulher Cisgênera', 'Homem Cisgênero', 'Prefiro não resp.', 'Outro', 'Não-Binário'],
+    datasets: [{ data: [44, 26, 4, 3, 2], backgroundColor: ['#f472b6','#60a5fa', AREIA, '#c084fc','#86efac'], borderWidth: 2, borderColor: 'white' }]
+  },
+  options: { ...defaultOptions, cutout: '55%', plugins: { legend: { position: 'right', labels: { font: { size: 11 }, boxWidth: 12 } } } }
+});
+
+new Chart(document.getElementById('chartRaca'), {
+  type: 'bar',
+  data: {
+    labels: ['Branca', 'Parda', 'Preta', 'Pref. não resp.', 'Amarela', 'Indígena'],
+    datasets: [{ label: 'Pessoas', data: [50, 17, 6, 4, 1, 1], backgroundColor: PALETTE, borderRadius: 8 }]
+  },
+  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+});
+
+new Chart(document.getElementById('chartFaixaEtaria'), {
+  type: 'bar',
+  data: {
+    labels: ['< 18', '18–30', '31–40', '41–50', '51–60', '61–70', '70+'],
+    datasets: [{ label: 'Pessoas', data: [0, 4, 36, 25, 5, 7, 2], backgroundColor: PALETTE, borderRadius: 8 }]
+  },
+  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+});
+
+new Chart(document.getElementById('chartTempoResidencia'), {
+  type: 'bar',
+  data: {
+    labels: ['< 1 ano', '1–3 anos', '3–5 anos', '5–7 anos', '7–10 anos', '10+ anos'],
+    datasets: [{ label: 'Moradores', data: [10, 22, 13, 8, 7, 14], backgroundColor: PALETTE.map((c,i)=> PALETTE[i % PALETTE.length]), borderRadius: 8 }]
+  },
+  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+});
+
+// ============================================================
+// HABITAÇÃO
+// ============================================================
+
+new Chart(document.getElementById('chartDomicilio'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Alugada unifamiliar', 'Coletiva', 'Própria unifamiliar', 'Própria coletiva', 'Outros', 'Cedida', 'Veraneio', 'Não sabe'],
+    datasets: [{ data: [25, 21, 10, 6, 7, 4, 1, 2], backgroundColor: PALETTE, borderWidth: 2, borderColor: 'white' }]
+  },
+  options: { ...defaultOptions, cutout: '50%', plugins: { legend: { position: 'right', labels: { font: { size: 11 }, boxWidth: 12 } } } }
+});
+
+new Chart(document.getElementById('chartPresenca'), {
+  type: 'bar',
+  data: {
+    labels: ['Morador não prop.', 'Prop. não morador', 'Prop. morador', 'Criança moradora'],
+    datasets: [{ label: 'Pessoas', data: [57, 48, 22, 21], backgroundColor: [AZUL_CLARO, TERRA, VERDE_CLARO, '#c084fc'], borderRadius: 8 }]
+  },
+  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+});
+
+// ============================================================
+// SAÚDE
+// ============================================================
+
+const healthLabels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+
+new Chart(document.getElementById('chartSaudeFisica'), {
+  type: 'bar',
+  data: {
+    labels: healthLabels,
+    datasets: [{ label: 'Pessoas', data: [0, 0, 1, 2, 2, 5, 9, 27, 21, 12], backgroundColor: PALETTE, borderRadius: 6 }]
+  },
+  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+});
+
+new Chart(document.getElementById('chartSaudeMental'), {
+  type: 'bar',
+  data: {
+    labels: healthLabels,
+    datasets: [{ label: 'Pessoas', data: [0, 0, 0, 3, 3, 9, 16, 22, 13, 13], backgroundColor: PALETTE, borderRadius: 6 }]
+  },
+  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+});
+
+new Chart(document.getElementById('chartServSaude'), {
+  type: 'bar',
+  data: {
+    labels: ['Clínica Privada', 'Terapias Holísticas', 'Postinho', 'Hospital Público', 'Telemedicina', 'Hospital Privado', 'Sem barreira', 'Agentes Comunit.'],
+    datasets: [{ label: 'Moradores', data: [32, 31, 26, 14, 14, 9, 7, 1], backgroundColor: PALETTE, borderRadius: 6 }]
+  },
+  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } }, indexAxis: 'y' }
+});
+
+new Chart(document.getElementById('chartBarreirasSaude'), {
+  type: 'bar',
+  data: {
+    labels: ['Distância', 'Custo', 'Falta de profissionais', 'Horário', 'Sem barreiras', 'Acolhimento / Outros'],
+    datasets: [{ label: 'Moradores', data: [42, 28, 24, 14, 17, 9], backgroundColor: PALETTE.slice(4), borderRadius: 6 }]
+  },
+  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } }, indexAxis: 'y' }
+});
+
+// ============================================================
+// EDUCAÇÃO
+// ============================================================
+
+new Chart(document.getElementById('chartEscolaridade'), {
+  type: 'bar',
+  data: {
+    labels: ['4 (Fund.)', '6 (Médio)', '7 (Med.+)', '8 (Sup. Inc.)', '9 (Sup. Comp.)', '10 (Pós-grad.)'],
+    datasets: [{ label: 'Moradores', data: [2, 7, 1, 10, 31, 28], backgroundColor: PALETTE, borderRadius: 8 }]
+  },
+  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+});
+
+new Chart(document.getElementById('chartDigital'), {
+  type: 'bar',
+  data: {
+    labels: ['3', '4', '5', '6', '7', '8', '9', '10'],
+    datasets: [{ label: 'Moradores', data: [1, 2, 4, 2, 7, 9, 21, 33], backgroundColor: PALETTE, borderRadius: 8 }]
+  },
+  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+});
+
+new Chart(document.getElementById('chartIA'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Usa Inteligência Artificial', 'Não usa'],
+    datasets: [{ data: [50, 29], backgroundColor: [VERDE_CLARO, '#e5e7eb'], borderWidth: 2, borderColor: 'white' }]
+  },
+  options: { ...defaultOptions, cutout: '65%', plugins: { legend: { position: 'bottom', labels: { font: { size: 12 }, boxWidth: 14 } } } }
+});
+
+// ============================================================
+// TRABALHO
+// ============================================================
+
+new Chart(document.getElementById('chartProfissional'), {
+  type: 'bar',
+  data: {
+    labels: ['Empreendedor', 'Empregado', 'Proc. Empreender', 'Aposentado', 'Proc. Emprego', 'Sem trabalho'],
+    datasets: [{ label: 'Moradores', data: [45, 27, 12, 6, 5, 2], backgroundColor: PALETTE, borderRadius: 8 }]
+  },
+  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } }, indexAxis: 'y' }
+});
+
+new Chart(document.getElementById('chartRenda'), {
+  type: 'bar',
+  data: {
+    labels: ['0 (Sem renda)', '1', '2', '3 (~1SM)', '4 (~2SM)', '5 (~4SM)', '6 (~7SM)', '7 (~10SM)', '8 (~13SM)', '9 (>15SM)'],
+    datasets: [{ label: 'Moradores', data: [1, 1, 6, 13, 12, 11, 13, 5, 4, 5], backgroundColor: PALETTE, borderRadius: 6 }]
+  },
+  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+});
+
+new Chart(document.getElementById('chartTurismo'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Não depende', 'Depende do turismo', 'Não sabe'],
+    datasets: [{ data: [31, 43, 5], backgroundColor: [VERDE_CLARO, LARANJA, AREIA], borderWidth: 2, borderColor: 'white' }]
+  },
+  options: { ...defaultOptions, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } } }
+});
+
+new Chart(document.getElementById('chartDificuldade'), {
+  type: 'bar',
+  data: {
+    labels: ['0 (Nenhuma)', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10 (Muita)'],
+    datasets: [{ label: 'Moradores', data: [18, 5, 9, 8, 5, 7, 6, 12, 3, 2, 1], backgroundColor: PALETTE, borderRadius: 6 }]
+  },
+  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+});
+
+new Chart(document.getElementById('chartMotivosSaida'), {
+  type: 'bar',
+  data: {
+    labels: ['Renda insuf.', 'Outros', 'Distância', 'Custo de vida', 'Educação filhos', 'Moradia', 'Rede social filhos', 'Conforto', 'Convívio'],
+    datasets: [{ label: 'Moradores', data: [9, 7, 6, 7, 6, 4, 4, 2, 0], backgroundColor: PALETTE.slice(2), borderRadius: 8 }]
+  },
+  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+});
+
+// ============================================================
+// COMUNIDADE
+// ============================================================
+
+new Chart(document.getElementById('chartHarmonioso'), {
+  type: 'bar',
+  data: {
+    labels: ['1', '4', '5', '6', '7', '8', '9', '10'],
+    datasets: [{ label: 'Moradores', data: [3, 5, 5, 10, 18, 21, 13, 4], backgroundColor: PALETTE, borderRadius: 6 }]
+  },
+  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+});
+
+new Chart(document.getElementById('chartAMor'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Confia (Sim)', 'Não confia', 'Parcialmente'],
+    datasets: [{ data: [53, 7, 19], backgroundColor: [VERDE_CLARO, '#f28b82', LARANJA], borderWidth: 2, borderColor: 'white' }]
+  },
+  options: { ...defaultOptions, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } } }
+});
+
+new Chart(document.getElementById('chartVoz'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Sim, tem voz', 'Não sabe', 'Não tem voz'],
+    datasets: [{ data: [49, 15, 15], backgroundColor: [VERDE_CLARO, AREIA, '#f28b82'], borderWidth: 2, borderColor: 'white' }]
+  },
+  options: { ...defaultOptions, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } } }
+});
+
+new Chart(document.getElementById('chartVoluntariado'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Faz voluntariado', 'Interesse em começar', 'Sem interesse'],
+    datasets: [{ data: [48, 24, 7], backgroundColor: [VERDE_CLARO, LARANJA, '#e5e7eb'], borderWidth: 2, borderColor: 'white' }]
+  },
+  options: { ...defaultOptions, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } } }
+});
+
+// ============================================================
+// AMBIENTE
+// ============================================================
+
+new Chart(document.getElementById('chartBioma'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Sabe o bioma', 'Não sabe', 'Não tem certeza'],
+    datasets: [{ data: [59, 13, 7], backgroundColor: [VERDE_CLARO, '#f28b82', AREIA], borderWidth: 2, borderColor: 'white' }]
+  },
+  options: { ...defaultOptions, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } } }
+});
+
+new Chart(document.getElementById('chartSustentavel'), {
+  type: 'bar',
+  data: {
+    labels: ['Pratica Reciclagem', 'Pratica Compostagem'],
+    datasets: [
+      { label: 'Sim', data: [75, 74], backgroundColor: VERDE_CLARO, borderRadius: 8 },
+      { label: 'Não', data: [1, 2], backgroundColor: '#f28b82', borderRadius: 8 }
+    ]
+  },
+  options: { ...defaultOptions, scales: { x: { stacked: false }, y: { beginAtZero: true } } }
+});
+
+// ============================================================
+// TALENTOS
+// ============================================================
+
+new Chart(document.getElementById('chartTalentosPie'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Gestão', 'Artes', 'Terapias', 'Culinária', 'Tecnologia', 'Agricultura', 'Cuidado', 'Língua Estrang.', 'Tec. Social', 'Costura', 'Marcenaria'],
+    datasets: [{ data: [45, 39, 31, 26, 22, 17, 15, 12, 12, 11, 8], backgroundColor: PALETTE, borderWidth: 2, borderColor: 'white' }]
+  },
+  options: { ...defaultOptions, cutout: '40%', plugins: { legend: { position: 'right', labels: { font: { size: 11 }, boxWidth: 12 } } } }
+});
+
+// ============================================================
+// HABITAÇÃO — Tabela filtrável de casas
+// ============================================================
+
+const CASAS_DATA = [{"nome":"Abundância","lote":"Ecovila 1","adultos":2,"criancas":0,"total":2,"cap":2,"propMora":0},{"nome":"Apolo","lote":"Ecovila 1","adultos":2,"criancas":0,"total":2,"cap":3,"propMora":1},{"nome":"Arco-Íris","lote":"Ecovila 1","adultos":2,"criancas":2,"total":4,"cap":4,"propMora":0},{"nome":"Ariramba","lote":"Ecovila 1","adultos":1,"criancas":0,"total":1,"cap":2,"propMora":0},{"nome":"Astrid","lote":"Ecovila 1","adultos":1,"criancas":0,"total":1,"cap":2,"propMora":0},{"nome":"Buda","lote":"Ecovila 1","adultos":3,"criancas":0,"total":3,"cap":4,"propMora":0},{"nome":"COLIBRI","lote":"Ecovila 1","adultos":0,"criancas":0,"total":0,"cap":0,"propMora":0},{"nome":"Chalé do Gabriel","lote":"Ecovila 1","adultos":1,"criancas":0,"total":1,"cap":4,"propMora":0},{"nome":"Chalé do Sol","lote":"Ecovila 1","adultos":2,"criancas":0,"total":2,"cap":2,"propMora":0},{"nome":"Coração","lote":"Ecovila 1","adultos":0,"criancas":0,"total":0,"cap":8,"propMora":0},{"nome":"Criação","lote":"Ecovila 1","adultos":2,"criancas":0,"total":2,"cap":5,"propMora":0},{"nome":"Dakine","lote":"Ecovila 1","adultos":3,"criancas":0,"total":3,"cap":4,"propMora":0},{"nome":"Das Estrelas","lote":"Ecovila 1","adultos":0,"criancas":0,"total":0,"cap":4,"propMora":0},{"nome":"Das Fadas","lote":"Ecovila 1","adultos":3,"criancas":0,"total":3,"cap":3,"propMora":0},{"nome":"Dendê","lote":"Ecovila 1","adultos":1,"criancas":0,"total":1,"cap":2,"propMora":0},{"nome":"Dos Amigos","lote":"Ecovila 1","adultos":2,"criancas":0,"total":2,"cap":4,"propMora":1},{"nome":"Dos Anjos","lote":"Ecovila 1","adultos":3,"criancas":0,"total":3,"cap":14,"propMora":1},{"nome":"Dourada","lote":"Ecovila 1","adultos":3,"criancas":0,"total":3,"cap":18,"propMora":1},{"nome":"Escola Almar","lote":"Ecovila 1","adultos":0,"criancas":0,"total":0,"cap":0,"propMora":0},{"nome":"Espaço Zen","lote":"Ecovila 1","adultos":0,"criancas":0,"total":0,"cap":0,"propMora":0},{"nome":"Esperança","lote":"Ecovila 1","adultos":1,"criancas":1,"total":2,"cap":5,"propMora":0},{"nome":"Girassol","lote":"Ecovila 1","adultos":3,"criancas":0,"total":3,"cap":3,"propMora":1},{"nome":"Golfinhos","lote":"Ecovila 1","adultos":2,"criancas":0,"total":2,"cap":7,"propMora":0},{"nome":"Luz","lote":"Ecovila 1","adultos":1,"criancas":0,"total":1,"cap":6,"propMora":0},{"nome":"Mandala","lote":"Ecovila 1","adultos":1,"criancas":0,"total":1,"cap":6,"propMora":0},{"nome":"Miura","lote":"Ecovila 1","adultos":1,"criancas":0,"total":1,"cap":2,"propMora":1},{"nome":"Mágica","lote":"Ecovila 1","adultos":2,"criancas":0,"total":2,"cap":2,"propMora":0},{"nome":"Nonni","lote":"Ecovila 1","adultos":1,"criancas":1,"total":2,"cap":3,"propMora":0},{"nome":"Oquinha do amor","lote":"Ecovila 1","adultos":1,"criancas":0,"total":1,"cap":4,"propMora":0},{"nome":"Piracanga","lote":"Ecovila 1","adultos":0,"criancas":0,"total":0,"cap":4,"propMora":0},{"nome":"Plante!","lote":"Ecovila 1","adultos":1,"criancas":0,"total":1,"cap":2,"propMora":1},{"nome":"Semente","lote":"Ecovila 1","adultos":2,"criancas":1,"total":3,"cap":5,"propMora":0},{"nome":"Shambala","lote":"Ecovila 1","adultos":5,"criancas":2,"total":7,"cap":12,"propMora":0},{"nome":"Templo das Águas","lote":"Ecovila 1","adultos":1,"criancas":0,"total":1,"cap":2,"propMora":1},{"nome":"Toca do Urso","lote":"Ecovila 1","adultos":2,"criancas":0,"total":2,"cap":2,"propMora":0},{"nome":"União","lote":"Ecovila 1","adultos":2,"criancas":1,"total":3,"cap":8,"propMora":0},{"nome":"Vila dos Anjos","lote":"Ecovila 1","adultos":3,"criancas":0,"total":3,"cap":14,"propMora":0},{"nome":"da Paola","lote":"Ecovila 1","adultos":2,"criancas":0,"total":2,"cap":2,"propMora":0},{"nome":"das Árvores","lote":"Ecovila 1","adultos":1,"criancas":0,"total":1,"cap":6,"propMora":0},{"nome":"do Amor","lote":"Ecovila 1","adultos":2,"criancas":0,"total":2,"cap":5,"propMora":1},{"nome":"do Bruno","lote":"Ecovila 1","adultos":1,"criancas":0,"total":1,"cap":2,"propMora":1},{"nome":"do Frederic","lote":"Ecovila 1","adultos":1,"criancas":0,"total":1,"cap":2,"propMora":0},{"nome":"dos Sonhos","lote":"Ecovila 1","adultos":2,"criancas":1,"total":3,"cap":6,"propMora":1},{"nome":"Cristal","lote":"Ecovila 2","adultos":2,"criancas":0,"total":2,"cap":2,"propMora":0},{"nome":"Escola da Natureza","lote":"Ecovila 2","adultos":8,"criancas":0,"total":8,"cap":30,"propMora":0},{"nome":"Família","lote":"Ecovila 2","adultos":1,"criancas":0,"total":1,"cap":4,"propMora":0},{"nome":"Flor","lote":"Ecovila 2","adultos":0,"criancas":0,"total":0,"cap":2,"propMora":0},{"nome":"Floresta","lote":"Ecovila 2","adultos":0,"criancas":0,"total":0,"cap":8,"propMora":0},{"nome":"Ninho","lote":"Ecovila 2","adultos":0,"criancas":0,"total":0,"cap":8,"propMora":0},{"nome":"Raiz","lote":"Ecovila 2","adultos":2,"criancas":1,"total":3,"cap":3,"propMora":1},{"nome":"Sabiá","lote":"Ecovila 2","adultos":0,"criancas":0,"total":0,"cap":3,"propMora":0},{"nome":"Templo do Ser","lote":"Ecovila 2","adultos":1,"criancas":1,"total":2,"cap":2,"propMora":0},{"nome":"Unicórnio","lote":"Ecovila 2","adultos":0,"criancas":0,"total":0,"cap":2,"propMora":0},{"nome":"Yabás","lote":"Ecovila 2","adultos":0,"criancas":0,"total":0,"cap":2,"propMora":0},{"nome":"de Terra","lote":"Ecovila 2","adultos":1,"criancas":0,"total":1,"cap":2,"propMora":1},{"nome":"Azul","lote":"Ecovila 3","adultos":1,"criancas":1,"total":2,"cap":3,"propMora":1},{"nome":"Cabanas do João","lote":"Ecovila 3","adultos":0,"criancas":0,"total":0,"cap":4,"propMora":0},{"nome":"Cabocla","lote":"Ecovila 3","adultos":2,"criancas":0,"total":2,"cap":3,"propMora":0},{"nome":"Caju","lote":"Ecovila 3","adultos":2,"criancas":1,"total":3,"cap":6,"propMora":0},{"nome":"Conexão","lote":"Ecovila 3","adultos":1,"criancas":1,"total":2,"cap":2,"propMora":0},{"nome":"Cosmica","lote":"Ecovila 3","adultos":1,"criancas":0,"total":1,"cap":6,"propMora":0},{"nome":"Da Sasha","lote":"Ecovila 3","adultos":3,"criancas":1,"total":4,"cap":8,"propMora":0},{"nome":"Flor e Ser","lote":"Ecovila 3","adultos":1,"criancas":0,"total":1,"cap":1,"propMora":1},{"nome":"Iemanjá","lote":"Ecovila 3","adultos":1,"criancas":0,"total":1,"cap":2,"propMora":0},{"nome":"Jardim do Beija-Flor","lote":"Ecovila 3","adultos":2,"criancas":0,"total":2,"cap":4,"propMora":0},{"nome":"Marcelo Pera","lote":"Ecovila 3","adultos":0,"criancas":0,"total":0,"cap":0,"propMora":0},{"nome":"N'Ativa","lote":"Ecovila 3","adultos":2,"criancas":0,"total":2,"cap":7,"propMora":1},{"nome":"Oca das Águas do Rio","lote":"Ecovila 3","adultos":1,"criancas":1,"total":2,"cap":3,"propMora":0},{"nome":"Olho D'agua","lote":"Ecovila 3","adultos":1,"criancas":0,"total":1,"cap":4,"propMora":0},{"nome":"Terra Maré","lote":"Ecovila 3","adultos":2,"criancas":3,"total":5,"cap":5,"propMora":1},{"nome":"Trevo","lote":"Ecovila 3","adultos":0,"criancas":0,"total":0,"cap":4,"propMora":0},{"nome":"Vermelha","lote":"Ecovila 3","adultos":2,"criancas":1,"total":3,"cap":4,"propMora":1},{"nome":"Vida","lote":"Ecovila 3","adultos":2,"criancas":0,"total":2,"cap":2,"propMora":0},{"nome":"Yemanjá","lote":"Ecovila 3","adultos":1,"criancas":0,"total":1,"cap":2,"propMora":0},{"nome":"da Árvore","lote":"Ecovila 3","adultos":1,"criancas":0,"total":1,"cap":2,"propMora":0},{"nome":"do Beija-Flor","lote":"Ecovila 3","adultos":2,"criancas":0,"total":2,"cap":4,"propMora":0},{"nome":"do Sol","lote":"Ecovila 3","adultos":2,"criancas":0,"total":2,"cap":2,"propMora":0},{"nome":"Acolhimento","lote":"Ecovila 4","adultos":1,"criancas":0,"total":1,"cap":2,"propMora":1},{"nome":"Mimpi","lote":"Ecovila 4","adultos":0,"criancas":0,"total":0,"cap":4,"propMora":0},{"nome":"Movimento","lote":"Ecovila 4","adultos":1,"criancas":0,"total":1,"cap":2,"propMora":0},{"nome":"Xodó","lote":"Ecovila 4","adultos":0,"criancas":0,"total":0,"cap":2,"propMora":0},{"nome":"Vila Tybá","lote":"Ecovila 5","adultos":1,"criancas":0,"total":1,"cap":3,"propMora":0},{"nome":"da Sara","lote":"Ecovila 5","adultos":0,"criancas":0,"total":0,"cap":0,"propMora":0},{"nome":"de Bamba","lote":"Ecovila 5","adultos":2,"criancas":0,"total":2,"cap":2,"propMora":1},{"nome":"Casa da Cecília e Juliana","lote":"Outro","adultos":2,"criancas":0,"total":2,"cap":4,"propMora":1},{"nome":"Flor de Mila","lote":"Outro","adultos":0,"criancas":0,"total":0,"cap":0,"propMora":0},{"nome":"da Janaína Tchape","lote":"Outro","adultos":2,"criancas":1,"total":3,"cap":6,"propMora":0}];
+
+const LOT_COLORS = {
+  'Ecovila 1': '#2d6a4f',
+  'Ecovila 2': '#1a6b8a',
+  'Ecovila 3': '#b7791f',
+  'Ecovila 4': '#7c3aed',
+  'Ecovila 5': '#e07a5f',
+  'Outro':     '#6b7280'
+};
+
+function renderCasas(filter) {
+  const tbody = document.getElementById('casas-tbody');
+  if (!tbody) return;
+  const data = (filter === 'todos') ? CASAS_DATA : CASAS_DATA.filter(h => h.lote === filter);
+
+  // Update big numbers
+  const totalCasas   = data.length;
+  const totalMor     = data.reduce((s, h) => s + h.total, 0);
+  const totalCap     = data.reduce((s, h) => s + h.cap, 0);
+  const totalProp    = data.reduce((s, h) => s + h.propMora, 0);
+
+  const elCount = document.getElementById('lot-count-big');
+  const elMor   = document.getElementById('lot-moradores-big');
+  const elCap   = document.getElementById('lot-cap-big');
+  const elProp  = document.getElementById('lot-prop-big');
+  if (elCount) elCount.textContent = totalCasas;
+  if (elMor)   elMor.textContent   = totalMor;
+  if (elCap)   elCap.textContent   = totalCap;
+  if (elProp)  elProp.textContent  = totalProp;
+
+  // Populate table rows
+  tbody.innerHTML = data.map((h, i) => {
+    const bg = i % 2 === 0 ? '#fff' : '#f9fafb';
+    const cor = LOT_COLORS[h.lote] || '#555';
+    const propLabel = h.propMora
+      ? '<span style="background:#d1fae5; color:#065f46; padding:2px 8px; border-radius:10px; font-size:11px; font-weight:700;">Sim</span>'
+      : '<span style="background:#fee2e2; color:#991b1b; padding:2px 8px; border-radius:10px; font-size:11px; font-weight:700;">Não</span>';
+    const capDisplay = h.cap > 0 ? h.cap : '—';
+    const totalDisplay = h.total > 0 ? h.total : (h.adultos + h.criancas > 0 ? h.adultos + h.criancas : '—');
+    return `<tr style="background:${bg}; border-bottom:1px solid #f0f0f0;">
+      <td style="padding:9px 12px; font-weight:600;">${h.nome}</td>
+      <td style="padding:9px 12px;"><span style="background:${cor}22; color:${cor}; padding:2px 8px; border-radius:10px; font-size:11px; font-weight:700;">${h.lote}</span></td>
+      <td style="padding:9px 8px; text-align:center;">${h.adultos || '—'}</td>
+      <td style="padding:9px 8px; text-align:center;">${h.criancas > 0 ? h.criancas : '—'}</td>
+      <td style="padding:9px 8px; text-align:center; font-weight:700;">${totalDisplay}</td>
+      <td style="padding:9px 8px; text-align:center; color:#888;">${capDisplay}</td>
+      <td style="padding:9px 8px; text-align:center;">${propLabel}</td>
+    </tr>`;
+  }).join('');
+}
+
+function filterLot(lot) {
+  // Update button styles
+  document.querySelectorAll('.lot-filter-btn').forEach(btn => {
+    const btnLot = btn.textContent.trim();
+    const isActive = (lot === 'todos' && btnLot === 'Todas') || btnLot === lot;
+    const cor = LOT_COLORS[lot] || '#2d6a4f';
+    if (isActive) {
+      btn.style.background = (lot === 'todos') ? '#2d6a4f' : LOT_COLORS[lot];
+      btn.style.color = 'white';
+      btn.style.borderColor = (lot === 'todos') ? '#2d6a4f' : LOT_COLORS[lot];
+    } else {
+      btn.style.background = 'white';
+      btn.style.borderColor = btn.dataset.cor || '#2d6a4f';
+      btn.style.color = btn.dataset.cor || '#2d6a4f';
+    }
+  });
+  renderCasas(lot);
+}
+
+// Initialise on load
+document.addEventListener('DOMContentLoaded', function() {
+  renderCasas('todos');
+});
+
+</script>
+</body>
+</html>
