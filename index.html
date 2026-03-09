@@ -261,6 +261,7 @@
   <button onclick="showTab('comunidade')">🤝 Comunidade</button>
   <button onclick="showTab('ambiente')">🌱 Meio Ambiente</button>
   <button onclick="showTab('talentos')">✨ Talentos</button>
+  <button onclick="showTab('nps')">🌡️ NPS</button>
   <button onclick="showTab('mapas')">🗺️ Mapas</button>
 </nav>
 
@@ -276,7 +277,7 @@
   <div style="margin-bottom:10px; font-size:13px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:1px;">Índices do Território</div>
   <div class="indices-grid" style="display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:32px;">
 
-    <div class="indice-card" onclick="showTab('comunidade')" style="background:white; border-radius:16px; padding:18px 14px; box-shadow:var(--sombra); text-align:center; border-top:4px solid #2d6a4f; cursor:pointer; transition:transform .15s,box-shadow .15s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'">
+    <div class="indice-card" onclick="showTab('nps')" style="background:white; border-radius:16px; padding:18px 14px; box-shadow:var(--sombra); text-align:center; border-top:4px solid #2d6a4f; cursor:pointer; transition:transform .15s,box-shadow .15s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'">
       <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px;">🌡️ NPS Piracanga</div>
       <div style="position:relative; display:inline-block; width:80px; height:80px;">
         <svg viewBox="0 0 80 80" style="transform:rotate(-90deg); width:80px; height:80px;">
@@ -700,28 +701,41 @@
 <div class="section" id="saude">
   <div class="section-title">❤️ Saúde e Bem-Estar</div>
 
+  <!-- Filtros por grupo -->
+  <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
+    <button class="saude-btn" data-key="moradores"        onclick="selectSaude('moradores')"        style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;">Moradores (geral)</button>
+    <button class="saude-btn" data-key="morador_nao_prop" onclick="selectSaude('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;">Mor. não proprietários</button>
+    <button class="saude-btn" data-key="morador_prop"     onclick="selectSaude('morador_prop')"     style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;">Moradores proprietários</button>
+    <button class="saude-btn" data-key="prop_nao_morador" onclick="selectSaude('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;">Prop. não moradores</button>
+    <button class="saude-btn" data-key="mulheres"         onclick="selectSaude('mulheres')"         style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;">Mulheres</button>
+    <button class="saude-btn" data-key="homens"           onclick="selectSaude('homens')"           style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;">Homens</button>
+    <button class="saude-btn" data-key="brancos"          onclick="selectSaude('brancos')"          style="padding:6px 14px; border-radius:20px; border:2px solid #059669; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#059669;">Brancos</button>
+    <button class="saude-btn" data-key="pardos"           onclick="selectSaude('pardos')"           style="padding:6px 14px; border-radius:20px; border:2px solid #d97706; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#d97706;">Pardos</button>
+    <button class="saude-btn" data-key="pretos"           onclick="selectSaude('pretos')"           style="padding:6px 14px; border-radius:20px; border:2px solid #374151; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#374151;">Pretos</button>
+  </div>
+
   <div class="grid-4">
     <div class="kpi">
       <span class="kpi-icon">💪</span>
-      <span class="kpi-value">8,1</span>
+      <span class="kpi-value" id="sd-fis-val">8,1</span>
       <span class="kpi-label">Saúde Física (média)</span>
       <span class="kpi-sub">Escala 0–10</span>
     </div>
     <div class="kpi accent-azul">
       <span class="kpi-icon">🧠</span>
-      <span class="kpi-value">7,8</span>
+      <span class="kpi-value" id="sd-ment-val">7,8</span>
       <span class="kpi-label">Saúde Mental (média)</span>
       <span class="kpi-sub">Escala 0–10</span>
     </div>
     <div class="kpi accent-terra">
       <span class="kpi-icon">🩺</span>
-      <span class="kpi-value">10%</span>
+      <span class="kpi-value" id="sd-don-val">11%</span>
       <span class="kpi-label">Com Doença Crônica</span>
-      <span class="kpi-sub">Aprox. 8 de 79 moradores</span>
+      <span class="kpi-sub" id="sd-don-sub">9 de 79 moradores</span>
     </div>
     <div class="kpi accent-menta">
       <span class="kpi-icon">🌿</span>
-      <span class="kpi-value">41%</span>
+      <span class="kpi-value" id="sd-priv-val">41%</span>
       <span class="kpi-label">Usa Clínica Privada</span>
       <span class="kpi-sub">Serviço mais utilizado</span>
     </div>
@@ -787,30 +801,43 @@
 <div class="section" id="educacao">
   <div class="section-title">📚 Educação & Inclusão Digital</div>
 
+  <!-- Filtros por grupo -->
+  <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
+    <button class="educ-btn" data-key="moradores"        onclick="selectEducacao('moradores')"        style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;">Moradores (geral)</button>
+    <button class="educ-btn" data-key="morador_nao_prop" onclick="selectEducacao('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;">Mor. não proprietários</button>
+    <button class="educ-btn" data-key="morador_prop"     onclick="selectEducacao('morador_prop')"     style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;">Moradores proprietários</button>
+    <button class="educ-btn" data-key="prop_nao_morador" onclick="selectEducacao('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;">Prop. não moradores</button>
+    <button class="educ-btn" data-key="mulheres"         onclick="selectEducacao('mulheres')"         style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;">Mulheres</button>
+    <button class="educ-btn" data-key="homens"           onclick="selectEducacao('homens')"           style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;">Homens</button>
+    <button class="educ-btn" data-key="brancos"          onclick="selectEducacao('brancos')"          style="padding:6px 14px; border-radius:20px; border:2px solid #059669; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#059669;">Brancos</button>
+    <button class="educ-btn" data-key="pardos"           onclick="selectEducacao('pardos')"           style="padding:6px 14px; border-radius:20px; border:2px solid #d97706; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#d97706;">Pardos</button>
+    <button class="educ-btn" data-key="pretos"           onclick="selectEducacao('pretos')"           style="padding:6px 14px; border-radius:20px; border:2px solid #374151; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#374151;">Pretos</button>
+  </div>
+
   <div class="grid-4">
     <div class="kpi">
       <span class="kpi-icon">🎓</span>
-      <span class="kpi-value">35%</span>
+      <span class="kpi-value" id="ed-pos-val">35%</span>
       <span class="kpi-label">Pós-Graduação</span>
-      <span class="kpi-sub">28 de 79 moradores</span>
+      <span class="kpi-sub" id="ed-pos-sub">28 de 79 moradores</span>
     </div>
     <div class="kpi accent-azul">
       <span class="kpi-icon">📱</span>
-      <span class="kpi-value">8,6</span>
+      <span class="kpi-value" id="ed-dig-val">8,6</span>
       <span class="kpi-label">Inclusão Digital (média)</span>
       <span class="kpi-sub">Escala 0–10</span>
     </div>
     <div class="kpi accent-terra">
       <span class="kpi-icon">🤖</span>
-      <span class="kpi-value">63%</span>
+      <span class="kpi-value" id="ed-ia-val">63%</span>
       <span class="kpi-label">Usa Inteligência Artificial</span>
       <span class="kpi-sub">Alta adoção tecnológica</span>
     </div>
     <div class="kpi accent-menta">
       <span class="kpi-icon">💬</span>
-      <span class="kpi-value">18%</span>
+      <span class="kpi-value" id="ed-ling-val">15%</span>
       <span class="kpi-label">Falam Língua Estrangeira</span>
-      <span class="kpi-sub">21 respondentes</span>
+      <span class="kpi-sub" id="ed-ling-sub">12 respondentes</span>
     </div>
   </div>
 
@@ -850,28 +877,41 @@
 <div class="section" id="trabalho">
   <div class="section-title">💼 Trabalho & Renda</div>
 
+  <!-- Filtros por grupo -->
+  <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
+    <button class="trabalho-btn" data-key="moradores"        onclick="selectTrabalho('moradores')"        style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;">Moradores (geral)</button>
+    <button class="trabalho-btn" data-key="morador_nao_prop" onclick="selectTrabalho('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;">Mor. não proprietários</button>
+    <button class="trabalho-btn" data-key="morador_prop"     onclick="selectTrabalho('morador_prop')"     style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;">Moradores proprietários</button>
+    <button class="trabalho-btn" data-key="prop_nao_morador" onclick="selectTrabalho('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;">Prop. não moradores</button>
+    <button class="trabalho-btn" data-key="mulheres"         onclick="selectTrabalho('mulheres')"         style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;">Mulheres</button>
+    <button class="trabalho-btn" data-key="homens"           onclick="selectTrabalho('homens')"           style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;">Homens</button>
+    <button class="trabalho-btn" data-key="brancos"          onclick="selectTrabalho('brancos')"          style="padding:6px 14px; border-radius:20px; border:2px solid #059669; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#059669;">Brancos</button>
+    <button class="trabalho-btn" data-key="pardos"           onclick="selectTrabalho('pardos')"           style="padding:6px 14px; border-radius:20px; border:2px solid #d97706; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#d97706;">Pardos</button>
+    <button class="trabalho-btn" data-key="pretos"           onclick="selectTrabalho('pretos')"           style="padding:6px 14px; border-radius:20px; border:2px solid #374151; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#374151;">Pretos</button>
+  </div>
+
   <div class="grid-4">
     <div class="kpi">
       <span class="kpi-icon">🚀</span>
-      <span class="kpi-value">57%</span>
+      <span class="kpi-value" id="tr-empreend-val">57%</span>
       <span class="kpi-label">Empreendedores</span>
-      <span class="kpi-sub">45 de 79 moradores</span>
+      <span class="kpi-sub" id="tr-empreend-sub">45 de 79 respondentes</span>
     </div>
     <div class="kpi accent-azul">
       <span class="kpi-icon">💵</span>
-      <span class="kpi-value">54%</span>
+      <span class="kpi-value" id="tr-turismo-val">54%</span>
       <span class="kpi-label">Renda ligada ao turismo</span>
       <span class="kpi-sub">Alta dependência sazonal</span>
     </div>
     <div class="kpi accent-terra">
       <span class="kpi-icon">💳</span>
-      <span class="kpi-value">58%</span>
+      <span class="kpi-value" id="tr-reserva-val">58%</span>
       <span class="kpi-label">Com Reserva Financeira</span>
-      <span class="kpi-sub">46 de 79 moradores</span>
+      <span class="kpi-sub" id="tr-reserva-sub">46 de 79 respondentes</span>
     </div>
     <div class="kpi accent-menta">
       <span class="kpi-icon">⏱️</span>
-      <span class="kpi-value">23%</span>
+      <span class="kpi-value" id="tr-semdific-val">23%</span>
       <span class="kpi-label">Sem dificuldade financeira</span>
       <span class="kpi-sub">Nota 0 na escala de dificuldade</span>
     </div>
@@ -887,23 +927,27 @@
 
     <div class="card">
       <h3><span class="icon">📊</span> Faixa de Renda (escala 0–9)</h3>
+      <div style="text-align:center; margin:-2px 0 10px; font-size:13px; color:#555;">
+        Renda média estimada: <strong id="tr-renda-avg" style="font-size:15px; color:#2d6a4f;">R$5.657</strong>
+        <span style="font-size:11px; color:#aaa; margin-left:4px;">(excl. quem prefere não informar)</span>
+      </div>
       <div class="chart-wrap" style="height:220px">
         <canvas id="chartRenda"></canvas>
       </div>
       <div class="insight">
-        Escala 0=sem renda, 9=acima de R$15.000/mês. A distribuição mostra renda polarizada: <strong>25% nas faixas mais altas</strong> (8–9) e <strong>18% nas faixas mais baixas</strong> (0–2).
+        Distribuição de renda dos respondentes. Faixas superiores (acima de R$10k) concentram <strong>13%</strong> dos moradores; faixas até R$2k representam <strong>11%</strong>. 8 moradores não responderam.
       </div>
     </div>
   </div>
 
   <div class="grid-2">
     <div class="card">
-      <h3><span class="icon">🌴</span> Dependência da Renda em Relação ao Turismo</h3>
+      <h3><span class="icon">🌴</span> Dependência do Turismo por Segmento</h3>
       <div class="chart-wrap" style="height:200px">
-        <canvas id="chartTurismo"></canvas>
+        <canvas id="chartTurismoComp"></canvas>
       </div>
       <div class="insight">
-        <strong>54%</strong> dependem do turismo para gerar renda, o que indica vulnerabilidade sazonal e necessidade de diversificação econômica.
+        <strong id="tr-turismo-pct">54%</strong> dos moradores (geral) dependem do turismo. Pretos (83%) e Pardos (65%) lideram; Prop. não moradores têm a menor dependência (22%).
       </div>
     </div>
 
@@ -913,7 +957,7 @@
         <canvas id="chartDificuldade"></canvas>
       </div>
       <div class="insight">
-        Escala 0=nenhuma dificuldade, 10=muita dificuldade. <strong>Nota média: 3,6</strong> — moderada dificuldade financeira para uma parcela significativa da comunidade.
+        Escala 0=nenhuma dificuldade, 10=muita dificuldade. <strong>Nota média: <span id="tr-dific-avg">3,6</span></strong> — moderada dificuldade financeira para uma parcela significativa da comunidade.
       </div>
     </div>
   </div>
@@ -935,30 +979,43 @@
 <div class="section" id="comunidade">
   <div class="section-title">🤝 Comunidade & Governança</div>
 
+  <!-- Filtros por grupo -->
+  <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
+    <button class="comu-btn" data-key="moradores"        onclick="selectComunidade('moradores')"        style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;">Moradores (geral)</button>
+    <button class="comu-btn" data-key="morador_nao_prop" onclick="selectComunidade('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;">Mor. não proprietários</button>
+    <button class="comu-btn" data-key="morador_prop"     onclick="selectComunidade('morador_prop')"     style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;">Moradores proprietários</button>
+    <button class="comu-btn" data-key="prop_nao_morador" onclick="selectComunidade('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;">Prop. não moradores</button>
+    <button class="comu-btn" data-key="mulheres"         onclick="selectComunidade('mulheres')"         style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;">Mulheres</button>
+    <button class="comu-btn" data-key="homens"           onclick="selectComunidade('homens')"           style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;">Homens</button>
+    <button class="comu-btn" data-key="brancos"          onclick="selectComunidade('brancos')"          style="padding:6px 14px; border-radius:20px; border:2px solid #059669; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#059669;">Brancos</button>
+    <button class="comu-btn" data-key="pardos"           onclick="selectComunidade('pardos')"           style="padding:6px 14px; border-radius:20px; border:2px solid #d97706; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#d97706;">Pardos</button>
+    <button class="comu-btn" data-key="pretos"           onclick="selectComunidade('pretos')"           style="padding:6px 14px; border-radius:20px; border:2px solid #374151; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#374151;">Pretos</button>
+  </div>
+
   <div class="grid-4">
     <div class="kpi">
       <span class="kpi-icon">💬</span>
-      <span class="kpi-value">6,7</span>
+      <span class="kpi-value" id="com-senso-val">6,7</span>
       <span class="kpi-label">Senso de Comunidade</span>
       <span class="kpi-sub">Média 0–10</span>
     </div>
     <div class="kpi accent-azul">
       <span class="kpi-icon">🕊️</span>
-      <span class="kpi-value">7,1</span>
+      <span class="kpi-value" id="com-harm-val">7,1</span>
       <span class="kpi-label">Convívio Harmonioso</span>
       <span class="kpi-sub">Média 0–10</span>
     </div>
     <div class="kpi accent-terra">
       <span class="kpi-icon">🛡️</span>
-      <span class="kpi-value">94%</span>
+      <span class="kpi-value" id="com-seg-val">94%</span>
       <span class="kpi-label">Sentem-se Seguros</span>
-      <span class="kpi-sub">74 de 79 moradores</span>
+      <span class="kpi-sub" id="com-seg-sub">74 de 79 moradores</span>
     </div>
     <div class="kpi accent-menta">
       <span class="kpi-icon">🙋</span>
-      <span class="kpi-value">61%</span>
+      <span class="kpi-value" id="com-vol-val">61%</span>
       <span class="kpi-label">Fazem Voluntariado</span>
-      <span class="kpi-sub">48 moradores ativos</span>
+      <span class="kpi-sub" id="com-vol-sub">48 moradores ativos</span>
     </div>
   </div>
 
@@ -1026,24 +1083,37 @@
 <div class="section" id="ambiente">
   <div class="section-title">🌱 Consciência e Práticas Ambientais</div>
 
+  <!-- Filtros por grupo -->
+  <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
+    <button class="ambi-btn" data-key="moradores"        onclick="selectAmbiente('moradores')"        style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;">Moradores (geral)</button>
+    <button class="ambi-btn" data-key="morador_nao_prop" onclick="selectAmbiente('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;">Mor. não proprietários</button>
+    <button class="ambi-btn" data-key="morador_prop"     onclick="selectAmbiente('morador_prop')"     style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;">Moradores proprietários</button>
+    <button class="ambi-btn" data-key="prop_nao_morador" onclick="selectAmbiente('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;">Prop. não moradores</button>
+    <button class="ambi-btn" data-key="mulheres"         onclick="selectAmbiente('mulheres')"         style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;">Mulheres</button>
+    <button class="ambi-btn" data-key="homens"           onclick="selectAmbiente('homens')"           style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;">Homens</button>
+    <button class="ambi-btn" data-key="brancos"          onclick="selectAmbiente('brancos')"          style="padding:6px 14px; border-radius:20px; border:2px solid #059669; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#059669;">Brancos</button>
+    <button class="ambi-btn" data-key="pardos"           onclick="selectAmbiente('pardos')"           style="padding:6px 14px; border-radius:20px; border:2px solid #d97706; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#d97706;">Pardos</button>
+    <button class="ambi-btn" data-key="pretos"           onclick="selectAmbiente('pretos')"           style="padding:6px 14px; border-radius:20px; border:2px solid #374151; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#374151;">Pretos</button>
+  </div>
+
   <div class="grid-4">
     <div class="kpi">
       <span class="kpi-icon">🌳</span>
-      <span class="kpi-value">75%</span>
+      <span class="kpi-value" id="amb-bioma-val">75%</span>
       <span class="kpi-label">Sabe o Bioma Local</span>
-      <span class="kpi-sub">59 de 79 moradores (Mata Atlântica)</span>
+      <span class="kpi-sub" id="amb-bioma-sub">59 de 79 moradores</span>
     </div>
     <div class="kpi accent-azul">
       <span class="kpi-icon">♻️</span>
-      <span class="kpi-value">99%</span>
+      <span class="kpi-value" id="amb-rec-val">99%</span>
       <span class="kpi-label">Pratica Reciclagem</span>
-      <span class="kpi-sub">75 de 76 que responderam</span>
+      <span class="kpi-sub" id="amb-rec-sub">75 de 76 que responderam</span>
     </div>
     <div class="kpi accent-terra">
       <span class="kpi-icon">🍂</span>
-      <span class="kpi-value">97%</span>
+      <span class="kpi-value" id="amb-comp-val">97%</span>
       <span class="kpi-label">Pratica Compostagem</span>
-      <span class="kpi-sub">74 de 76 que responderam</span>
+      <span class="kpi-sub" id="amb-comp-sub">74 de 76 que responderam</span>
     </div>
     <div class="kpi accent-menta">
       <span class="kpi-icon">🛡️</span>
@@ -1097,28 +1167,41 @@
 <div class="section" id="talentos">
   <div class="section-title">✨ Talentos da Comunidade</div>
 
+  <!-- Filtros por grupo -->
+  <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
+    <button class="tale-btn" data-key="moradores"        onclick="selectTalentos('moradores')"        style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;">Moradores (geral)</button>
+    <button class="tale-btn" data-key="morador_nao_prop" onclick="selectTalentos('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;">Mor. não proprietários</button>
+    <button class="tale-btn" data-key="morador_prop"     onclick="selectTalentos('morador_prop')"     style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;">Moradores proprietários</button>
+    <button class="tale-btn" data-key="prop_nao_morador" onclick="selectTalentos('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;">Prop. não moradores</button>
+    <button class="tale-btn" data-key="mulheres"         onclick="selectTalentos('mulheres')"         style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;">Mulheres</button>
+    <button class="tale-btn" data-key="homens"           onclick="selectTalentos('homens')"           style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;">Homens</button>
+    <button class="tale-btn" data-key="brancos"          onclick="selectTalentos('brancos')"          style="padding:6px 14px; border-radius:20px; border:2px solid #059669; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#059669;">Brancos</button>
+    <button class="tale-btn" data-key="pardos"           onclick="selectTalentos('pardos')"           style="padding:6px 14px; border-radius:20px; border:2px solid #d97706; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#d97706;">Pardos</button>
+    <button class="tale-btn" data-key="pretos"           onclick="selectTalentos('pretos')"           style="padding:6px 14px; border-radius:20px; border:2px solid #374151; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#374151;">Pretos</button>
+  </div>
+
   <div class="grid-4">
     <div class="kpi">
       <span class="kpi-icon">💼</span>
-      <span class="kpi-value">45</span>
+      <span class="kpi-value" id="tal-gestao-val">45</span>
       <span class="kpi-label">Gestão & Liderança</span>
       <span class="kpi-sub">Talento mais frequente</span>
     </div>
     <div class="kpi accent-azul">
       <span class="kpi-icon">🎨</span>
-      <span class="kpi-value">39</span>
+      <span class="kpi-value" id="tal-artes-val">39</span>
       <span class="kpi-label">Artes & Criatividade</span>
       <span class="kpi-sub">2º mais frequente</span>
     </div>
     <div class="kpi accent-terra">
       <span class="kpi-icon">🌿</span>
-      <span class="kpi-value">31</span>
+      <span class="kpi-value" id="tal-terapias-val">31</span>
       <span class="kpi-label">Terapias & Bem-Estar</span>
       <span class="kpi-sub">3º mais frequente</span>
     </div>
     <div class="kpi accent-menta">
       <span class="kpi-icon">🍳</span>
-      <span class="kpi-value">26</span>
+      <span class="kpi-value" id="tal-culi-val">26</span>
       <span class="kpi-label">Culinária</span>
       <span class="kpi-sub">4º mais frequente</span>
     </div>
@@ -1136,48 +1219,48 @@
       <h3><span class="icon">📊</span> Talentos por Frequência</h3>
       <div class="progress-list">
         <div class="progress-item">
-          <div class="progress-label"><span>💼 Gestão / Liderança</span><span>45</span></div>
-          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
+          <div class="progress-label"><span>💼 Gestão / Liderança</span><span id="tal-cnt-gest">45</span></div>
+          <div class="progress-bar-bg"><div id="tal-bar-gest" class="progress-bar-fill" style="width:100%"></div></div>
         </div>
         <div class="progress-item">
-          <div class="progress-label"><span>🎨 Artes / Criatividade</span><span>39</span></div>
-          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:87%"></div></div>
+          <div class="progress-label"><span>🎨 Artes / Criatividade</span><span id="tal-cnt-artes">39</span></div>
+          <div class="progress-bar-bg"><div id="tal-bar-artes" class="progress-bar-fill" style="width:87%"></div></div>
         </div>
         <div class="progress-item">
-          <div class="progress-label"><span>🌿 Terapias / Bem-Estar</span><span>31</span></div>
-          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:69%"></div></div>
+          <div class="progress-label"><span>🌿 Terapias / Bem-Estar</span><span id="tal-cnt-terapias">31</span></div>
+          <div class="progress-bar-bg"><div id="tal-bar-terapias" class="progress-bar-fill" style="width:69%"></div></div>
         </div>
         <div class="progress-item">
-          <div class="progress-label"><span>🍳 Culinária</span><span>26</span></div>
-          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:58%"></div></div>
+          <div class="progress-label"><span>🍳 Culinária</span><span id="tal-cnt-culi">26</span></div>
+          <div class="progress-bar-bg"><div id="tal-bar-culi" class="progress-bar-fill" style="width:58%"></div></div>
         </div>
         <div class="progress-item">
-          <div class="progress-label"><span>💻 Tecnologia</span><span>22</span></div>
-          <div class="progress-bar-bg"><div class="progress-bar-fill azul" style="width:49%"></div></div>
+          <div class="progress-label"><span>💻 Tecnologia</span><span id="tal-cnt-tech">22</span></div>
+          <div class="progress-bar-bg"><div id="tal-bar-tech" class="progress-bar-fill azul" style="width:49%"></div></div>
         </div>
         <div class="progress-item">
-          <div class="progress-label"><span>🌱 Agricultura / Permacultura</span><span>15</span></div>
-          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:33%"></div></div>
+          <div class="progress-label"><span>🌱 Agricultura / Permacultura</span><span id="tal-cnt-agri">15</span></div>
+          <div class="progress-bar-bg"><div id="tal-bar-agri" class="progress-bar-fill" style="width:33%"></div></div>
         </div>
         <div class="progress-item">
-          <div class="progress-label"><span>💊 Cuidado / Saúde</span><span>17</span></div>
-          <div class="progress-bar-bg"><div class="progress-bar-fill orange" style="width:38%"></div></div>
+          <div class="progress-label"><span>💊 Cuidado / Saúde</span><span id="tal-cnt-cuid">17</span></div>
+          <div class="progress-bar-bg"><div id="tal-bar-cuid" class="progress-bar-fill orange" style="width:38%"></div></div>
         </div>
         <div class="progress-item">
-          <div class="progress-label"><span>💬 Língua Estrangeira</span><span>12</span></div>
-          <div class="progress-bar-bg"><div class="progress-bar-fill azul" style="width:27%"></div></div>
+          <div class="progress-label"><span>💬 Língua Estrangeira</span><span id="tal-cnt-ling">12</span></div>
+          <div class="progress-bar-bg"><div id="tal-bar-ling" class="progress-bar-fill azul" style="width:27%"></div></div>
         </div>
         <div class="progress-item">
-          <div class="progress-label"><span>🤝 Tecnologia Social</span><span>11</span></div>
-          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:24%"></div></div>
+          <div class="progress-label"><span>🤝 Tecnologia Social</span><span id="tal-cnt-tsoc">11</span></div>
+          <div class="progress-bar-bg"><div id="tal-bar-tsoc" class="progress-bar-fill" style="width:24%"></div></div>
         </div>
         <div class="progress-item">
-          <div class="progress-label"><span>🧵 Costura / Artesanato</span><span>12</span></div>
-          <div class="progress-bar-bg"><div class="progress-bar-fill orange" style="width:27%"></div></div>
+          <div class="progress-label"><span>🧵 Costura / Artesanato</span><span id="tal-cnt-cos">12</span></div>
+          <div class="progress-bar-bg"><div id="tal-bar-cos" class="progress-bar-fill orange" style="width:27%"></div></div>
         </div>
         <div class="progress-item">
-          <div class="progress-label"><span>🪚 Marcenaria / Construção</span><span>8</span></div>
-          <div class="progress-bar-bg"><div class="progress-bar-fill orange" style="width:18%"></div></div>
+          <div class="progress-label"><span>🪚 Marcenaria / Construção</span><span id="tal-cnt-marc">8</span></div>
+          <div class="progress-bar-bg"><div id="tal-bar-marc" class="progress-bar-fill orange" style="width:18%"></div></div>
         </div>
       </div>
     </div>
@@ -1238,6 +1321,169 @@
 </div>
 
 
+<div class="section" id="nps">
+
+  <!-- Header -->
+  <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+    <div>
+      <div style="font-size:36px; font-weight:900; color:#111; letter-spacing:-1px; line-height:1;">NPS PIRACANGA</div>
+      <div style="font-size:13px; color:#888; margin-top:4px;">Net Promoter Score — Censo 2025</div>
+    </div>
+    <div style="background:#f0fdf4; border:1px solid #d1fae5; border-radius:10px; padding:8px 14px; font-size:12px; color:#2d6a4f; font-weight:700; align-self:center;">
+      ℹ️ Dados referentes somente a moradores (n=79) — exceto grupo "Prop. não moradores"
+    </div>
+  </div>
+
+  <!-- Pergunta -->
+  <div style="background:var(--verde); color:white; border-radius:12px; padding:18px 24px; margin-bottom:24px;">
+    <div style="font-size:14px; font-weight:800; letter-spacing:.3px; line-height:1.5; text-transform:uppercase;">
+      De zero a dez, quanto você recomendaria a amig@s com perfil similar ao seu para viverem em Piracanga?
+    </div>
+  </div>
+
+  <!-- Filtros de grupo -->
+  <div style="margin-bottom:20px;">
+    <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Filtrar por grupo</div>
+    <div style="display:flex; flex-wrap:wrap; gap:8px;" id="nps-filter-btns">
+      <button class="nps-btn active" data-key="geral"        onclick="selectNPS('geral')"        style="padding:7px 14px; border-radius:20px; border:2px solid #2d6a4f; background:#2d6a4f; color:white; font-size:12px; font-weight:700; cursor:pointer;">Geral (moradores)</button>
+      <button class="nps-btn"        data-key="mor-nao-prop" onclick="selectNPS('mor-nao-prop')" style="padding:7px 14px; border-radius:20px; border:2px solid #1a6b8a; background:white; color:#1a6b8a; font-size:12px; font-weight:700; cursor:pointer;">Moradores não proprietários</button>
+      <button class="nps-btn"        data-key="mor-prop"     onclick="selectNPS('mor-prop')"     style="padding:7px 14px; border-radius:20px; border:2px solid #b7791f; background:white; color:#b7791f; font-size:12px; font-weight:700; cursor:pointer;">Moradores proprietários</button>
+      <button class="nps-btn"        data-key="prop-nao-mor" onclick="selectNPS('prop-nao-mor')" style="padding:7px 14px; border-radius:20px; border:2px solid #7c3aed; background:white; color:#7c3aed; font-size:12px; font-weight:700; cursor:pointer;">Proprietários não moradores</button>
+      <button class="nps-btn"        data-key="mulheres"     onclick="selectNPS('mulheres')"     style="padding:7px 14px; border-radius:20px; border:2px solid #e07a5f; background:white; color:#e07a5f; font-size:12px; font-weight:700; cursor:pointer;">Mulheres</button>
+      <button class="nps-btn"        data-key="homens"       onclick="selectNPS('homens')"       style="padding:7px 14px; border-radius:20px; border:2px solid #0891b2; background:white; color:#0891b2; font-size:12px; font-weight:700; cursor:pointer;">Homens</button>
+      <button class="nps-btn"        data-key="brancos"      onclick="selectNPS('brancos')"      style="padding:7px 14px; border-radius:20px; border:2px solid #6b7280; background:white; color:#6b7280; font-size:12px; font-weight:700; cursor:pointer;">Brancos</button>
+      <button class="nps-btn"        data-key="pardos"       onclick="selectNPS('pardos')"       style="padding:7px 14px; border-radius:20px; border:2px solid #92400e; background:white; color:#92400e; font-size:12px; font-weight:700; cursor:pointer;">Pardos</button>
+      <button class="nps-btn"        data-key="pretos"       onclick="selectNPS('pretos')"       style="padding:7px 14px; border-radius:20px; border:2px solid #1c1917; background:white; color:#1c1917; font-size:12px; font-weight:700; cursor:pointer;">Pretos</button>
+    </div>
+  </div>
+
+  <!-- Donut + Comparativo -->
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px;">
+
+    <!-- Donut card -->
+    <div class="card" style="padding:24px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+        <h3 style="margin:0;"><span class="icon">🌡️</span> <span id="nps-group-label">Geral (moradores)</span></h3>
+        <span id="nps-n-badge" style="background:#f0fdf4; border:1px solid #d1fae5; color:#2d6a4f; font-size:11px; font-weight:700; padding:3px 10px; border-radius:12px;">n = 79</span>
+      </div>
+
+      <!-- Row: donut + zone info -->
+      <div style="display:flex; align-items:center; gap:24px; margin-top:16px;">
+        <!-- Donut — score only inside, no floating labels -->
+        <div style="position:relative; width:160px; height:160px; flex-shrink:0;">
+          <canvas id="npsDonut" width="160" height="160"></canvas>
+          <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center;">
+            <div id="nps-score-big" style="font-size:40px; font-weight:900; color:#2d6a4f; line-height:1;">48</div>
+            <div style="font-size:11px; color:#888; font-weight:600;">NPS</div>
+          </div>
+        </div>
+        <!-- Zone indicator -->
+        <div style="flex:1;">
+          <div id="nps-zone-badge" style="display:inline-block; padding:6px 16px; border-radius:20px; font-size:14px; font-weight:800; background:#d1fae5; color:#065f46; margin-bottom:12px;">FAVORÁVEL</div>
+          <div style="font-size:12px; color:#666; line-height:1.9;">
+            <div>✅ <strong id="nps-prom-n">48</strong> promotores (notas 9–10)</div>
+            <div>➖ <strong id="nps-pass-n">21</strong> passivos (notas 7–8)</div>
+            <div>❌ <strong id="nps-detr-n">10</strong> detratores (notas 0–6)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stat pills row -->
+      <div style="display:flex; gap:10px; margin-top:18px;">
+        <div id="nps-prom-label" style="flex:1; background:#f0fdf4; border-radius:10px; padding:10px 8px; text-align:center;">
+          <div style="font-size:10px; font-weight:800; color:#16a34a; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px;">Promotores</div>
+          <div id="nps-prom-pct" style="font-size:26px; font-weight:900; color:#16a34a; line-height:1.1;">61%</div>
+        </div>
+        <div id="nps-pass-label" style="flex:1; background:#f9fafb; border-radius:10px; padding:10px 8px; text-align:center;">
+          <div style="font-size:10px; font-weight:800; color:#9ca3af; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px;">Neutros</div>
+          <div id="nps-pass-pct" style="font-size:26px; font-weight:900; color:#9ca3af; line-height:1.1;">27%</div>
+        </div>
+        <div id="nps-detr-label" style="flex:1; background:#fef2f2; border-radius:10px; padding:10px 8px; text-align:center;">
+          <div style="font-size:10px; font-weight:800; color:#ef4444; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px;">Detratores</div>
+          <div id="nps-detr-pct" style="font-size:26px; font-weight:900; color:#ef4444; line-height:1.1;">13%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparativo por grupo -->
+    <div class="card" style="padding:24px;">
+      <h3><span class="icon">📊</span> Comparativo entre grupos</h3>
+      <div style="margin-top:16px;">
+        <canvas id="npsComparativo" height="220"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Régua NPS -->
+  <div class="card" style="padding:24px; margin-bottom:20px;">
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px; flex-wrap:wrap;">
+      <div style="font-weight:700; font-size:14px; color:#333;">Metodologia NPS</div>
+      <div style="font-size:11px; color:#888; font-style:italic;">Bain &amp; Company</div>
+    </div>
+
+    <!-- Régua colorida -->
+    <div style="position:relative; margin:0 8px 32px;">
+      <div style="display:flex; border-radius:8px; overflow:hidden; height:22px;">
+        <div style="flex:50; background:#ef4444;" title="Negativo: -100 a 0"></div>
+        <div style="flex:12.5; background:#67e8f9;" title="Bom: 0 a 25"></div>
+        <div style="flex:12.5; background:#86efac;" title="Favorável: 25 a 50"></div>
+        <div style="flex:15; background:#22c55e;" title="Excelente: 50 a 80"></div>
+        <div style="flex:10; background:#1e3a5f;" title="Perfeito: 80 a 100"></div>
+      </div>
+      <!-- Indicador móvel -->
+      <div id="nps-ruler-indicator" style="position:absolute; top:-8px; transform:translateX(-50%); left:74%; transition:left .4s ease;">
+        <div style="width:3px; height:38px; background:#111; margin:0 auto;"></div>
+        <div id="nps-ruler-score" style="position:absolute; top:-22px; left:50%; transform:translateX(-50%); background:#111; color:white; font-size:11px; font-weight:800; padding:2px 7px; border-radius:8px; white-space:nowrap;">48</div>
+      </div>
+      <!-- Labels -->
+      <div style="display:flex; margin-top:6px; font-size:10px; font-weight:700; text-transform:uppercase; color:#666;">
+        <div style="flex:50; text-align:center; color:#ef4444;">Negativo</div>
+        <div style="flex:12.5; text-align:center; color:#0891b2;">Bom</div>
+        <div style="flex:12.5; text-align:center; color:#16a34a;">Favorável</div>
+        <div style="flex:15; text-align:center; color:#15803d;">Excelente</div>
+        <div style="flex:10; text-align:center; color:#1e3a5f;">Perfeito</div>
+      </div>
+      <!-- Marcadores numéricos -->
+      <div style="position:relative; height:14px; margin-top:2px; font-size:10px; color:#999;">
+        <span style="position:absolute; left:0%; transform:translateX(-50%);">−100</span>
+        <span style="position:absolute; left:50%; transform:translateX(-50%);">0</span>
+        <span style="position:absolute; left:62.5%; transform:translateX(-50%);">25</span>
+        <span style="position:absolute; left:75%; transform:translateX(-50%);">50</span>
+        <span style="position:absolute; left:90%; transform:translateX(-50%);">80</span>
+        <span style="position:absolute; left:100%; transform:translateX(-50%);">100</span>
+      </div>
+    </div>
+
+    <!-- Classificação de notas -->
+    <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; align-items:center;">
+      <span style="font-size:12px; font-weight:700; color:#555; margin-right:8px;">Classificação de notas:</span>
+      <div style="display:flex; gap:4px;">
+        <span style="padding:4px 9px; border:2px solid #ef4444; color:#ef4444; border-radius:8px; font-size:12px; font-weight:700;">0</span>
+        <span style="padding:4px 9px; border:2px solid #ef4444; color:#ef4444; border-radius:8px; font-size:12px; font-weight:700;">1</span>
+        <span style="padding:4px 9px; border:2px solid #ef4444; color:#ef4444; border-radius:8px; font-size:12px; font-weight:700;">2</span>
+        <span style="padding:4px 9px; border:2px solid #ef4444; color:#ef4444; border-radius:8px; font-size:12px; font-weight:700;">3</span>
+        <span style="padding:4px 9px; border:2px solid #ef4444; color:#ef4444; border-radius:8px; font-size:12px; font-weight:700;">4</span>
+        <span style="padding:4px 9px; border:2px solid #ef4444; color:#ef4444; border-radius:8px; font-size:12px; font-weight:700;">5</span>
+        <span style="padding:4px 9px; border:2px solid #ef4444; color:#ef4444; border-radius:8px; font-size:12px; font-weight:700;">6</span>
+      </div>
+      <div style="display:flex; gap:4px; margin-left:8px;">
+        <span style="padding:4px 9px; border:2px solid #9ca3af; color:#9ca3af; border-radius:8px; font-size:12px; font-weight:700;">7</span>
+        <span style="padding:4px 9px; border:2px solid #9ca3af; color:#9ca3af; border-radius:8px; font-size:12px; font-weight:700;">8</span>
+      </div>
+      <div style="display:flex; gap:4px; margin-left:8px;">
+        <span style="padding:4px 9px; border:2px solid #22c55e; color:#22c55e; border-radius:8px; font-size:12px; font-weight:700;">9</span>
+        <span style="padding:4px 9px; border:2px solid #22c55e; color:#22c55e; border-radius:8px; font-size:12px; font-weight:700;">10</span>
+      </div>
+      <div style="display:flex; gap:20px; margin-left:16px; align-items:center;">
+        <div style="text-align:center;"><div style="font-size:18px;">😞</div><div style="font-size:10px; font-weight:700; color:#ef4444;">DETRATORES</div></div>
+        <div style="text-align:center;"><div style="font-size:18px;">😐</div><div style="font-size:10px; font-weight:700; color:#9ca3af;">PASSIVOS</div></div>
+        <div style="text-align:center;"><div style="font-size:18px;">😊</div><div style="font-size:10px; font-weight:700; color:#22c55e;">PROMOTORES</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 </main>
 
 <footer>
@@ -1284,6 +1530,10 @@ function showTab(id) {
     }
   });
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  // lazy init para abas com lógica especial
+  if (id === 'nps') {
+    setTimeout(() => { if(typeof selectNPS==='function'){selectNPS('geral'); initNpsBar();} }, 50);
+  }
 }
 
 // ============================================================
@@ -1354,7 +1604,22 @@ new Chart(document.getElementById('chartPresenca'), {
 
 const healthLabels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
-new Chart(document.getElementById('chartSaudeFisica'), {
+// ---- dados por grupo: Saúde ----
+// serv chart order: privada, terapias, postinho, hosp_pub, telemed, hosp_priv, nenhum, agentes
+// barr chart order: dist, custo, fprof, hor, nenhuma, acolhimento
+const SAUDE_GRUPOS = {
+  moradores:        { label:'Moradores (geral)',       cor:'#2d6a4f', n:79,  fis_avg:'8,1', ment_avg:'7,8', doenca:11, priv:41, fis:[0,0,1,2,2,5,9,27,21,12], ment:[0,0,0,3,3,9,16,22,13,13], serv:[32,31,26,14,14,9,7,1], barr:[42,28,24,14,17,9] },
+  morador_nao_prop: { label:'Mor. não proprietários', cor:'#1d4ed8', n:57,  fis_avg:'8,0', ment_avg:'7,8', doenca:11, priv:39, fis:[0,0,1,2,2,3,6,20,15,8],  ment:[0,0,0,3,3,5,9,19,10,8],  serv:[22,26,22,12,10,3,3,1],  barr:[34,25,15,9,11,6]  },
+  morador_prop:     { label:'Moradores proprietários',cor:'#7c3aed', n:22,  fis_avg:'8,3', ment_avg:'7,9', doenca:14, priv:45, fis:[0,0,0,0,0,2,3,7,6,4],    ment:[0,0,0,0,0,4,7,3,3,5],    serv:[10,5,4,2,4,6,4,0],     barr:[8,3,9,5,6,3]    },
+  prop_nao_morador: { label:'Prop. não moradores',    cor:'#b45309', n:32,  fis_avg:'7,9', ment_avg:'7,8', doenca:9,  priv:6,  fis:[0,0,1,0,0,1,9,11,7,3],   ment:[0,0,0,2,1,0,8,10,9,2],   serv:[2,2,1,1,0,3,0,0],      barr:[2,0,2,0,1,1]   },
+  mulheres:         { label:'Mulheres',               cor:'#db2777', n:44,  fis_avg:'8,2', ment_avg:'8,1', doenca:9,  priv:41, fis:[0,0,0,1,1,4,4,15,12,7],  ment:[0,0,0,0,2,4,8,13,8,9],   serv:[18,21,14,9,8,6,3,1],   barr:[23,18,10,9,12,5]  },
+  homens:           { label:'Homens',                 cor:'#2563eb', n:26,  fis_avg:'8,3', ment_avg:'7,4', doenca:8,  priv:38, fis:[0,0,0,1,0,0,5,8,8,4],    ment:[0,0,0,3,0,4,6,6,4,3],    serv:[10,8,10,5,5,2,2,0],    barr:[14,8,14,5,3,3]   },
+  brancos:          { label:'Brancos',                cor:'#059669', n:50,  fis_avg:'8,1', ment_avg:'7,9', doenca:16, priv:42, fis:[0,0,1,1,1,4,5,17,12,9],  ment:[0,0,0,2,1,4,11,16,8,8],  serv:[21,23,9,5,8,8,5,1],    barr:[26,14,16,8,12,6]  },
+  pardos:           { label:'Pardos',                 cor:'#d97706', n:17,  fis_avg:'8,1', ment_avg:'7,4', doenca:6,  priv:35, fis:[0,0,0,1,0,0,4,4,7,1],    ment:[0,0,0,1,1,5,3,1,3,3],    serv:[6,5,13,5,4,1,0,0],     barr:[8,10,3,2,4,2]   },
+  pretos:           { label:'Pretos',                 cor:'#374151', n:6,   fis_avg:'8,3', ment_avg:'8,0', doenca:0,  priv:50, fis:[0,0,0,0,0,1,0,2,2,1],    ment:[0,0,0,0,0,0,1,4,1,0],    serv:[3,0,2,2,1,0,0,0],      barr:[6,2,3,2,0,1]   }
+};
+
+window._sdFis = new Chart(document.getElementById('chartSaudeFisica'), {
   type: 'bar',
   data: {
     labels: healthLabels,
@@ -1363,7 +1628,7 @@ new Chart(document.getElementById('chartSaudeFisica'), {
   options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
 });
 
-new Chart(document.getElementById('chartSaudeMental'), {
+window._sdMent = new Chart(document.getElementById('chartSaudeMental'), {
   type: 'bar',
   data: {
     labels: healthLabels,
@@ -1372,29 +1637,62 @@ new Chart(document.getElementById('chartSaudeMental'), {
   options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
 });
 
-new Chart(document.getElementById('chartServSaude'), {
+window._sdServ = new Chart(document.getElementById('chartServSaude'), {
   type: 'bar',
   data: {
-    labels: ['Clínica Privada', 'Terapias Holísticas', 'Postinho', 'Hospital Público', 'Telemedicina', 'Hospital Privado', 'Sem barreira', 'Agentes Comunit.'],
+    labels: ['Clínica Privada', 'Terapias Holísticas', 'Postinho', 'Hospital Público', 'Telemedicina', 'Hospital Privado', 'Nenhum', 'Agentes Comunit.'],
     datasets: [{ label: 'Moradores', data: [32, 31, 26, 14, 14, 9, 7, 1], backgroundColor: PALETTE, borderRadius: 6 }]
   },
   options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } }, indexAxis: 'y' }
 });
 
-new Chart(document.getElementById('chartBarreirasSaude'), {
+window._sdBarr = new Chart(document.getElementById('chartBarreirasSaude'), {
   type: 'bar',
   data: {
-    labels: ['Distância', 'Custo', 'Falta de profissionais', 'Horário', 'Sem barreiras', 'Acolhimento / Outros'],
+    labels: ['Distância', 'Custo', 'Falta de profissionais', 'Horário', 'Sem barreiras', 'Acolhimento'],
     datasets: [{ label: 'Moradores', data: [42, 28, 24, 14, 17, 9], backgroundColor: PALETTE.slice(4), borderRadius: 6 }]
   },
   options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } }, indexAxis: 'y' }
 });
 
+function selectSaude(key) {
+  const d = SAUDE_GRUPOS[key]; if (!d) return;
+  document.getElementById('sd-fis-val').textContent  = d.fis_avg;
+  document.getElementById('sd-ment-val').textContent = d.ment_avg;
+  document.getElementById('sd-don-val').textContent  = d.doenca + '%';
+  document.getElementById('sd-don-sub').textContent  = 'de ' + d.n + ' respondentes';
+  document.getElementById('sd-priv-val').textContent = d.priv + '%';
+  window._sdFis.data.datasets[0].data  = d.fis;  window._sdFis.update();
+  window._sdMent.data.datasets[0].data = d.ment; window._sdMent.update();
+  window._sdServ.data.datasets[0].data = d.serv; window._sdServ.update();
+  window._sdBarr.data.datasets[0].data = d.barr; window._sdBarr.update();
+  document.querySelectorAll('.saude-btn').forEach(btn => {
+    const bk = btn.dataset.key, bc = SAUDE_GRUPOS[bk]?.cor || '#2d6a4f';
+    if (bk === key) { btn.style.background = bc; btn.style.color = 'white'; btn.style.borderColor = bc; }
+    else { btn.style.background = 'white'; btn.style.color = bc; btn.style.borderColor = bc; }
+  });
+}
+
 // ============================================================
 // EDUCAÇÃO
 // ============================================================
 
-new Chart(document.getElementById('chartEscolaridade'), {
+// ---- dados por grupo: Educação ----
+// escol: indices [3,5,6,7,8,9] → values 4,6,7,8,9,10
+// digital: indices [3..10]
+const EDUC_GRUPOS = {
+  moradores:        { label:'Moradores (geral)',       cor:'#2d6a4f', n:79,  posgrad:35, pos_n:28, dig_avg:'8,6', ia_pct:63, ling_pct:15, ling_n:12, escol:[2,7,1,10,31,28], digital:[1,2,4,2,7,9,21,33], ia:[50,26] },
+  morador_nao_prop: { label:'Mor. não proprietários', cor:'#1d4ed8', n:57,  posgrad:35, pos_n:20, dig_avg:'8,7', ia_pct:68, ling_pct:16, ling_n:9,  escol:[2,5,0,6,24,20],  digital:[0,1,3,2,5,6,17,23], ia:[39,16] },
+  morador_prop:     { label:'Moradores proprietários',cor:'#7c3aed', n:22,  posgrad:36, pos_n:8,  dig_avg:'8,5', ia_pct:50, ling_pct:14, ling_n:3,  escol:[0,2,1,4,7,8],    digital:[1,1,1,0,2,3,4,10],  ia:[11,10] },
+  prop_nao_morador: { label:'Prop. não moradores',    cor:'#b45309', n:32,  posgrad:53, pos_n:17, dig_avg:'8,6', ia_pct:66, ling_pct:28, ling_n:9,  escol:[0,2,1,4,8,17],   digital:[0,1,1,4,0,7,5,14],  ia:[21,10] },
+  mulheres:         { label:'Mulheres',               cor:'#db2777', n:44,  posgrad:36, pos_n:16, dig_avg:'8,6', ia_pct:57, ling_pct:16, ling_n:7,  escol:[1,2,0,6,19,16],  digital:[0,1,1,2,7,6,10,17], ia:[25,17] },
+  homens:           { label:'Homens',                 cor:'#2563eb', n:26,  posgrad:38, pos_n:10, dig_avg:'8,9', ia_pct:81, ling_pct:12, ling_n:3,  escol:[0,4,1,4,7,10],   digital:[1,0,2,0,0,2,8,13],  ia:[21,5]  },
+  brancos:          { label:'Brancos',                cor:'#059669', n:50,  posgrad:32, pos_n:16, dig_avg:'8,7', ia_pct:64, ling_pct:14, ling_n:7,  escol:[1,2,1,7,23,16],  digital:[0,1,2,1,6,6,15,19], ia:[32,17] },
+  pardos:           { label:'Pardos',                 cor:'#d97706', n:17,  posgrad:53, pos_n:9,  dig_avg:'8,8', ia_pct:65, ling_pct:18, ling_n:3,  escol:[0,1,0,2,5,9],    digital:[1,0,1,0,1,1,3,10],  ia:[11,5]  },
+  pretos:           { label:'Pretos',                 cor:'#374151', n:6,   posgrad:17, pos_n:1,  dig_avg:'8,8', ia_pct:83, ling_pct:0,  ling_n:0,  escol:[0,3,0,0,2,1],    digital:[0,0,0,1,0,0,3,2],   ia:[5,1]   }
+};
+
+window._edEscol = new Chart(document.getElementById('chartEscolaridade'), {
   type: 'bar',
   data: {
     labels: ['4 (Fund.)', '6 (Médio)', '7 (Med.+)', '8 (Sup. Inc.)', '9 (Sup. Comp.)', '10 (Pós-grad.)'],
@@ -1403,7 +1701,7 @@ new Chart(document.getElementById('chartEscolaridade'), {
   options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
 });
 
-new Chart(document.getElementById('chartDigital'), {
+window._edDigital = new Chart(document.getElementById('chartDigital'), {
   type: 'bar',
   data: {
     labels: ['3', '4', '5', '6', '7', '8', '9', '10'],
@@ -1412,109 +1710,237 @@ new Chart(document.getElementById('chartDigital'), {
   options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
 });
 
-new Chart(document.getElementById('chartIA'), {
+window._edIA = new Chart(document.getElementById('chartIA'), {
   type: 'doughnut',
   data: {
     labels: ['Usa Inteligência Artificial', 'Não usa'],
-    datasets: [{ data: [50, 29], backgroundColor: [VERDE_CLARO, '#e5e7eb'], borderWidth: 2, borderColor: 'white' }]
+    datasets: [{ data: [50, 26], backgroundColor: [VERDE_CLARO, '#e5e7eb'], borderWidth: 2, borderColor: 'white' }]
   },
   options: { ...defaultOptions, cutout: '65%', plugins: { legend: { position: 'bottom', labels: { font: { size: 12 }, boxWidth: 14 } } } }
 });
+
+function selectEducacao(key) {
+  const d = EDUC_GRUPOS[key]; if (!d) return;
+  document.getElementById('ed-pos-val').textContent  = d.posgrad + '%';
+  document.getElementById('ed-pos-sub').textContent  = d.pos_n + ' de ' + d.n + ' respondentes';
+  document.getElementById('ed-dig-val').textContent  = d.dig_avg;
+  document.getElementById('ed-ia-val').textContent   = d.ia_pct + '%';
+  document.getElementById('ed-ling-val').textContent = d.ling_pct + '%';
+  document.getElementById('ed-ling-sub').textContent = d.ling_n + ' respondentes';
+  window._edEscol.data.datasets[0].data   = d.escol;  window._edEscol.update();
+  window._edDigital.data.datasets[0].data = d.digital; window._edDigital.update();
+  window._edIA.data.datasets[0].data      = d.ia;     window._edIA.update();
+  document.querySelectorAll('.educ-btn').forEach(btn => {
+    const bk = btn.dataset.key, bc = EDUC_GRUPOS[bk]?.cor || '#2d6a4f';
+    if (bk === key) { btn.style.background = bc; btn.style.color = 'white'; btn.style.borderColor = bc; }
+    else { btn.style.background = 'white'; btn.style.color = bc; btn.style.borderColor = bc; }
+  });
+}
 
 // ============================================================
 // TRABALHO
 // ============================================================
 
-new Chart(document.getElementById('chartProfissional'), {
+// ---- dados por grupo: Trabalho & Renda ----
+// saida order matches chart labels: [Renda insuf, Outros, Distância, Custo vida, Educ filhos, Moradia, Rede social, Conforto, Convívio]
+const TRABALHO_GRUPOS = {
+  moradores:        { label:'Moradores (geral)',            cor:'#2d6a4f', n:79,  emp:57, emp_n:45, tur:54, res:58, res_n:46, sdif:23, dific_avg:'3,6', renda_avg:'R$5.657', prof:[45,27,12,6,5,2],  renda:[1,1,6,13,12,11,13,5,4,5],  tur_d:[31,43,5],  dific:[18,5,9,8,5,7,6,12,3,2,1],   saida:[9,7,6,7,6,4,4,2,0] },
+  morador_nao_prop: { label:'Mor. não proprietários',      cor:'#1d4ed8', n:57,  emp:54, emp_n:31, tur:58, res:53, res_n:30, sdif:16, dific_avg:'4,2', renda_avg:'R$4.885', prof:[31,23,11,4,4,0],  renda:[1,1,6,11,9,9,8,4,2,2],    tur_d:[19,33,5],  dific:[9,4,6,5,5,5,6,10,3,2,1],    saida:[9,4,5,7,4,4,3,2,0] },
+  morador_prop:     { label:'Moradores proprietários',     cor:'#7c3aed', n:22,  emp:64, emp_n:14, tur:45, res:73, res_n:16, sdif:41, dific_avg:'2,0', renda_avg:'R$7.889', prof:[14,4,1,2,1,2],   renda:[0,0,0,2,3,2,5,1,2,3],     tur_d:[12,10,0],  dific:[9,1,3,3,0,2,0,2,0,0,0],     saida:[0,3,1,0,2,0,1,0,0] },
+  prop_nao_morador: { label:'Prop. não moradores',         cor:'#b45309', n:32,  emp:75, emp_n:24, tur:22, res:81, res_n:26, sdif:3,  dific_avg:'2,5', renda_avg:'R$12.562',prof:[24,4,2,3,0,2],   renda:[1,0,0,0,2,1,2,4,4,11],    tur_d:[25,7,0],   dific:[1,0,0,2,1,0,0,0,0,0,0],     saida:[0,2,1,0,0,0,0,0,1] },
+  mulheres:         { label:'Mulheres',                    cor:'#db2777', n:44,  emp:55, emp_n:24, tur:59, res:57, res_n:25, sdif:20, dific_avg:'3,8', renda_avg:'R$5.344', prof:[24,16,6,3,2,1],  renda:[0,0,5,6,9,8,4,3,3,2],     tur_d:[15,26,3],  dific:[9,2,6,5,3,4,4,7,2,2,0],     saida:[4,4,5,5,4,2,3,1,0] },
+  homens:           { label:'Homens',                      cor:'#2563eb', n:26,  emp:65, emp_n:17, tur:50, res:65, res_n:17, sdif:23, dific_avg:'3,4', renda_avg:'R$6.352', prof:[17,8,6,1,2,0],   renda:[1,1,1,5,2,1,7,2,0,3],     tur_d:[12,13,1],  dific:[6,2,3,2,2,3,1,4,0,0,1],     saida:[5,2,1,2,2,2,1,1,0] },
+  brancos:          { label:'Brancos',                     cor:'#059669', n:50,  emp:58, emp_n:29, tur:50, res:58, res_n:29, sdif:20, dific_avg:'3,4', renda_avg:'R$6.401', prof:[29,15,7,4,3,1],  renda:[1,0,5,6,7,6,8,3,3,5],     tur_d:[22,25,3],  dific:[10,3,8,6,3,5,4,7,2,0,0],    saida:[6,4,5,5,5,2,4,1,0] },
+  pardos:           { label:'Pardos',                      cor:'#d97706', n:17,  emp:59, emp_n:10, tur:65, res:53, res_n:9,  sdif:24, dific_avg:'4,4', renda_avg:'R$4.297', prof:[10,6,3,1,2,0],   renda:[0,1,1,3,4,2,3,2,0,0],     tur_d:[5,11,1],   dific:[4,1,0,1,1,2,2,5,0,0,1],     saida:[1,0,0,2,1,1,0,0,0] },
+  pretos:           { label:'Pretos',                      cor:'#374151', n:6,   emp:33, emp_n:2,  tur:83, res:50, res_n:3,  sdif:17, dific_avg:'5,2', renda_avg:'R$3.792', prof:[2,4,2,0,0,0],    renda:[0,0,0,3,0,2,1,0,0,0],     tur_d:[1,5,0],    dific:[1,0,1,1,0,0,0,0,1,2,0],     saida:[2,1,1,0,0,1,0,1,0] }
+};
+
+window._trProf = new Chart(document.getElementById('chartProfissional'), {
   type: 'bar',
   data: {
     labels: ['Empreendedor', 'Empregado', 'Proc. Empreender', 'Aposentado', 'Proc. Emprego', 'Sem trabalho'],
-    datasets: [{ label: 'Moradores', data: [45, 27, 12, 6, 5, 2], backgroundColor: PALETTE, borderRadius: 8 }]
+    datasets: [{ label: 'Respondentes', data: [45, 27, 12, 6, 5, 2], backgroundColor: PALETTE, borderRadius: 8 }]
   },
   options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } }, indexAxis: 'y' }
 });
 
-new Chart(document.getElementById('chartRenda'), {
+window._trRenda = new Chart(document.getElementById('chartRenda'), {
   type: 'bar',
   data: {
-    labels: ['0 (Sem renda)', '1', '2', '3 (~1SM)', '4 (~2SM)', '5 (~4SM)', '6 (~7SM)', '7 (~10SM)', '8 (~13SM)', '9 (>15SM)'],
-    datasets: [{ label: 'Moradores', data: [1, 1, 6, 13, 12, 11, 13, 5, 4, 5], backgroundColor: PALETTE, borderRadius: 6 }]
+    labels: ['Pref. n/resp.', '< R$1k', 'R$1k–2k', 'R$2k–3k', 'R$3k–4k', 'R$4k–5k', 'R$5k–7,5k', 'R$7,5k–10k', '> R$10k', '> R$15k'],
+    datasets: [{ label: 'Respondentes', data: [1, 1, 6, 13, 12, 11, 13, 5, 4, 5], backgroundColor: PALETTE, borderRadius: 6 }]
+  },
+  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true }, x: { ticks: { maxRotation: 40, minRotation: 30, font: { size: 11 } } } } }
+});
+
+// Gráfico de linhas comparativo — % dependência do turismo por segmento (estático, todos os grupos)
+new Chart(document.getElementById('chartTurismoComp'), {
+  type: 'line',
+  data: {
+    labels: ['Moradores', 'Mor. não prop.', 'Mor. prop.', 'Prop. não mor.', 'Mulheres', 'Homens', 'Brancos', 'Pardos', 'Pretos'],
+    datasets: [{
+      label: '% depende do turismo',
+      data: [54, 58, 45, 22, 59, 50, 50, 65, 83],
+      borderColor: LARANJA,
+      backgroundColor: 'rgba(249,168,37,0.10)',
+      borderWidth: 2.5,
+      tension: 0.35,
+      fill: true,
+      pointRadius: 7,
+      pointHoverRadius: 9,
+      pointBackgroundColor: ['#2d6a4f','#1d4ed8','#7c3aed','#b45309','#db2777','#2563eb','#059669','#d97706','#374151'],
+      pointBorderColor: 'white',
+      pointBorderWidth: 2
+    }]
+  },
+  options: {
+    ...defaultOptions,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%', font: { size: 11 } } },
+      x: { ticks: { font: { size: 10 }, maxRotation: 35, minRotation: 25 } }
+    }
+  }
+});
+
+window._trDific = new Chart(document.getElementById('chartDificuldade'), {
+  type: 'bar',
+  data: {
+    labels: ['Nenhuma', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'Muita'],
+    datasets: [{ label: 'Respondentes', data: [18, 5, 9, 8, 5, 7, 6, 12, 3, 2, 1], backgroundColor: PALETTE, borderRadius: 6 }]
   },
   options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
 });
 
-new Chart(document.getElementById('chartTurismo'), {
-  type: 'doughnut',
-  data: {
-    labels: ['Não depende', 'Depende do turismo', 'Não sabe'],
-    datasets: [{ data: [31, 43, 5], backgroundColor: [VERDE_CLARO, LARANJA, AREIA], borderWidth: 2, borderColor: 'white' }]
-  },
-  options: { ...defaultOptions, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } } }
-});
-
-new Chart(document.getElementById('chartDificuldade'), {
-  type: 'bar',
-  data: {
-    labels: ['0 (Nenhuma)', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10 (Muita)'],
-    datasets: [{ label: 'Moradores', data: [18, 5, 9, 8, 5, 7, 6, 12, 3, 2, 1], backgroundColor: PALETTE, borderRadius: 6 }]
-  },
-  options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
-});
-
-new Chart(document.getElementById('chartMotivosSaida'), {
+window._trSaida = new Chart(document.getElementById('chartMotivosSaida'), {
   type: 'bar',
   data: {
     labels: ['Renda insuf.', 'Outros', 'Distância', 'Custo de vida', 'Educação filhos', 'Moradia', 'Rede social filhos', 'Conforto', 'Convívio'],
-    datasets: [{ label: 'Moradores', data: [9, 7, 6, 7, 6, 4, 4, 2, 0], backgroundColor: PALETTE.slice(2), borderRadius: 8 }]
+    datasets: [{ label: 'Respondentes', data: [9, 7, 6, 7, 6, 4, 4, 2, 0], backgroundColor: PALETTE.slice(2), borderRadius: 8 }]
   },
   options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
 });
+
+function selectTrabalho(key) {
+  const d = TRABALHO_GRUPOS[key];
+  if (!d) return;
+  // KPIs
+  document.getElementById('tr-empreend-val').textContent  = d.emp + '%';
+  document.getElementById('tr-empreend-sub').textContent  = d.emp_n + ' de ' + d.n + ' respondentes';
+  document.getElementById('tr-turismo-val').textContent   = d.tur + '%';
+  document.getElementById('tr-turismo-pct').textContent   = d.tur + '%';
+  document.getElementById('tr-reserva-val').textContent   = d.res + '%';
+  document.getElementById('tr-reserva-sub').textContent   = d.res_n + ' de ' + d.n + ' respondentes';
+  document.getElementById('tr-semdific-val').textContent  = d.sdif + '%';
+  document.getElementById('tr-dific-avg').textContent     = d.dific_avg;
+  document.getElementById('tr-renda-avg').textContent     = d.renda_avg;
+  // Charts
+  window._trProf.data.datasets[0].data   = d.prof;   window._trProf.update();
+  window._trRenda.data.datasets[0].data  = d.renda;  window._trRenda.update();
+  window._trDific.data.datasets[0].data  = d.dific;  window._trDific.update();
+  window._trSaida.data.datasets[0].data  = d.saida;  window._trSaida.update();
+  // Button styles
+  document.querySelectorAll('.trabalho-btn').forEach(btn => {
+    const bkey = btn.dataset.key;
+    const bcor = TRABALHO_GRUPOS[bkey] ? TRABALHO_GRUPOS[bkey].cor : '#2d6a4f';
+    if (bkey === key) {
+      btn.style.background = bcor; btn.style.color = 'white'; btn.style.borderColor = bcor;
+    } else {
+      btn.style.background = 'white'; btn.style.color = bcor; btn.style.borderColor = bcor;
+    }
+  });
+}
 
 // ============================================================
 // COMUNIDADE
 // ============================================================
 
-new Chart(document.getElementById('chartHarmonioso'), {
+// ---- dados por grupo: Comunidade ----
+const COMU_GRUPOS = {
+  moradores:        { label:'Moradores (geral)',       cor:'#2d6a4f', n:79,  senso:'6,7', harm_avg:'7,1', seg:94, seg_n:74, vol:61, vol_n:48, harm:[3,0,0,5,5,10,18,21,13,4], amor:[53,7,19],  voz:[49,15,15], volunt:[48,31,0] },
+  morador_nao_prop: { label:'Mor. não proprietários', cor:'#1d4ed8', n:57,  senso:'6,8', harm_avg:'7,3', seg:91, seg_n:52, vol:65, vol_n:37, harm:[1,0,0,2,3,8,13,18,10,2], amor:[40,1,16],  voz:[34,9,14],  volunt:[37,20,0] },
+  morador_prop:     { label:'Moradores proprietários',cor:'#7c3aed', n:22,  senso:'6,3', harm_avg:'6,5', seg:100,seg_n:22, vol:50, vol_n:11, harm:[2,0,0,3,2,2,5,3,3,2],    amor:[13,6,3],   voz:[15,6,1],   volunt:[11,11,0] },
+  prop_nao_morador: { label:'Prop. não moradores',    cor:'#b45309', n:32,  senso:'7,6', harm_avg:'7,6', seg:91, seg_n:29, vol:41, vol_n:13, harm:[0,0,0,1,1,3,12,8,2,5],   amor:[26,0,6],   voz:[25,3,4],   volunt:[13,19,0] },
+  mulheres:         { label:'Mulheres',               cor:'#db2777', n:44,  senso:'6,8', harm_avg:'7,1', seg:95, seg_n:42, vol:52, vol_n:23, harm:[2,0,0,3,0,6,13,12,6,2],  amor:[30,3,11],  voz:[27,6,11],  volunt:[23,21,0] },
+  homens:           { label:'Homens',                 cor:'#2563eb', n:26,  senso:'6,5', harm_avg:'6,8', seg:96, seg_n:25, vol:62, vol_n:16, harm:[1,0,0,2,3,3,5,7,5,0],    amor:[17,4,5],   voz:[17,7,2],   volunt:[16,10,0] },
+  brancos:          { label:'Brancos',                cor:'#059669', n:50,  senso:'6,8', harm_avg:'7,1', seg:92, seg_n:46, vol:58, vol_n:29, harm:[2,0,0,3,2,5,14,12,11,1], amor:[31,6,13],  voz:[33,9,8],   volunt:[29,21,0] },
+  pardos:           { label:'Pardos',                 cor:'#d97706', n:17,  senso:'6,4', harm_avg:'6,9', seg:100,seg_n:17, vol:71, vol_n:12, harm:[1,0,0,1,1,3,2,6,2,1],    amor:[12,1,4],   voz:[8,4,5],    volunt:[12,5,0]  },
+  pretos:           { label:'Pretos',                 cor:'#374151', n:6,   senso:'6,3', harm_avg:'6,8', seg:100,seg_n:6,  vol:17, vol_n:1,  harm:[0,0,0,0,1,2,0,3,0,0],    amor:[6,0,0],    voz:[4,1,1],    volunt:[1,5,0]   }
+};
+
+window._comHarm = new Chart(document.getElementById('chartHarmonioso'), {
   type: 'bar',
   data: {
-    labels: ['1', '4', '5', '6', '7', '8', '9', '10'],
-    datasets: [{ label: 'Moradores', data: [3, 5, 5, 10, 18, 21, 13, 4], backgroundColor: PALETTE, borderRadius: 6 }]
+    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+    datasets: [{ label: 'Moradores', data: [3, 0, 0, 5, 5, 10, 18, 21, 13, 4], backgroundColor: PALETTE, borderRadius: 6 }]
   },
   options: { ...defaultOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
 });
 
-new Chart(document.getElementById('chartAMor'), {
+window._comAmor = new Chart(document.getElementById('chartAMor'), {
   type: 'doughnut',
   data: {
-    labels: ['Confia (Sim)', 'Não confia', 'Parcialmente'],
+    labels: ['Confia (Sim)', 'Não confia', 'Não sabe'],
     datasets: [{ data: [53, 7, 19], backgroundColor: [VERDE_CLARO, '#f28b82', LARANJA], borderWidth: 2, borderColor: 'white' }]
   },
   options: { ...defaultOptions, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } } }
 });
 
-new Chart(document.getElementById('chartVoz'), {
+window._comVoz = new Chart(document.getElementById('chartVoz'), {
   type: 'doughnut',
   data: {
-    labels: ['Sim, tem voz', 'Não sabe', 'Não tem voz'],
-    datasets: [{ data: [49, 15, 15], backgroundColor: [VERDE_CLARO, AREIA, '#f28b82'], borderWidth: 2, borderColor: 'white' }]
+    labels: ['Sim, tem voz', 'Não tem voz', 'Não sabe'],
+    datasets: [{ data: [49, 15, 15], backgroundColor: [VERDE_CLARO, '#f28b82', AREIA], borderWidth: 2, borderColor: 'white' }]
   },
   options: { ...defaultOptions, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } } }
 });
 
-new Chart(document.getElementById('chartVoluntariado'), {
+window._comVol = new Chart(document.getElementById('chartVoluntariado'), {
   type: 'doughnut',
   data: {
     labels: ['Faz voluntariado', 'Interesse em começar', 'Sem interesse'],
-    datasets: [{ data: [48, 24, 7], backgroundColor: [VERDE_CLARO, LARANJA, '#e5e7eb'], borderWidth: 2, borderColor: 'white' }]
+    datasets: [{ data: [48, 31, 0], backgroundColor: [VERDE_CLARO, LARANJA, '#e5e7eb'], borderWidth: 2, borderColor: 'white' }]
   },
   options: { ...defaultOptions, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } } }
 });
+
+function selectComunidade(key) {
+  const d = COMU_GRUPOS[key]; if (!d) return;
+  document.getElementById('com-senso-val').textContent = d.senso;
+  document.getElementById('com-harm-val').textContent  = d.harm_avg;
+  document.getElementById('com-seg-val').textContent   = d.seg + '%';
+  document.getElementById('com-seg-sub').textContent   = d.seg_n + ' de ' + d.n + ' moradores';
+  document.getElementById('com-vol-val').textContent   = d.vol + '%';
+  document.getElementById('com-vol-sub').textContent   = d.vol_n + ' moradores ativos';
+  window._comHarm.data.datasets[0].data = d.harm;   window._comHarm.update();
+  window._comAmor.data.datasets[0].data = d.amor;   window._comAmor.update();
+  window._comVoz.data.datasets[0].data  = d.voz;    window._comVoz.update();
+  window._comVol.data.datasets[0].data  = d.volunt; window._comVol.update();
+  document.querySelectorAll('.comu-btn').forEach(btn => {
+    const bk = btn.dataset.key, bc = COMU_GRUPOS[bk]?.cor || '#2d6a4f';
+    if (bk === key) { btn.style.background = bc; btn.style.color = 'white'; btn.style.borderColor = bc; }
+    else { btn.style.background = 'white'; btn.style.color = bc; btn.style.borderColor = bc; }
+  });
+}
 
 // ============================================================
 // AMBIENTE
 // ============================================================
 
-new Chart(document.getElementById('chartBioma'), {
+const AMBI_GRUPOS = {
+  // bioma_d:[sim,nao,nao_sei]  sust_sim:[recicl,compost]  sust_nao:[recicl,compost]
+  moradores:        { label:'Moradores (geral)',       cor:'#2d6a4f', n:79, bioma_pct:75, bioma_d:[59,13,7], bioma_n:59, rec_pct:99,  rec_n:75, rec_tot:76,  comp_pct:97,  comp_n:74, comp_tot:76,  sust_sim:[75,74], sust_nao:[1,2]  },
+  morador_nao_prop: { label:'Mor. não proprietários',  cor:'#1d4ed8', n:57, bioma_pct:67, bioma_d:[38,12,7], bioma_n:38, rec_pct:98,  rec_n:55, rec_tot:56,  comp_pct:98,  comp_n:55, comp_tot:56,  sust_sim:[55,55], sust_nao:[1,1]  },
+  morador_prop:     { label:'Moradores proprietários', cor:'#7c3aed', n:22, bioma_pct:95, bioma_d:[21,1,0],  bioma_n:21, rec_pct:100, rec_n:20, rec_tot:20,  comp_pct:95,  comp_n:19, comp_tot:20,  sust_sim:[20,19], sust_nao:[0,1]  },
+  prop_nao_morador: { label:'Prop. não moradores',     cor:'#b45309', n:32, bioma_pct:72, bioma_d:[23,3,6],  bioma_n:23, rec_pct:100, rec_n:4,  rec_tot:4,   comp_pct:100, comp_n:4,  comp_tot:4,   sust_sim:[4,4],   sust_nao:[0,0]  },
+  mulheres:         { label:'Mulheres',                cor:'#db2777', n:44, bioma_pct:70, bioma_d:[31,11,2], bioma_n:31, rec_pct:98,  rec_n:43, rec_tot:44,  comp_pct:95,  comp_n:42, comp_tot:44,  sust_sim:[43,42], sust_nao:[1,2]  },
+  homens:           { label:'Homens',                  cor:'#2563eb', n:26, bioma_pct:88, bioma_d:[23,1,2],  bioma_n:23, rec_pct:100, rec_n:24, rec_tot:24,  comp_pct:100, comp_n:24, comp_tot:24,  sust_sim:[24,24], sust_nao:[0,0]  },
+  brancos:          { label:'Brancos',                 cor:'#059669', n:50, bioma_pct:76, bioma_d:[38,8,4],  bioma_n:38, rec_pct:98,  rec_n:47, rec_tot:48,  comp_pct:98,  comp_n:47, comp_tot:48,  sust_sim:[47,47], sust_nao:[1,1]  },
+  pardos:           { label:'Pardos',                  cor:'#d97706', n:17, bioma_pct:82, bioma_d:[14,2,1],  bioma_n:14, rec_pct:100, rec_n:17, rec_tot:17,  comp_pct:94,  comp_n:16, comp_tot:17,  sust_sim:[17,16], sust_nao:[0,1]  },
+  pretos:           { label:'Pretos',                  cor:'#374151', n:6,  bioma_pct:50, bioma_d:[3,2,1],   bioma_n:3,  rec_pct:100, rec_n:6,  rec_tot:6,   comp_pct:100, comp_n:6,  comp_tot:6,   sust_sim:[6,6],   sust_nao:[0,0]  }
+};
+
+window._ambBioma = new Chart(document.getElementById('chartBioma'), {
   type: 'doughnut',
   data: {
     labels: ['Sabe o bioma', 'Não sabe', 'Não tem certeza'],
@@ -1523,7 +1949,7 @@ new Chart(document.getElementById('chartBioma'), {
   options: { ...defaultOptions, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } } }
 });
 
-new Chart(document.getElementById('chartSustentavel'), {
+window._ambSust = new Chart(document.getElementById('chartSustentavel'), {
   type: 'bar',
   data: {
     labels: ['Pratica Reciclagem', 'Pratica Compostagem'],
@@ -1535,18 +1961,73 @@ new Chart(document.getElementById('chartSustentavel'), {
   options: { ...defaultOptions, scales: { x: { stacked: false }, y: { beginAtZero: true } } }
 });
 
+function selectAmbiente(key) {
+  const d = AMBI_GRUPOS[key]; if (!d) return;
+  document.getElementById('amb-bioma-val').textContent = d.bioma_pct + '%';
+  document.getElementById('amb-bioma-sub').textContent = d.bioma_n + ' de ' + d.n + ' respondentes';
+  document.getElementById('amb-rec-val').textContent   = d.rec_pct + '%';
+  document.getElementById('amb-rec-sub').textContent   = d.rec_n + ' de ' + d.rec_tot + ' que responderam';
+  document.getElementById('amb-comp-val').textContent  = d.comp_pct + '%';
+  document.getElementById('amb-comp-sub').textContent  = d.comp_n + ' de ' + d.comp_tot + ' que responderam';
+  window._ambBioma.data.datasets[0].data = d.bioma_d; window._ambBioma.update();
+  window._ambSust.data.datasets[0].data  = d.sust_sim;
+  window._ambSust.data.datasets[1].data  = d.sust_nao;
+  window._ambSust.update();
+  document.querySelectorAll('.ambi-btn').forEach(btn => {
+    const bk = btn.dataset.key, bc = AMBI_GRUPOS[bk]?.cor || '#2d6a4f';
+    if (bk === key) { btn.style.background = bc; btn.style.color = 'white'; btn.style.borderColor = bc; }
+    else { btn.style.background = 'white'; btn.style.color = bc; btn.style.borderColor = bc; }
+  });
+}
+
 // ============================================================
 // TALENTOS
 // ============================================================
 
-new Chart(document.getElementById('chartTalentosPie'), {
+const TALE_GRUPOS = {
+  // tal order: gest, art, tera, culi, tech, agri, cuid, ling, tsoc, cos, marc
+  moradores:        { label:'Moradores (geral)',       cor:'#2d6a4f', tal:[45,39,31,26,22,15,17,12,11,12,8]  },
+  morador_nao_prop: { label:'Mor. não proprietários',  cor:'#1d4ed8', tal:[30,31,24,21,18,11,11,9,8,9,5]    },
+  morador_prop:     { label:'Moradores proprietários', cor:'#7c3aed', tal:[15,8,7,5,4,4,6,3,3,3,3]          },
+  prop_nao_morador: { label:'Prop. não moradores',     cor:'#b45309', tal:[15,8,10,10,3,7,5,9,4,0,1]        },
+  mulheres:         { label:'Mulheres',                cor:'#db2777', tal:[23,23,18,13,7,5,9,7,5,10,0]      },
+  homens:           { label:'Homens',                  cor:'#2563eb', tal:[16,10,11,9,11,7,5,3,4,0,6]       },
+  brancos:          { label:'Brancos',                 cor:'#059669', tal:[28,21,19,15,15,9,12,7,6,5,5]     },
+  pardos:           { label:'Pardos',                  cor:'#d97706', tal:[11,9,6,6,4,4,4,3,2,4,0]          },
+  pretos:           { label:'Pretos',                  cor:'#374151', tal:[3,4,2,3,1,0,0,0,1,1,1]           }
+};
+
+window._talPie = new Chart(document.getElementById('chartTalentosPie'), {
   type: 'doughnut',
   data: {
     labels: ['Gestão', 'Artes', 'Terapias', 'Culinária', 'Tecnologia', 'Agricultura', 'Cuidado', 'Língua Estrang.', 'Tec. Social', 'Costura', 'Marcenaria'],
-    datasets: [{ data: [45, 39, 31, 26, 22, 17, 15, 12, 12, 11, 8], backgroundColor: PALETTE, borderWidth: 2, borderColor: 'white' }]
+    datasets: [{ data: [45, 39, 31, 26, 22, 15, 17, 12, 11, 12, 8], backgroundColor: PALETTE, borderWidth: 2, borderColor: 'white' }]
   },
   options: { ...defaultOptions, cutout: '40%', plugins: { legend: { position: 'right', labels: { font: { size: 11 }, boxWidth: 12 } } } }
 });
+
+function selectTalentos(key) {
+  const d = TALE_GRUPOS[key]; if (!d) return;
+  const tal = d.tal;
+  const maxTal = Math.max(...tal) || 1;
+  document.getElementById('tal-gestao-val').textContent   = tal[0];
+  document.getElementById('tal-artes-val').textContent    = tal[1];
+  document.getElementById('tal-terapias-val').textContent = tal[2];
+  document.getElementById('tal-culi-val').textContent     = tal[3];
+  const barKeys = ['gest','artes','terapias','culi','tech','agri','cuid','ling','tsoc','cos','marc'];
+  barKeys.forEach((k, i) => {
+    const elCnt = document.getElementById('tal-cnt-' + k);
+    const elBar = document.getElementById('tal-bar-' + k);
+    if (elCnt) elCnt.textContent = tal[i];
+    if (elBar) elBar.style.width = Math.round(100 * tal[i] / maxTal) + '%';
+  });
+  window._talPie.data.datasets[0].data = tal; window._talPie.update();
+  document.querySelectorAll('.tale-btn').forEach(btn => {
+    const bk = btn.dataset.key, bc = TALE_GRUPOS[bk]?.cor || '#2d6a4f';
+    if (bk === key) { btn.style.background = bc; btn.style.color = 'white'; btn.style.borderColor = bc; }
+    else { btn.style.background = 'white'; btn.style.color = bc; btn.style.borderColor = bc; }
+  });
+}
 
 // ============================================================
 // HABITAÇÃO — Tabela filtrável de casas
@@ -1852,6 +2333,144 @@ function updateLegenda() {
     container.appendChild(btn);
   });
 })();
+
+// ============================================================
+// NPS — Dados e lógica interativa
+// ============================================================
+
+const NPS_DATA = {
+  'geral':        {label:'Geral (moradores)',            n:79,  nps:48, prom:61, pass:27, detr:13, cor:'#2d6a4f'},
+  'mor-nao-prop': {label:'Moradores não proprietários',  n:57,  nps:54, prom:61, pass:32, detr:7,  cor:'#1a6b8a'},
+  'mor-prop':     {label:'Moradores proprietários',      n:22,  nps:32, prom:59, pass:14, detr:27, cor:'#b7791f'},
+  'prop-nao-mor': {label:'Proprietários não moradores',  n:32,  nps:62, prom:72, pass:19, detr:9,  cor:'#7c3aed'},
+  'mulheres':     {label:'Mulheres',                     n:44,  nps:55, prom:64, pass:27, detr:9,  cor:'#e07a5f'},
+  'homens':       {label:'Homens',                       n:26,  nps:35, prom:54, pass:27, detr:19, cor:'#0891b2'},
+  'brancos':      {label:'Brancos',                      n:50,  nps:52, prom:66, pass:20, detr:14, cor:'#6b7280'},
+  'pardos':       {label:'Pardos',                       n:17,  nps:41, prom:53, pass:35, detr:12, cor:'#92400e'},
+  'pretos':       {label:'Pretos',                       n:6,   nps:33, prom:33, pass:67, detr:0,  cor:'#1c1917'},
+};
+
+function npsZone(score) {
+  if (score < 0)   return {label:'NEGATIVO',  bg:'#fee2e2', fg:'#991b1b'};
+  if (score < 25)  return {label:'BOM',       bg:'#cffafe', fg:'#0e7490'};
+  if (score < 50)  return {label:'FAVORÁVEL', bg:'#d1fae5', fg:'#065f46'};
+  if (score < 80)  return {label:'EXCELENTE', bg:'#bbf7d0', fg:'#14532d'};
+  return               {label:'PERFEITO',  bg:'#dbeafe', fg:'#1e3a5f'};
+}
+
+// npsScore → ruler left% (scale: -100=0%, 100=100%)
+function npsToRulerPct(score) {
+  return ((score + 100) / 200 * 100).toFixed(1) + '%';
+}
+
+// Donut chart
+let _npsDonut = null;
+function initNpsDonut(d) {
+  const ctx = document.getElementById('npsDonut');
+  if (!ctx) return;
+  if (_npsDonut) { _npsDonut.destroy(); }
+  _npsDonut = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Promotores', 'Passivos', 'Detratores'],
+      datasets: [{
+        data: [d.prom, d.pass, d.detr],
+        backgroundColor: ['#22c55e', '#d1d5db', '#ef4444'],
+        borderWidth: 3,
+        borderColor: 'white'
+      }]
+    },
+    options: {
+      cutout: '68%',
+      plugins: { legend: { display: false }, tooltip: {
+        callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` }
+      }},
+      animation: { animateRotate: true, duration: 500 }
+    }
+  });
+}
+
+// Comparativo horizontal bar (sorted by NPS desc, excluding 'geral')
+let _npsBar = null;
+function initNpsBar() {
+  const ctx = document.getElementById('npsComparativo');
+  if (!ctx) return;
+  const sorted = Object.entries(NPS_DATA)
+    .filter(([k]) => k !== 'geral')
+    .sort(([,a],[,b]) => b.nps - a.nps);
+  if (_npsBar) { _npsBar.destroy(); }
+  _npsBar = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: sorted.map(([,d]) => d.label),
+      datasets: [{
+        data: sorted.map(([,d]) => d.nps),
+        backgroundColor: sorted.map(([,d]) => d.cor + 'cc'),
+        borderColor:     sorted.map(([,d]) => d.cor),
+        borderWidth: 2,
+        borderRadius: 6,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: { legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ` NPS: ${ctx.parsed.x}` } }
+      },
+      scales: {
+        x: { beginAtZero: false, min: 0, max: 80, grid: { color: '#f0f0f0' },
+             ticks: { font: { size: 11 } } },
+        y: { ticks: { font: { size: 11 } } }
+      }
+    }
+  });
+}
+
+function selectNPS(key) {
+  const d = NPS_DATA[key];
+  if (!d) return;
+
+  // Update donut
+  initNpsDonut(d);
+
+  // Update labels
+  document.getElementById('nps-group-label').textContent = d.label;
+  document.getElementById('nps-n-badge').textContent = `n = ${d.n}`;
+  document.getElementById('nps-score-big').textContent = d.nps;
+  document.getElementById('nps-prom-pct').textContent = d.prom + '%';
+  document.getElementById('nps-pass-pct').textContent = d.pass + '%';
+  document.getElementById('nps-detr-pct').textContent = d.detr + '%';
+  document.getElementById('nps-prom-n').textContent = Math.round(d.n * d.prom / 100);
+  document.getElementById('nps-pass-n').textContent = Math.round(d.n * d.pass / 100);
+  document.getElementById('nps-detr-n').textContent = Math.round(d.n * d.detr / 100);
+
+  // Zone badge
+  const z = npsZone(d.nps);
+  const badge = document.getElementById('nps-zone-badge');
+  badge.textContent = z.label;
+  badge.style.background = z.bg;
+  badge.style.color = z.fg;
+
+  // Ruler indicator
+  document.getElementById('nps-ruler-indicator').style.left = npsToRulerPct(d.nps);
+  document.getElementById('nps-ruler-score').textContent = d.nps;
+
+  // Active button styles
+  document.querySelectorAll('.nps-btn').forEach(btn => {
+    const bkey = btn.dataset.key;
+    const bcor = NPS_DATA[bkey] ? NPS_DATA[bkey].cor : '#2d6a4f';
+    if (bkey === key) {
+      btn.style.background  = bcor;
+      btn.style.color       = 'white';
+      btn.style.borderColor = bcor;
+    } else {
+      btn.style.background  = 'white';
+      btn.style.color       = bcor;
+      btn.style.borderColor = bcor;
+    }
+  });
+}
+
+// NPS init handled inside original showTab
 
 </script>
 </body>
