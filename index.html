@@ -35,7 +35,26 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#2d2d2d;font-size:14px}
 
-/* ── OUTER NAV ── */
+/* ── lang toggle ── */
+  #lang-toggle {
+    position: fixed;
+    top: 14px;
+    right: 18px;
+    z-index: 2000;
+    background: rgba(82,183,136,0.15);
+    color: #52b788;
+    border: 1px solid rgba(82,183,136,0.45);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  #lang-toggle:hover { background: rgba(82,183,136,0.3); }
+
+  /* ── OUTER NAV ── */
 .outer-nav{
   background:var(--verde);
   display:flex;gap:0;overflow-x:auto;
@@ -1014,14 +1033,16 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 <div id="pill-tooltip" class="pill-tooltip"></div>
 <div id="biomas-tooltip" class="biomas-tooltip"><div class="biomas-tooltip-title" id="biomas-tooltip-title"></div><div id="biomas-tooltip-body"></div></div>
 <nav class="outer-nav" id="outer-nav">
-  <button class="active" onclick="showPage('inicio')">🏠 Início</button>
-  <button onclick="showPage('censo')">📊 Censo 2025</button>
-  <button onclick="showPage('mapas')">🗺️ Mapas</button>
-  <button onclick="showPage('agentes')">👥 Agentes</button>
+  <button class="active" onclick="showPage('inicio')" data-en="🏠 Home">🏠 Início</button>
+  <button onclick="showPage('censo')" data-en="📊 Census 2025">📊 Censo 2025</button>
+  <button onclick="showPage('mapas')" data-en="🗺️ Maps">🗺️ Mapas</button>
+  <button onclick="showPage('agentes')" data-en="👥 Agents">👥 Agentes</button>
   
-  <button onclick="showPage('personas')">&#128100; Personas</button>
-  <button onclick="showPage('diagnostico')">🔍 Diagnóstico</button>
+  <button onclick="showPage('personas')" data-en="&#128100; Personas">&#128100; Personas</button>
+  <button onclick="showPage('diagnostico')" data-en="🔍 Diagnosis">🔍 Diagnóstico</button>
 </nav>
+
+<button id="lang-toggle" onclick="toggleLanguage()" title="Switch to English">EN</button>
 
 <!-- ══════════════════════════════════════════════════
      INÍCIO
@@ -1032,27 +1053,27 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
   <div class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <div class="hero-tag">Ecovila Piracanga · Maraú, Bahia</div>
-      <h1><span>Ecovila Piracanga</span></h1>
-      <p class="hero-sub">Plataforma integrada de inteligência territorial — censo social, mapeamento de agentes, análise sistêmica e projetos</p>
+      <div class="hero-tag" data-en="Piracanga Ecovillage · Maraú, Bahia">Ecovila Piracanga · Maraú, Bahia</div>
+      <h1><span data-en="Piracanga Ecovillage">Ecovila Piracanga</span></h1>
+      <p class="hero-sub" data-en="Integrated territorial intelligence platform — social census, agent mapping, systemic analysis and projects">Plataforma integrada de inteligência territorial — censo social, mapeamento de agentes, análise sistêmica e projetos</p>
       <div class="hero-pills">
         <button class="hero-pill hero-pill-btn" onclick="showPage('censo')"
-          data-pill-tip="Levantamento de dados primários de domicílios e de bem-estar. Responsável: A.Mor em parceria com Biomas.">
+          data-pill-tip="Levantamento de dados primários de domicílios e de bem-estar. Responsável: A.Mor em parceria com Biomas." data-en="📊 Census 2025–2026">
           📊 Censo 2025–2026</button>
         <button class="hero-pill hero-pill-btn" onclick="showPage('agentes')"
-          data-pill-tip="Pessoas, organizações e grupos de trabalho que impactam o território — mapeados e classificados por poder e função.">
+          data-pill-tip="Pessoas, organizações e grupos de trabalho que impactam o território — mapeados e classificados por poder e função." data-en="👥 20 agent types">
           👥 20 tipos de agentes</button>
         <button class="hero-pill hero-pill-btn" onclick="showPage('agentes')"
-          data-pill-tip="Organizações com e sem fins lucrativos que operam no território: institutos, empreendimentos, GTs e coletivos.">
+          data-pill-tip="Organizações com e sem fins lucrativos que operam no território: institutos, empreendimentos, GTs e coletivos." data-en="🏘️ 42 organizations">
           🏘️ 42 organizações</button>
         <button class="hero-pill hero-pill-btn" onclick="showPage('mapas')"
-          data-pill-tip="Análises geoespaciais com o Observatório: cobertura vegetal, uso do solo, hidrografia, propriedades e mais.">
+          data-pill-tip="Análises geoespaciais com o Observatório: cobertura vegetal, uso do solo, hidrografia, propriedades e mais." data-en="🗺️ 7 geospatial layers">
           🗺️ 7 camadas geoespaciais</button>
         <button class="hero-pill hero-pill-btn" onclick="showPage('personas')"
-          data-pill-tip="Seis perfis qualitativos que revelam quem vive em Piracanga — construídos a partir dos dados do Censo e do mapeamento de agentes.">
+          data-pill-tip="Seis perfis qualitativos que revelam quem vive em Piracanga — construídos a partir dos dados do Censo e do mapeamento de agentes." data-en="🧩 Territory Personas">
           🧩 Personas do território</button>
         <button class="hero-pill hero-pill-btn" onclick="showPage('diagnostico')"
-          data-pill-tip="Diagnóstico sistêmico BIOMAS: tensões, lacunas e oportunidades identificadas no território.">
+          data-pill-tip="Diagnóstico sistêmico BIOMAS: tensões, lacunas e oportunidades identificadas no território." data-en="🔍 BIOMAS Systemic Analysis">
           🔍 Análise Sistêmica BIOMAS</button>
       </div>
     </div>
@@ -1062,15 +1083,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
   <!-- 5 Indices BIOMAS -->
   <div class="biomas-indices-section">
     <div class="biomas-indices-header">
-      <h2 class="biomas-title">Painel de Inteligência Territorial</h2>
-      <p class="biomas-sub">Clique em um &iacute;ndice para explorar os dados detalhados</p>
+      <h2 class="biomas-title" data-en="Territorial Intelligence Dashboard">Painel de Inteligência Territorial</h2>
+      <p class="biomas-sub" data-en="Click an index to explore detailed data">Clique em um &iacute;ndice para explorar os dados detalhados</p>
     </div>
     <div class="biomas-legend">
-      <span class="leg-item" style="background:#ef444422;color:#ef4444;border:1px solid #ef444455">0–20% Nada</span>
-      <span class="leg-item" style="background:#f9731622;color:#f97316;border:1px solid #f9731655">21–40% Pouco</span>
-      <span class="leg-item" style="background:#eab30822;color:#eab308;border:1px solid #eab30855">41–60% Moderado</span>
-      <span class="leg-item" style="background:#52b78822;color:#52b788;border:1px solid #52b78855">61–80% Bom</span>
-      <span class="leg-item" style="background:#4f9cf922;color:#4f9cf9;border:1px solid #4f9cf955">81–100% Excelente</span>
+      <span class="leg-item" style="background:#ef444422;color:#ef4444;border:1px solid #ef444455" data-en="0–20% None">0–20% Nada</span>
+      <span class="leg-item" style="background:#f9731622;color:#f97316;border:1px solid #f9731655" data-en="21–40% Low">21–40% Pouco</span>
+      <span class="leg-item" style="background:#eab30822;color:#eab308;border:1px solid #eab30855" data-en="41–60% Moderate">41–60% Moderado</span>
+      <span class="leg-item" style="background:#52b78822;color:#52b788;border:1px solid #52b78855" data-en="61–80% Good">61–80% Bom</span>
+      <span class="leg-item" style="background:#4f9cf922;color:#4f9cf9;border:1px solid #4f9cf955" data-en="81–100% Excellent">81–100% Excelente</span>
     </div>
     <div class="biomas-cards">
 
@@ -1079,11 +1100,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
           <svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="32"/><circle class="fg" cx="40" cy="40" r="32" stroke="#52b788" stroke-dasharray="201.06 201.06" stroke-dashoffset="60.32"/></svg>
           <div class="ring-inner"><span class="ring-emoji">&#127807;</span><span class="ring-pct" style="color:#52b788">70%</span></div>
         </div>
-        <div class="biomas-scale-badge" style="background:#52b78822;color:#52b788;border:1px solid #52b78855">Bom</div>
-        <div class="biomas-card-name">&Iacute;NDICE DE INTEGRIDADE DA PAISAGEM</div>
-        <div class="biomas-card-desc"><em>O territ&oacute;rio est&aacute; mantendo sua integridade ecol&oacute;gica?</em></div>
-        <ul class="biomas-card-list"><li>Convers&atilde;o do Solo</li><li>&Aacute;reas Protegidas Integradas</li><li>Dados de campo OS</li></ul>
-        <div class="biomas-card-nav">&#8594; Ver Mapas</div>
+        <div class="biomas-scale-badge" style="background:#52b78822;color:#52b788;border:1px solid #52b78855" data-en="Good">Bom</div>
+        <div class="biomas-card-name" data-en="LANDSCAPE INTEGRITY INDEX">&Iacute;NDICE DE INTEGRIDADE DA PAISAGEM</div>
+        <div class="biomas-card-desc"><em data-en="Is the territory maintaining its ecological integrity?">O territ&oacute;rio est&aacute; mantendo sua integridade ecol&oacute;gica?</em></div>
+        <ul class="biomas-card-list"><li data-en="Land Use Conversion">Convers&atilde;o do Solo</li><li data-en="Integrated Protected Areas">&Aacute;reas Protegidas Integradas</li><li data-en="OS Field Data">Dados de campo OS</li></ul>
+        <div class="biomas-card-nav" data-en="&#8594; See Maps">&#8594; Ver Mapas</div>
       </div>
       
       <div class="biomas-card" onclick="showPage('censo')" title="Ver Censo" data-tooltip="Integra cinco dimens&otilde;es do bem-estar humano: moradia, conectividade digital, sa&uacute;de f&iacute;sica e emocional, acesso a servi&ccedil;os e renda. Com 69%, Piracanga demonstra boa qualidade de vida &mdash; com destaque em sa&uacute;de emocional e pertencimento &mdash; e pontos de aten&ccedil;&atilde;o em renda e acesso a servi&ccedil;os externos.">
@@ -1091,10 +1112,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
           <svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="32"/><circle class="fg" cx="40" cy="40" r="32" stroke="#52b788" stroke-dasharray="201.06 201.06" stroke-dashoffset="62.33"/></svg>
           <div class="ring-inner"><span class="ring-emoji">&#129504;</span><span class="ring-pct" style="color:#52b788">69%</span></div>
         </div>
-        <div class="biomas-scale-badge" style="background:#52b78822;color:#52b788;border:1px solid #52b78855">Bom</div>
-        <div class="biomas-card-name">&Iacute;NDICE DE BEM-ESTAR</div>
-        <div class="biomas-card-desc"><em>As pessoas vivem bem neste territ&oacute;rio?</em></div>
-        <ul class="biomas-card-list"><li>Moradia Acess&iacute;vel e Segura</li><li>Acesso &agrave; Internet</li><li>Bem-estar F&iacute;sico e Emocional</li><li>Acesso a Servi&ccedil;os de Sa&uacute;de</li><li>Renda Suficiente</li></ul>
+        <div class="biomas-scale-badge" style="background:#52b78822;color:#52b788;border:1px solid #52b78855" data-en="Good">Bom</div>
+        <div class="biomas-card-name" data-en="WELL-BEING INDEX">&Iacute;NDICE DE BEM-ESTAR</div>
+        <div class="biomas-card-desc"><em data-en="Do people live well in this territory?">As pessoas vivem bem neste territ&oacute;rio?</em></div>
+        <ul class="biomas-card-list"><li data-en="Safe and Affordable Housing">Moradia Acess&iacute;vel e Segura</li><li data-en="Internet Access">Acesso &agrave; Internet</li><li data-en="Physical and Emotional Well-being">Bem-estar F&iacute;sico e Emocional</li><li data-en="Access to Healthcare">Acesso a Servi&ccedil;os de Sa&uacute;de</li><li data-en="Sufficient Income">Renda Suficiente</li></ul>
         <div class="biomas-card-nav">&#8594; Ver Censo</div>
       </div>
       <div class="biomas-card" onclick="showPage('censo')" title="Ver Censo" data-tooltip="Mede a capacidade de auto-organiza&ccedil;&atilde;o coletiva: confian&ccedil;a nas institui&ccedil;&otilde;es locais, coes&atilde;o com a vizinhan&ccedil;a, colabora&ccedil;&atilde;o em projetos comuns, participa&ccedil;&atilde;o pol&iacute;tica e amor ao lugar. Com 70%, Piracanga tem forte senso de pertencimento e boa coes&atilde;o social, com espa&ccedil;o para aprofundar a participa&ccedil;&atilde;o institucional.">
@@ -1102,10 +1123,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
           <svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="32"/><circle class="fg" cx="40" cy="40" r="32" stroke="#52b788" stroke-dasharray="201.06 201.06" stroke-dashoffset="60.32"/></svg>
           <div class="ring-inner"><span class="ring-emoji">&#127885;</span><span class="ring-pct" style="color:#52b788">70%</span></div>
         </div>
-        <div class="biomas-scale-badge" style="background:#52b78822;color:#52b788;border:1px solid #52b78855">Bom</div>
-        <div class="biomas-card-name">&Iacute;NDICE DE CONFIAN&Ccedil;A</div>
-        <div class="biomas-card-desc"><em>Este territ&oacute;rio consegue se organizar coletivamente?</em></div>
-        <ul class="biomas-card-list"><li>Confian&ccedil;a nas Institui&ccedil;&otilde;es</li><li>Confian&ccedil;a na Vizinhan&ccedil;a</li><li>&Iacute;ndice de Colabora&ccedil;&atilde;o</li><li>Participa&ccedil;&atilde;o Pol&iacute;tica</li><li>Amor ao Lugar</li></ul>
+        <div class="biomas-scale-badge" style="background:#52b78822;color:#52b788;border:1px solid #52b78855" data-en="Good">Bom</div>
+        <div class="biomas-card-name" data-en="TRUST INDEX">&Iacute;NDICE DE CONFIAN&Ccedil;A</div>
+        <div class="biomas-card-desc"><em data-en="Can this territory organize itself collectively?">Este territ&oacute;rio consegue se organizar coletivamente?</em></div>
+        <ul class="biomas-card-list"><li data-en="Trust in Institutions">Confian&ccedil;a nas Institui&ccedil;&otilde;es</li><li data-en="Trust in Neighbors">Confian&ccedil;a na Vizinhan&ccedil;a</li><li data-en="Collaboration Index">&Iacute;ndice de Colabora&ccedil;&atilde;o</li><li data-en="Political Participation">Participa&ccedil;&atilde;o Pol&iacute;tica</li><li data-en="Love of Place">Amor ao Lugar</li></ul>
         <div class="biomas-card-nav">&#8594; Ver Censo</div>
       </div>
       <div class="biomas-card" onclick="showPage('censo')" title="Ver Censo" data-tooltip="Avalia as pr&aacute;ticas coletivas de gest&atilde;o de res&iacute;duos: compostagem e reciclagem por domic&iacute;lio. Com 90%, Piracanga &eacute; refer&ecirc;ncia nacional em responsabilidade com res&iacute;duos &mdash; a grande maioria dos moradores compostar e recicla ativamente, reduzindo drasticamente o volume enviado a aterros externos.">
@@ -1113,10 +1134,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
           <svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="32"/><circle class="fg" cx="40" cy="40" r="32" stroke="#4f9cf9" stroke-dasharray="201.06 201.06" stroke-dashoffset="20.11"/></svg>
           <div class="ring-inner"><span class="ring-emoji">&#9851;</span><span class="ring-pct" style="color:#4f9cf9">90%</span></div>
         </div>
-        <div class="biomas-scale-badge" style="background:#4f9cf922;color:#4f9cf9;border:1px solid #4f9cf955">Excelente</div>
-        <div class="biomas-card-name">&Iacute;NDICE DE RESPONSABILIDADE COM RES&Iacute;DUOS</div>
-        <div class="biomas-card-desc"><em>O territ&oacute;rio reduz, trata e descarta adequadamente seus res&iacute;duos?</em></div>
-        <ul class="biomas-card-list"><li>Ado&ccedil;&atilde;o de Compostagem</li><li>Ado&ccedil;&atilde;o de Reciclagem</li></ul>
+        <div class="biomas-scale-badge" style="background:#4f9cf922;color:#4f9cf9;border:1px solid #4f9cf955" data-en="Excellent">Excelente</div>
+        <div class="biomas-card-name" data-en="WASTE RESPONSIBILITY INDEX">&Iacute;NDICE DE RESPONSABILIDADE COM RES&Iacute;DUOS</div>
+        <div class="biomas-card-desc"><em data-en="Does the territory adequately reduce, treat and dispose of its waste?">O territ&oacute;rio reduz, trata e descarta adequadamente seus res&iacute;duos?</em></div>
+        <ul class="biomas-card-list"><li data-en="Composting Adoption">Ado&ccedil;&atilde;o de Compostagem</li><li data-en="Recycling Adoption">Ado&ccedil;&atilde;o de Reciclagem</li></ul>
         <div class="biomas-card-nav">&#8594; Ver Censo</div>
       </div>
       <div class="biomas-card" data-tooltip="Avalia o ciclo hídrico completo: acesso a água limpa para consumo, saúde da bacia hidrográfica local (rios, nascências, matas ciliares) e adequação do saneamento. Com 86%, Piracanga é referência em cuidado com a água &mdash; resultado de décadas de proteção dos mananciais e consciência hídrica coletiva.">
@@ -1124,10 +1145,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
           <svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="32"/><circle class="fg" cx="40" cy="40" r="32" stroke="#4f9cf9" stroke-dasharray="201.06 201.06" stroke-dashoffset="28.15"/></svg>
           <div class="ring-inner"><span class="ring-emoji">&#128167;</span><span class="ring-pct" style="color:#4f9cf9">86%</span></div>
         </div>
-        <div class="biomas-scale-badge" style="background:#4f9cf922;color:#4f9cf9;border:1px solid #4f9cf955">Excelente</div>
-        <div class="biomas-card-name">&Iacute;NDICE DE CUIDADO COM A &Aacute;GUA</div>
-        <div class="biomas-card-desc"><em>O territ&oacute;rio cuida da &aacute;gua em todo o seu ciclo?</em></div>
-        <ul class="biomas-card-list"><li>Acesso a Fonte de &Aacute;gua Limpa</li><li>Qualidade da Bacia Hidrogr&aacute;fica</li><li>Gest&atilde;o de Saneamento</li></ul>
+        <div class="biomas-scale-badge" style="background:#4f9cf922;color:#4f9cf9;border:1px solid #4f9cf955" data-en="Excellent">Excelente</div>
+        <div class="biomas-card-name" data-en="WATER STEWARDSHIP INDEX">&Iacute;NDICE DE CUIDADO COM A &Aacute;GUA</div>
+        <div class="biomas-card-desc"><em data-en="Does the territory care for water throughout its entire cycle?">O territ&oacute;rio cuida da &aacute;gua em todo o seu ciclo?</em></div>
+        <ul class="biomas-card-list"><li data-en="Access to Clean Water Source">Acesso a Fonte de &Aacute;gua Limpa</li><li data-en="Watershed Quality">Qualidade da Bacia Hidrogr&aacute;fica</li><li data-en="Sanitation Management">Gest&atilde;o de Saneamento</li></ul>
       </div>
 
     </div>
@@ -1148,30 +1169,30 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 ══════════════════════════════════════════════════ -->
 <div id="pg-censo" class="outer-sec">
   <div class="page-header">
-    <h2>📊 Censo Comunitário 2025–2026</h2>
-    <p>79 respondentes adultos · dados de saúde, educação, habitação, trabalho, ambiente e bem-estar</p>
+    <h2 data-en="📊 Community Census 2025–2026">📊 Censo Comunitário 2025–2026</h2>
+    <p data-en="79 adult respondents · data on health, education, housing, work, environment and well-being">79 respondentes adultos · dados de saúde, educação, habitação, trabalho, ambiente e bem-estar</p>
   </div>
 
   <nav class="inner-nav" id="inner-nav">
-    <button class="active" onclick="showCensus('visao-geral')">📊 Visão Geral</button>
-    <button onclick="showCensus('demografia')">👥 Perfil Demográfico</button>
-    <button onclick="showCensus('habitacao')">🏠 Habitação</button>
-    <button onclick="showCensus('saude')">❤️ Saúde</button>
-    <button onclick="showCensus('educacao')">📚 Educação &amp; Digital</button>
-    <button onclick="showCensus('trabalho')">💼 Trabalho &amp; Renda</button>
-    <button onclick="showCensus('comunidade')">🤝 Comunidade</button>
-    <button onclick="showCensus('ambiente')">🌱 Meio Ambiente</button>
-    <button onclick="showCensus('talentos')">✨ Talentos</button>
-    <button onclick="showCensus('nps')">🌡️ NPS</button>
+    <button class="active" onclick="showCensus('visao-geral')" data-en="📊 Overview">📊 Visão Geral</button>
+    <button onclick="showCensus('demografia')" data-en="👥 Demographic Profile">👥 Perfil Demográfico</button>
+    <button onclick="showCensus('habitacao')" data-en="🏠 Housing">🏠 Habitação</button>
+    <button onclick="showCensus('saude')" data-en="❤️ Health">❤️ Saúde</button>
+    <button onclick="showCensus('educacao')" data-en="📚 Education &amp; Digital">📚 Educação &amp; Digital</button>
+    <button onclick="showCensus('trabalho')" data-en="💼 Work &amp; Income">💼 Trabalho &amp; Renda</button>
+    <button onclick="showCensus('comunidade')" data-en="🤝 Community">🤝 Comunidade</button>
+    <button onclick="showCensus('ambiente')" data-en="🌱 Environment">🌱 Meio Ambiente</button>
+    <button onclick="showCensus('talentos')" data-en="✨ Talents">✨ Talentos</button>
+    <button onclick="showCensus('nps')" data-en="🌡️ NPS">🌡️ NPS</button>
   </nav>
 
   <div id="cen-visao-geral" class="census-section active">
-<div class="section-title">📊 Visão Geral do Censo</div>
+<div class="section-title" data-en="📊 Census Overview">📊 Visão Geral do Censo</div>
 <!-- ÍNDICES DO TERRITÓRIO -->
-<div style="margin-bottom:10px; font-size:13px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:1px;">Índices do Território</div>
+<div style="margin-bottom:10px; font-size:13px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:1px;" data-en="Territorial Indices">Índices do Território</div>
 <div class="indices-grid" style="display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:32px;">
 <div class="indice-card" onclick="showTab('nps')" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" style="background:white; border-radius:16px; padding:18px 14px; box-shadow:var(--sombra); text-align:center; border-top:4px solid #2d6a4f; cursor:pointer; transition:transform .15s,box-shadow .15s;">
-<div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px;">🌡️ NPS Piracanga</div>
+<div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px;" data-en="🌡️ Piracanga NPS">🌡️ NPS Piracanga</div>
 <div style="position:relative; display:inline-block; width:80px; height:80px;">
 <svg style="transform:rotate(-90deg); width:80px; height:80px;" viewbox="0 0 80 80">
 <circle cx="40" cy="40" fill="none" r="32" stroke="#e8f5e9" stroke-width="8"></circle>
@@ -1179,11 +1200,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 </svg>
 <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:22px; font-weight:900; color:#2d6a4f;">48</div>
 </div>
-<div style="font-size:11px; color:#888; margin-top:8px;">Escala: de −100 a 100<br/><em>61% promotores</em></div>
-<div style="font-size:10px; color:#aaa; margin-top:6px;">Ver detalhes →</div>
+<div style="font-size:11px; color:#888; margin-top:8px;" data-en="Scale: from −100 to 100">Escala: de −100 a 100<br/><em>61% promotores</em></div>
+<div style="font-size:10px; color:#aaa; margin-top:6px;" data-en="See details →" data-en="See details →">Ver detalhes →</div>
 </div>
 <div class="indice-card" onclick="showTab('saude')" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" style="background:white; border-radius:16px; padding:18px 14px; box-shadow:var(--sombra); text-align:center; border-top:4px solid #52b788; cursor:pointer; transition:transform .15s,box-shadow .15s;">
-<div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px;">🪜 Qualidade de Vida</div>
+<div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px;" data-en="🪜 Quality of Life">🪜 Qualidade de Vida</div>
 <div style="position:relative; display:inline-block; width:80px; height:80px;">
 <svg style="transform:rotate(-90deg); width:80px; height:80px;" viewbox="0 0 80 80">
 <circle cx="40" cy="40" fill="none" r="32" stroke="#e8f5e9" stroke-width="8"></circle>
@@ -1192,7 +1213,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:20px; font-weight:900; color:#52b788;">7,9</div>
 </div>
 <div style="font-size:11px; color:#888; margin-top:8px;">Escada da vida (Cantril)<br/><em>73% ≥ 7</em></div>
-<div style="font-size:10px; color:#aaa; margin-top:6px;">Ver detalhes →</div>
+<div style="font-size:10px; color:#aaa; margin-top:6px;" data-en="See details →">Ver detalhes →</div>
 </div>
 <div class="indice-card" onclick="showTab('saude')" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" style="background:white; border-radius:16px; padding:18px 14px; box-shadow:var(--sombra); text-align:center; border-top:4px solid #48cae4; cursor:pointer; transition:transform .15s,box-shadow .15s;">
 <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px;">❤️ Saúde Física</div>
@@ -1204,7 +1225,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:20px; font-weight:900; color:#1a6b8a;">8,1</div>
 </div>
 <div style="font-size:11px; color:#888; margin-top:8px;">Autoavaliação 0–10<br/><em>moda: 8</em></div>
-<div style="font-size:10px; color:#aaa; margin-top:6px;">Ver detalhes →</div>
+<div style="font-size:10px; color:#aaa; margin-top:6px;" data-en="See details →">Ver detalhes →</div>
 </div>
 <div class="indice-card" onclick="showTab('saude')" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" style="background:white; border-radius:16px; padding:18px 14px; box-shadow:var(--sombra); text-align:center; border-top:4px solid #c084fc; cursor:pointer; transition:transform .15s,box-shadow .15s;">
 <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px;">🧠 Saúde Mental</div>
@@ -1216,7 +1237,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:20px; font-weight:900; color:#7c3aed;">7,8</div>
 </div>
 <div style="font-size:11px; color:#888; margin-top:8px;">Autoavaliação 0–10<br/><em>moda: 8</em></div>
-<div style="font-size:10px; color:#aaa; margin-top:6px;">Ver detalhes →</div>
+<div style="font-size:10px; color:#aaa; margin-top:6px;" data-en="See details →">Ver detalhes →</div>
 </div>
 <div class="indice-card" onclick="showTab('comunidade')" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" style="background:white; border-radius:16px; padding:18px 14px; box-shadow:var(--sombra); text-align:center; border-top:4px solid #b7791f; cursor:pointer; transition:transform .15s,box-shadow .15s;">
 <div style="font-size:11px; font-weight:700; color:var(--cinza); text-transform:uppercase; letter-spacing:.5px; margin-bottom:10px;">🤝 Senso de Comunidade</div>
@@ -1228,25 +1249,25 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:20px; font-weight:900; color:#b7791f;">6,7</div>
 </div>
 <div style="font-size:11px; color:#888; margin-top:8px;">Percepção 0–10<br/><em>convívio: 7,1</em></div>
-<div style="font-size:10px; color:#aaa; margin-top:6px;">Ver detalhes →</div>
+<div style="font-size:10px; color:#aaa; margin-top:6px;" data-en="See details →">Ver detalhes →</div>
 </div>
 </div>
 <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:32px;">
 <div onclick="showTab('comunidade')" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" style="background:white; border-radius:12px; padding:16px; box-shadow:var(--sombra); display:flex; align-items:center; gap:14px; cursor:pointer; transition:transform .15s,box-shadow .15s;">
 <div style="font-size:28px; font-weight:900; color:#2d6a4f; min-width:52px;">94%</div>
-<div><div style="font-size:12px; font-weight:700; color:#333;">🔒 Segurança</div><div style="font-size:11px; color:#888;">se sentem seguros no território</div><div style="font-size:10px; color:#aaa; margin-top:3px;">Ver detalhes →</div></div>
+<div><div style="font-size:12px; font-weight:700; color:#333;">🔒 Segurança</div><div style="font-size:11px; color:#888;">se sentem seguros no território</div><div style="font-size:10px; color:#aaa; margin-top:3px;" data-en="See details →">Ver detalhes →</div></div>
 </div>
 <div onclick="showTab('educacao')" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" style="background:white; border-radius:12px; padding:16px; box-shadow:var(--sombra); display:flex; align-items:center; gap:14px; cursor:pointer; transition:transform .15s,box-shadow .15s;">
 <div style="font-size:28px; font-weight:900; color:#1a6b8a; min-width:52px;">8,6</div>
-<div><div style="font-size:12px; font-weight:700; color:#333;">💻 Inclusão Digital</div><div style="font-size:11px; color:#888;">índice médio de letramento digital</div><div style="font-size:10px; color:#aaa; margin-top:3px;">Ver detalhes →</div></div>
+<div><div style="font-size:12px; font-weight:700; color:#333;">💻 Inclusão Digital</div><div style="font-size:11px; color:#888;">índice médio de letramento digital</div><div style="font-size:10px; color:#aaa; margin-top:3px;" data-en="See details →">Ver detalhes →</div></div>
 </div>
 <div onclick="showTab('ambiente')" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" style="background:white; border-radius:12px; padding:16px; box-shadow:var(--sombra); display:flex; align-items:center; gap:14px; cursor:pointer; transition:transform .15s,box-shadow .15s;">
 <div style="font-size:28px; font-weight:900; color:#52b788; min-width:52px;">97%</div>
-<div><div style="font-size:12px; font-weight:700; color:#333;">♻️ Sustentabilidade</div><div style="font-size:11px; color:#888;">reciclagem + compostagem ativas</div><div style="font-size:10px; color:#aaa; margin-top:3px;">Ver detalhes →</div></div>
+<div><div style="font-size:12px; font-weight:700; color:#333;">♻️ Sustentabilidade</div><div style="font-size:11px; color:#888;">reciclagem + compostagem ativas</div><div style="font-size:10px; color:#aaa; margin-top:3px;" data-en="See details →">Ver detalhes →</div></div>
 </div>
 <div onclick="showTab('comunidade')" onmouseout="this.style.transform='';this.style.boxShadow='var(--sombra)'" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.15)'" style="background:white; border-radius:12px; padding:16px; box-shadow:var(--sombra); display:flex; align-items:center; gap:14px; cursor:pointer; transition:transform .15s,box-shadow .15s;">
 <div style="font-size:28px; font-weight:900; color:#b7791f; min-width:52px;">67%</div>
-<div><div style="font-size:12px; font-weight:700; color:#333;">🏛️ Governança</div><div style="font-size:11px; color:#888;">confiam na A.Mor como representante</div><div style="font-size:10px; color:#aaa; margin-top:3px;">Ver detalhes →</div></div>
+<div><div style="font-size:12px; font-weight:700; color:#333;">🏛️ Governança</div><div style="font-size:11px; color:#888;">confiam na A.Mor como representante</div><div style="font-size:10px; color:#aaa; margin-top:3px;" data-en="See details →">Ver detalhes →</div></div>
 </div>
 </div>
 <!-- CONCLUSÕES -->
@@ -1279,7 +1300,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 </div>
   </div>
   <div id="cen-demografia" class="census-section">
-<div class="section-title">👥 Perfil Demográfico</div>
+<div class="section-title" data-en="👥 Demographic Profile">👥 Perfil Demográfico</div>
 <div class="grid-4">
 <div class="kpi">
 <span class="kpi-icon">📅</span>
@@ -1339,31 +1360,31 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 </div>
   </div>
   <div id="cen-habitacao" class="census-section">
-<div class="section-title">🏠 Habitação e Domicílios</div>
+<div class="section-title" data-en="🏠 Housing and Households">🏠 Habitação e Domicílios</div>
 <!-- KPIs propriedade -->
 <div class="grid-4">
 <div class="kpi">
 <span class="kpi-icon">🏠</span>
 <span class="kpi-value">110</span>
-<span class="kpi-label">Total de Proprietários</span>
+<span class="kpi-label" data-en="Total Owners">Total de Proprietários</span>
 <span class="kpi-sub">Cadastrados no território</span>
 </div>
 <div class="kpi accent-azul">
 <span class="kpi-icon">👤</span>
 <span class="kpi-value">22</span>
-<span class="kpi-label">Proprietários Moradores</span>
+<span class="kpi-label" data-en="Resident Owners">Proprietários Moradores</span>
 <span class="kpi-sub">20% dos proprietários residem</span>
 </div>
 <div class="kpi accent-terra">
 <span class="kpi-icon">📋</span>
 <span class="kpi-value">88</span>
-<span class="kpi-label">Prop. Não Moradores</span>
+<span class="kpi-label" data-en="Non-resident Owners">Prop. Não Moradores</span>
 <span class="kpi-sub">Fora do território</span>
 </div>
 <div class="kpi accent-menta">
 <span class="kpi-icon">🤝</span>
 <span class="kpi-value">57</span>
-<span class="kpi-label">Moradores Não Proprietários</span>
+<span class="kpi-label" data-en="Non-owner Residents">Moradores Não Proprietários</span>
 <span class="kpi-sub">Inquilinos ou cedidos</span>
 </div>
 </div>
@@ -1502,15 +1523,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 <!-- Distribuição por categoria -->
   </div>
   <div id="cen-saude" class="census-section">
-<div class="section-title">❤️ Saúde e Bem-Estar</div>
+<div class="section-title" data-en="❤️ Health and Well-Being">❤️ Saúde e Bem-Estar</div>
 <!-- Filtros por grupo -->
 <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
-<button class="saude-btn" data-key="moradores" onclick="selectSaude('moradores')" style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;">Moradores (geral)</button>
-<button class="saude-btn" data-key="morador_nao_prop" onclick="selectSaude('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;">Mor. não proprietários</button>
-<button class="saude-btn" data-key="morador_prop" onclick="selectSaude('morador_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;">Moradores proprietários</button>
-<button class="saude-btn" data-key="prop_nao_morador" onclick="selectSaude('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;">Prop. não moradores</button>
-<button class="saude-btn" data-key="mulheres" onclick="selectSaude('mulheres')" style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;">Mulheres</button>
-<button class="saude-btn" data-key="homens" onclick="selectSaude('homens')" style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;">Homens</button>
+<button class="saude-btn" data-key="moradores" onclick="selectSaude('moradores')" style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;" data-en="Residents (general)">Moradores (geral)</button>
+<button class="saude-btn" data-key="morador_nao_prop" onclick="selectSaude('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;" data-en="Non-owner residents">Mor. não proprietários</button>
+<button class="saude-btn" data-key="morador_prop" onclick="selectSaude('morador_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;" data-en="Owner-residents">Moradores proprietários</button>
+<button class="saude-btn" data-key="prop_nao_morador" onclick="selectSaude('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;" data-en="Non-resident owners">Prop. não moradores</button>
+<button class="saude-btn" data-key="mulheres" onclick="selectSaude('mulheres')" style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;" data-en="Women">Mulheres</button>
+<button class="saude-btn" data-key="homens" onclick="selectSaude('homens')" style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;" data-en="Men">Homens</button>
 <button class="saude-btn" data-key="brancos" onclick="selectSaude('brancos')" style="padding:6px 14px; border-radius:20px; border:2px solid #059669; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#059669;">Brancos</button>
 <button class="saude-btn" data-key="pardos" onclick="selectSaude('pardos')" style="padding:6px 14px; border-radius:20px; border:2px solid #d97706; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#d97706;">Pardos</button>
 <button class="saude-btn" data-key="pretos" onclick="selectSaude('pretos')" style="padding:6px 14px; border-radius:20px; border:2px solid #374151; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#374151;">Pretos</button>
@@ -1591,15 +1612,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 </div>
   </div>
   <div id="cen-educacao" class="census-section">
-<div class="section-title">📚 Educação &amp; Inclusão Digital</div>
+<div class="section-title" data-en="📚 Education &amp; Digital Inclusion">📚 Educação &amp; Inclusão Digital</div>
 <!-- Filtros por grupo -->
 <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
-<button class="educ-btn" data-key="moradores" onclick="selectEducacao('moradores')" style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;">Moradores (geral)</button>
-<button class="educ-btn" data-key="morador_nao_prop" onclick="selectEducacao('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;">Mor. não proprietários</button>
-<button class="educ-btn" data-key="morador_prop" onclick="selectEducacao('morador_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;">Moradores proprietários</button>
-<button class="educ-btn" data-key="prop_nao_morador" onclick="selectEducacao('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;">Prop. não moradores</button>
-<button class="educ-btn" data-key="mulheres" onclick="selectEducacao('mulheres')" style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;">Mulheres</button>
-<button class="educ-btn" data-key="homens" onclick="selectEducacao('homens')" style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;">Homens</button>
+<button class="educ-btn" data-key="moradores" onclick="selectEducacao('moradores')" style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;" data-en="Residents (general)">Moradores (geral)</button>
+<button class="educ-btn" data-key="morador_nao_prop" onclick="selectEducacao('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;" data-en="Non-owner residents">Mor. não proprietários</button>
+<button class="educ-btn" data-key="morador_prop" onclick="selectEducacao('morador_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;" data-en="Owner-residents">Moradores proprietários</button>
+<button class="educ-btn" data-key="prop_nao_morador" onclick="selectEducacao('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;" data-en="Non-resident owners">Prop. não moradores</button>
+<button class="educ-btn" data-key="mulheres" onclick="selectEducacao('mulheres')" style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;" data-en="Women">Mulheres</button>
+<button class="educ-btn" data-key="homens" onclick="selectEducacao('homens')" style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;" data-en="Men">Homens</button>
 <button class="educ-btn" data-key="brancos" onclick="selectEducacao('brancos')" style="padding:6px 14px; border-radius:20px; border:2px solid #059669; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#059669;">Brancos</button>
 <button class="educ-btn" data-key="pardos" onclick="selectEducacao('pardos')" style="padding:6px 14px; border-radius:20px; border:2px solid #d97706; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#d97706;">Pardos</button>
 <button class="educ-btn" data-key="pretos" onclick="selectEducacao('pretos')" style="padding:6px 14px; border-radius:20px; border:2px solid #374151; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#374151;">Pretos</button>
@@ -1658,15 +1679,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 </div>
   </div>
   <div id="cen-trabalho" class="census-section">
-<div class="section-title">💼 Trabalho &amp; Renda</div>
+<div class="section-title" data-en="💼 Work &amp; Income">💼 Trabalho &amp; Renda</div>
 <!-- Filtros por grupo -->
 <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
-<button class="trabalho-btn" data-key="moradores" onclick="selectTrabalho('moradores')" style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;">Moradores (geral)</button>
-<button class="trabalho-btn" data-key="morador_nao_prop" onclick="selectTrabalho('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;">Mor. não proprietários</button>
-<button class="trabalho-btn" data-key="morador_prop" onclick="selectTrabalho('morador_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;">Moradores proprietários</button>
-<button class="trabalho-btn" data-key="prop_nao_morador" onclick="selectTrabalho('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;">Prop. não moradores</button>
-<button class="trabalho-btn" data-key="mulheres" onclick="selectTrabalho('mulheres')" style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;">Mulheres</button>
-<button class="trabalho-btn" data-key="homens" onclick="selectTrabalho('homens')" style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;">Homens</button>
+<button class="trabalho-btn" data-key="moradores" onclick="selectTrabalho('moradores')" style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;" data-en="Residents (general)">Moradores (geral)</button>
+<button class="trabalho-btn" data-key="morador_nao_prop" onclick="selectTrabalho('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;" data-en="Non-owner residents">Mor. não proprietários</button>
+<button class="trabalho-btn" data-key="morador_prop" onclick="selectTrabalho('morador_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;" data-en="Owner-residents">Moradores proprietários</button>
+<button class="trabalho-btn" data-key="prop_nao_morador" onclick="selectTrabalho('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;" data-en="Non-resident owners">Prop. não moradores</button>
+<button class="trabalho-btn" data-key="mulheres" onclick="selectTrabalho('mulheres')" style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;" data-en="Women">Mulheres</button>
+<button class="trabalho-btn" data-key="homens" onclick="selectTrabalho('homens')" style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;" data-en="Men">Homens</button>
 <button class="trabalho-btn" data-key="brancos" onclick="selectTrabalho('brancos')" style="padding:6px 14px; border-radius:20px; border:2px solid #059669; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#059669;">Brancos</button>
 <button class="trabalho-btn" data-key="pardos" onclick="selectTrabalho('pardos')" style="padding:6px 14px; border-radius:20px; border:2px solid #d97706; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#d97706;">Pardos</button>
 <button class="trabalho-btn" data-key="pretos" onclick="selectTrabalho('pretos')" style="padding:6px 14px; border-radius:20px; border:2px solid #374151; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#374151;">Pretos</button>
@@ -1749,15 +1770,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 </div>
   </div>
   <div id="cen-comunidade" class="census-section">
-<div class="section-title">🤝 Comunidade &amp; Governança</div>
+<div class="section-title" data-en="🤝 Community &amp; Governance">🤝 Comunidade &amp; Governança</div>
 <!-- Filtros por grupo -->
 <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
-<button class="comu-btn" data-key="moradores" onclick="selectComunidade('moradores')" style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;">Moradores (geral)</button>
-<button class="comu-btn" data-key="morador_nao_prop" onclick="selectComunidade('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;">Mor. não proprietários</button>
-<button class="comu-btn" data-key="morador_prop" onclick="selectComunidade('morador_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;">Moradores proprietários</button>
-<button class="comu-btn" data-key="prop_nao_morador" onclick="selectComunidade('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;">Prop. não moradores</button>
-<button class="comu-btn" data-key="mulheres" onclick="selectComunidade('mulheres')" style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;">Mulheres</button>
-<button class="comu-btn" data-key="homens" onclick="selectComunidade('homens')" style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;">Homens</button>
+<button class="comu-btn" data-key="moradores" onclick="selectComunidade('moradores')" style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;" data-en="Residents (general)">Moradores (geral)</button>
+<button class="comu-btn" data-key="morador_nao_prop" onclick="selectComunidade('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;" data-en="Non-owner residents">Mor. não proprietários</button>
+<button class="comu-btn" data-key="morador_prop" onclick="selectComunidade('morador_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;" data-en="Owner-residents">Moradores proprietários</button>
+<button class="comu-btn" data-key="prop_nao_morador" onclick="selectComunidade('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;" data-en="Non-resident owners">Prop. não moradores</button>
+<button class="comu-btn" data-key="mulheres" onclick="selectComunidade('mulheres')" style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;" data-en="Women">Mulheres</button>
+<button class="comu-btn" data-key="homens" onclick="selectComunidade('homens')" style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;" data-en="Men">Homens</button>
 <button class="comu-btn" data-key="brancos" onclick="selectComunidade('brancos')" style="padding:6px 14px; border-radius:20px; border:2px solid #059669; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#059669;">Brancos</button>
 <button class="comu-btn" data-key="pardos" onclick="selectComunidade('pardos')" style="padding:6px 14px; border-radius:20px; border:2px solid #d97706; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#d97706;">Pardos</button>
 <button class="comu-btn" data-key="pretos" onclick="selectComunidade('pretos')" style="padding:6px 14px; border-radius:20px; border:2px solid #374151; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#374151;">Pretos</button>
@@ -1842,15 +1863,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 </div>
   </div>
   <div id="cen-ambiente" class="census-section">
-<div class="section-title">🌱 Consciência e Práticas Ambientais</div>
+<div class="section-title" data-en="🌱 Environmental Awareness and Practices">🌱 Consciência e Práticas Ambientais</div>
 <!-- Filtros por grupo -->
 <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
-<button class="ambi-btn" data-key="moradores" onclick="selectAmbiente('moradores')" style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;">Moradores (geral)</button>
-<button class="ambi-btn" data-key="morador_nao_prop" onclick="selectAmbiente('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;">Mor. não proprietários</button>
-<button class="ambi-btn" data-key="morador_prop" onclick="selectAmbiente('morador_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;">Moradores proprietários</button>
-<button class="ambi-btn" data-key="prop_nao_morador" onclick="selectAmbiente('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;">Prop. não moradores</button>
-<button class="ambi-btn" data-key="mulheres" onclick="selectAmbiente('mulheres')" style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;">Mulheres</button>
-<button class="ambi-btn" data-key="homens" onclick="selectAmbiente('homens')" style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;">Homens</button>
+<button class="ambi-btn" data-key="moradores" onclick="selectAmbiente('moradores')" style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;" data-en="Residents (general)">Moradores (geral)</button>
+<button class="ambi-btn" data-key="morador_nao_prop" onclick="selectAmbiente('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;" data-en="Non-owner residents">Mor. não proprietários</button>
+<button class="ambi-btn" data-key="morador_prop" onclick="selectAmbiente('morador_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;" data-en="Owner-residents">Moradores proprietários</button>
+<button class="ambi-btn" data-key="prop_nao_morador" onclick="selectAmbiente('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;" data-en="Non-resident owners">Prop. não moradores</button>
+<button class="ambi-btn" data-key="mulheres" onclick="selectAmbiente('mulheres')" style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;" data-en="Women">Mulheres</button>
+<button class="ambi-btn" data-key="homens" onclick="selectAmbiente('homens')" style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;" data-en="Men">Homens</button>
 <button class="ambi-btn" data-key="brancos" onclick="selectAmbiente('brancos')" style="padding:6px 14px; border-radius:20px; border:2px solid #059669; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#059669;">Brancos</button>
 <button class="ambi-btn" data-key="pardos" onclick="selectAmbiente('pardos')" style="padding:6px 14px; border-radius:20px; border:2px solid #d97706; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#d97706;">Pardos</button>
 <button class="ambi-btn" data-key="pretos" onclick="selectAmbiente('pretos')" style="padding:6px 14px; border-radius:20px; border:2px solid #374151; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#374151;">Pretos</button>
@@ -1917,15 +1938,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 </div>
   </div>
   <div id="cen-talentos" class="census-section">
-<div class="section-title">✨ Talentos da Comunidade</div>
+<div class="section-title" data-en="✨ Community Talents">✨ Talentos da Comunidade</div>
 <!-- Filtros por grupo -->
 <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
-<button class="tale-btn" data-key="moradores" onclick="selectTalentos('moradores')" style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;">Moradores (geral)</button>
-<button class="tale-btn" data-key="morador_nao_prop" onclick="selectTalentos('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;">Mor. não proprietários</button>
-<button class="tale-btn" data-key="morador_prop" onclick="selectTalentos('morador_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;">Moradores proprietários</button>
-<button class="tale-btn" data-key="prop_nao_morador" onclick="selectTalentos('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;">Prop. não moradores</button>
-<button class="tale-btn" data-key="mulheres" onclick="selectTalentos('mulheres')" style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;">Mulheres</button>
-<button class="tale-btn" data-key="homens" onclick="selectTalentos('homens')" style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;">Homens</button>
+<button class="tale-btn" data-key="moradores" onclick="selectTalentos('moradores')" style="padding:6px 14px; border-radius:20px; border:2px solid #2d6a4f; font-size:12px; font-weight:700; cursor:pointer; background:#2d6a4f; color:white;" data-en="Residents (general)">Moradores (geral)</button>
+<button class="tale-btn" data-key="morador_nao_prop" onclick="selectTalentos('morador_nao_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #1d4ed8; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#1d4ed8;" data-en="Non-owner residents">Mor. não proprietários</button>
+<button class="tale-btn" data-key="morador_prop" onclick="selectTalentos('morador_prop')" style="padding:6px 14px; border-radius:20px; border:2px solid #7c3aed; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#7c3aed;" data-en="Owner-residents">Moradores proprietários</button>
+<button class="tale-btn" data-key="prop_nao_morador" onclick="selectTalentos('prop_nao_morador')" style="padding:6px 14px; border-radius:20px; border:2px solid #b45309; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#b45309;" data-en="Non-resident owners">Prop. não moradores</button>
+<button class="tale-btn" data-key="mulheres" onclick="selectTalentos('mulheres')" style="padding:6px 14px; border-radius:20px; border:2px solid #db2777; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#db2777;" data-en="Women">Mulheres</button>
+<button class="tale-btn" data-key="homens" onclick="selectTalentos('homens')" style="padding:6px 14px; border-radius:20px; border:2px solid #2563eb; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#2563eb;" data-en="Men">Homens</button>
 <button class="tale-btn" data-key="brancos" onclick="selectTalentos('brancos')" style="padding:6px 14px; border-radius:20px; border:2px solid #059669; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#059669;">Brancos</button>
 <button class="tale-btn" data-key="pardos" onclick="selectTalentos('pardos')" style="padding:6px 14px; border-radius:20px; border:2px solid #d97706; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#d97706;">Pardos</button>
 <button class="tale-btn" data-key="pretos" onclick="selectTalentos('pretos')" style="padding:6px 14px; border-radius:20px; border:2px solid #374151; font-size:12px; font-weight:700; cursor:pointer; background:white; color:#374151;">Pretos</button>
@@ -2054,10 +2075,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 <div id="nps-filter-btns" style="display:flex; flex-wrap:wrap; gap:8px;">
 <button class="nps-btn active" data-key="geral" onclick="selectNPS('geral')" style="padding:7px 14px; border-radius:20px; border:2px solid #2d6a4f; background:#2d6a4f; color:white; font-size:12px; font-weight:700; cursor:pointer;">Geral (moradores)</button>
 <button class="nps-btn" data-key="mor-nao-prop" onclick="selectNPS('mor-nao-prop')" style="padding:7px 14px; border-radius:20px; border:2px solid #1a6b8a; background:white; color:#1a6b8a; font-size:12px; font-weight:700; cursor:pointer;">Moradores não proprietários</button>
-<button class="nps-btn" data-key="mor-prop" onclick="selectNPS('mor-prop')" style="padding:7px 14px; border-radius:20px; border:2px solid #b7791f; background:white; color:#b7791f; font-size:12px; font-weight:700; cursor:pointer;">Moradores proprietários</button>
+<button class="nps-btn" data-key="mor-prop" onclick="selectNPS('mor-prop')" style="padding:7px 14px; border-radius:20px; border:2px solid #b7791f; background:white; color:#b7791f; font-size:12px; font-weight:700; cursor:pointer;" data-en="Owner-residents">Moradores proprietários</button>
 <button class="nps-btn" data-key="prop-nao-mor" onclick="selectNPS('prop-nao-mor')" style="padding:7px 14px; border-radius:20px; border:2px solid #7c3aed; background:white; color:#7c3aed; font-size:12px; font-weight:700; cursor:pointer;">Proprietários não moradores</button>
-<button class="nps-btn" data-key="mulheres" onclick="selectNPS('mulheres')" style="padding:7px 14px; border-radius:20px; border:2px solid #e07a5f; background:white; color:#e07a5f; font-size:12px; font-weight:700; cursor:pointer;">Mulheres</button>
-<button class="nps-btn" data-key="homens" onclick="selectNPS('homens')" style="padding:7px 14px; border-radius:20px; border:2px solid #0891b2; background:white; color:#0891b2; font-size:12px; font-weight:700; cursor:pointer;">Homens</button>
+<button class="nps-btn" data-key="mulheres" onclick="selectNPS('mulheres')" style="padding:7px 14px; border-radius:20px; border:2px solid #e07a5f; background:white; color:#e07a5f; font-size:12px; font-weight:700; cursor:pointer;" data-en="Women">Mulheres</button>
+<button class="nps-btn" data-key="homens" onclick="selectNPS('homens')" style="padding:7px 14px; border-radius:20px; border:2px solid #0891b2; background:white; color:#0891b2; font-size:12px; font-weight:700; cursor:pointer;" data-en="Men">Homens</button>
 <button class="nps-btn" data-key="brancos" onclick="selectNPS('brancos')" style="padding:7px 14px; border-radius:20px; border:2px solid #6b7280; background:white; color:#6b7280; font-size:12px; font-weight:700; cursor:pointer;">Brancos</button>
 <button class="nps-btn" data-key="pardos" onclick="selectNPS('pardos')" style="padding:7px 14px; border-radius:20px; border:2px solid #92400e; background:white; color:#92400e; font-size:12px; font-weight:700; cursor:pointer;">Pardos</button>
 <button class="nps-btn" data-key="pretos" onclick="selectNPS('pretos')" style="padding:7px 14px; border-radius:20px; border:2px solid #1c1917; background:white; color:#1c1917; font-size:12px; font-weight:700; cursor:pointer;">Pretos</button>
@@ -2094,15 +2115,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 <!-- Stat pills row -->
 <div style="display:flex; gap:10px; margin-top:18px;">
 <div id="nps-prom-label" style="flex:1; background:#f0fdf4; border-radius:10px; padding:10px 8px; text-align:center;">
-<div style="font-size:10px; font-weight:800; color:#16a34a; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px;">Promotores</div>
+<div style="font-size:10px; font-weight:800; color:#16a34a; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px;" data-en="Promoters">Promotores</div>
 <div id="nps-prom-pct" style="font-size:26px; font-weight:900; color:#16a34a; line-height:1.1;">61%</div>
 </div>
 <div id="nps-pass-label" style="flex:1; background:#f9fafb; border-radius:10px; padding:10px 8px; text-align:center;">
-<div style="font-size:10px; font-weight:800; color:#9ca3af; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px;">Neutros</div>
+<div style="font-size:10px; font-weight:800; color:#9ca3af; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px;" data-en="Neutrals">Neutros</div>
 <div id="nps-pass-pct" style="font-size:26px; font-weight:900; color:#9ca3af; line-height:1.1;">27%</div>
 </div>
 <div id="nps-detr-label" style="flex:1; background:#fef2f2; border-radius:10px; padding:10px 8px; text-align:center;">
-<div style="font-size:10px; font-weight:800; color:#ef4444; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px;">Detratores</div>
+<div style="font-size:10px; font-weight:800; color:#ef4444; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px;" data-en="Detractors">Detratores</div>
 <div id="nps-detr-pct" style="font-size:26px; font-weight:900; color:#ef4444; line-height:1.1;">13%</div>
 </div>
 </div>
@@ -2189,14 +2210,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 ══════════════════════════════════════════════════ -->
 <div id="pg-mapas" class="outer-sec">
   <div class="page-header">
-    <h2>🗺️ Mapas do Território</h2>
-    <p>7 camadas geoespaciais — edificações, uso do solo, bacia hidrográfica, APA, curvas de nível, propriedades CEFIR</p>
+    <h2 data-en="🗺️ Territory Maps">🗺️ Mapas do Território</h2>
+    <p data-en="7 geospatial layers — buildings, land use, watershed, EPA, contour lines, CEFIR properties">7 camadas geoespaciais — edificações, uso do solo, bacia hidrográfica, APA, curvas de nível, propriedades CEFIR</p>
   </div>
   <div class="mapas-wrap mapas-3col">
 
     <!-- COLUNA ESQUERDA: camadas -->
     <div class="mapas-col-left">
-      <div class="mapas-col-header">Camadas</div>
+      <div class="mapas-col-header" data-en="Layers">Camadas</div>
       <div id="mapa-toggles" style="display:flex; flex-direction:column; gap:8px;">
         <!-- botões gerados pelo JS -->
       </div>
@@ -2232,16 +2253,16 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 ══════════════════════════════════════════════════ -->
 <div id="pg-agentes" class="outer-sec">
   <div class="page-header">
-    <h2>👥 Mapeamento de Agentes</h2>
-    <p>20 tipos de agentes · 42 organizações e grupos de trabalho · projetos e impactos</p>
+    <h2 data-en="👥 Agent Mapping">👥 Mapeamento de Agentes</h2>
+    <p data-en="20 agent types · 42 organizations and working groups · projects and impacts">20 tipos de agentes · 42 organizações e grupos de trabalho · projetos e impactos</p>
   </div>
   <div class="agentes-wrap">
 
     <div class="ag-tabs">
-      <button class="ag-tab active" onclick="showAgTab('ag-agentes')">🧩 Tipos de Agentes do Território</button>
-      <button class="ag-tab" onclick="showAgTab('ag-orgs')">🏛️ Organizações &amp; GTs</button>
-      <button class="ag-tab" onclick="showAgTab('ag-projetos')">🚀 Projetos</button>
-      <button class="ag-tab" onclick="showAgTab('ag-poder')">⚡ Poder &amp; Vulnerabilidade</button>
+      <button class="ag-tab active" onclick="showAgTab('ag-agentes')" data-en="🧩 Territory Agent Types">🧩 Tipos de Agentes do Território</button>
+      <button class="ag-tab" onclick="showAgTab('ag-orgs')" data-en="🏛️ Organizations &amp; WGs">🏛️ Organizações &amp; GTs</button>
+      <button class="ag-tab" onclick="showAgTab('ag-projetos')" data-en="🚀 Projects">🚀 Projetos</button>
+      <button class="ag-tab" onclick="showAgTab('ag-poder')" data-en="⚡ Power &amp; Vulnerability">⚡ Poder &amp; Vulnerabilidade</button>
     </div>
 
     <div id="ag-agentes" class="ag-panel active">
@@ -3294,9 +3315,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 <div id="pg-personas" class="outer-sec">
 
   <div class="personas-header">
-    <div class="personas-eyebrow">Painel de Intelig&ecirc;ncia Territorial</div>
-    <h2 class="personas-title">Quem vive em Piracanga?</h2>
-    <p class="personas-sub">
+    <div class="personas-eyebrow" data-en="Territorial Intelligence Panel">Painel de Intelig&ecirc;ncia Territorial</div>
+    <h2 class="personas-title" data-en="Who lives in Piracanga?">Quem vive em Piracanga?</h2>
+    <p class="personas-sub" data-en="Six qualitative profiles built from the 2025 Census data and the System Agent Mapping. Each persona represents a real archetype — with distinct patterns of behavior, motivation and relationship with the territory.">
       Seis perfis qualitativos constru&iacute;dos a partir dos dados do Censo 2025 e do Mapeamento de Agentes do Sistema.
       Cada persona representa um arqu&eacute;tipo real &mdash; com padr&otilde;es distintos de comportamento, motiva&ccedil;&atilde;o e rela&ccedil;&atilde;o com o territ&oacute;rio.
     </p>
@@ -3304,44 +3325,44 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 
   <!-- PILARES DO SISTEMA -->
   <div class="personas-pillars-wrap">
-    <div class="personas-matrix-title">Os três pilares humanos de Piracanga</div>
+    <div class="personas-matrix-title" data-en="The three human pillars of Piracanga">Os três pilares humanos de Piracanga</div>
     <div style="display:flex; gap:0; border-radius:14px 14px 0 0; overflow:hidden; border:1px solid rgba(82,183,136,0.25); border-bottom:none;">
       <div class="pp-pillar" style="flex:1; padding:1.4rem 1rem; background:rgba(255,255,255,0.03); border-right:1px solid rgba(82,183,136,0.15);">
         <div class="pp-pillar-icon">🌀</div>
-        <div class="pp-pillar-label">Cultura Regenerativa</div>
-        <div class="pp-pillar-persona" style="border-color:#f4a261;color:#f4a261">O Buscador Regenerativo</div>
+        <div class="pp-pillar-label" data-en="Regenerative Culture">Cultura Regenerativa</div>
+        <div class="pp-pillar-persona" style="border-color:#f4a261;color:#f4a261" data-en="The Regenerative Seeker">O Buscador Regenerativo</div>
       </div>
       <div class="pp-pillar" style="flex:1; padding:1.4rem 1rem; background:rgba(255,255,255,0.03); border-right:1px solid rgba(82,183,136,0.15);">
         <div class="pp-pillar-icon">💰</div>
-        <div class="pp-pillar-label">Economia Local</div>
-        <div class="pp-pillar-persona" style="border-color:#e9c46a;color:#e9c46a">O Trabalhador do Turismo</div>
-        <div class="pp-pillar-persona" style="border-color:#4f9cf9;color:#4f9cf9;margin-top:6px">O Profissional Remoto</div>
+        <div class="pp-pillar-label" data-en="Local Economy">Economia Local</div>
+        <div class="pp-pillar-persona" style="border-color:#e9c46a;color:#e9c46a" data-en="The Tourism Worker">O Trabalhador do Turismo</div>
+        <div class="pp-pillar-persona" style="border-color:#4f9cf9;color:#4f9cf9;margin-top:6px" data-en="The Remote Professional">O Profissional Remoto</div>
       </div>
       <div class="pp-pillar" style="flex:1; padding:1.4rem 1rem; background:rgba(255,255,255,0.03);">
         <div class="pp-pillar-icon">🏛️</div>
-        <div class="pp-pillar-label">Estrutura Territorial</div>
-        <div class="pp-pillar-persona" style="border-color:#a78bfa;color:#a78bfa">O Dono Distante</div>
+        <div class="pp-pillar-label" data-en="Territorial Structure">Estrutura Territorial</div>
+        <div class="pp-pillar-persona" style="border-color:#a78bfa;color:#a78bfa" data-en="The Distant Owner">O Dono Distante</div>
       </div>
     </div>
     <div style="display:flex; align-items:center; justify-content:center; gap:0.75rem; background:rgba(82,183,136,0.12); border:1px solid rgba(82,183,136,0.45); border-top:3px solid #52b788; border-radius:0 0 14px 14px; padding:0.95rem 1.5rem; text-align:center;">
       <span style="font-size:1.3rem">🤝</span>
-      <span style="font-size:0.95rem"><strong style="color:#52b788;">O Construtor de Comunidade</strong> <span style="color:#888; font-size:0.86em">— Elo Integrador que atua nos três pilares simultaneamente</span></span>
+      <span style="font-size:0.95rem"><strong style="color:#52b788;" data-en="The Community Builder">O Construtor de Comunidade</strong> <span style="color:#888; font-size:0.86em">— <span data-en="Integrating Link that operates across all three pillars simultaneously">Elo Integrador que atua nos três pilares simultaneamente</span></span>
     </div>
     <div class="pp-alert">
       <span style="color:#e07070;font-size:14px">⚠</span>
-      <span><strong style="color:#e07070">A Raiz Ameçada</strong> &mdash; presente nos três pilares, mas sem proteção em nenhum. É a tensão transversal do sistema.</span>
+      <span><strong style="color:#e07070" data-en="The Threatened Root">A Raiz Ameçada</strong> &mdash; presente nos três pilares, mas sem proteção em nenhum. É a tensão transversal do sistema.</span>
     </div>
   </div>
 
   <!-- IMPACTO NO SISTEMA -->
   <div class="personas-impact-wrap">
-    <div class="personas-matrix-title">Impacto no sistema territorial</div>
+    <div class="personas-matrix-title" data-en="Impact on the territorial system">Impacto no sistema territorial</div>
     <div class="personas-impact-table-scroll">
       <table class="personas-impact-table">
         <thead>
           <tr>
-            <th style="text-align:left;padding:8px 16px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#52b788;text-transform:uppercase">Persona</th>
-            <th style="text-align:center;padding:8px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#52b788;text-transform:uppercase">Ecologia</th><th style="text-align:center;padding:8px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#52b788;text-transform:uppercase">Economia</th><th style="text-align:center;padding:8px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#52b788;text-transform:uppercase">Comunidade</th><th style="text-align:center;padding:8px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#52b788;text-transform:uppercase">Governan&ccedil;a</th><th style="text-align:center;padding:8px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#52b788;text-transform:uppercase">Perman&ecirc;ncia</th>
+            <th style="text-align:left;padding:8px 16px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#52b788;text-transform:uppercase" data-en="Persona">Persona</th>
+            <th style="text-align:center;padding:8px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#52b788;text-transform:uppercase" data-en="Ecology">Ecologia</th><th style="text-align:center;padding:8px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#52b788;text-transform:uppercase" data-en="Economy">Economia</th><th style="text-align:center;padding:8px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#52b788;text-transform:uppercase" data-en="Community">Comunidade</th><th style="text-align:center;padding:8px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#52b788;text-transform:uppercase" data-en="Governance">Governan&ccedil;a</th><th style="text-align:center;padding:8px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#52b788;text-transform:uppercase" data-en="Permanence">Perman&ecirc;ncia</th>
           </tr>
         </thead>
         <tbody>
@@ -3384,7 +3405,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
         </tbody>
       </table>
     </div>
-    <div class="impact-legend"><span style="display:inline-flex;align-items:center;gap:6px;margin-right:16px;font-size:11px;color:#888"><span style="width:14px;height:14px;border-radius:50%;background:#52b788;display:inline-block"></span>Alto</span><span style="display:inline-flex;align-items:center;gap:6px;margin-right:16px;font-size:11px;color:#888"><span style="width:10px;height:10px;border-radius:50%;background:#e9c46a;display:inline-block"></span>M&eacute;dio</span><span style="display:inline-flex;align-items:center;gap:6px;margin-right:16px;font-size:11px;color:#888"><span style="width:7px;height:7px;border-radius:50%;background:#888;display:inline-block"></span>Baixo</span></div>
+    <div class="impact-legend"><span style="display:inline-flex;align-items:center;gap:6px;margin-right:16px;font-size:11px;color:#888"><span style="width:14px;height:14px;border-radius:50%;background:#52b788;display:inline-block"></span data-en="High">Alto</span><span style="display:inline-flex;align-items:center;gap:6px;margin-right:16px;font-size:11px;color:#888"><span style="width:10px;height:10px;border-radius:50%;background:#e9c46a;display:inline-block"></span data-en="Medium">M&eacute;dio</span><span style="display:inline-flex;align-items:center;gap:6px;margin-right:16px;font-size:11px;color:#888"><span style="width:7px;height:7px;border-radius:50%;background:#888;display:inline-block"></span data-en="Low">Baixo</span></div>
   </div>
 
   <!-- CARDS -->
@@ -3401,8 +3422,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
   <ellipse cx="23" cy="30" rx="5" ry="3" fill="#95d5b2" transform="rotate(30,23,30)"/>
 </svg></div>
         <div class="pc-intro">
-          <div class="pc-nome" style="color:#52b788">O Construtor de Comunidade</div>
-          <div class="pc-subtitulo">L&iacute;der comunit&aacute;rio, organizador de projetos e GTs</div>
+          <div class="pc-nome" style="color:#52b788" data-en="The Community Builder">O Construtor de Comunidade</div>
+          <div class="pc-subtitulo" data-en="Community leader, project and working group organizer">L&iacute;der comunit&aacute;rio, organizador de projetos e GTs</div>
           <span class="pc-n-badge" style="background:#52b78820;color:#52b788;border:1px solid #52b78840">~20–31 pessoas</span>
         </div>
       </div>
@@ -3410,14 +3431,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
         <div class="pc-axis">
           <span class="pc-axis-icon">⚡</span>
           <div>
-            <div class="pc-axis-label">Comportamental</div>
+            <div class="pc-axis-label" data-en="Behavioral">Comportamental</div>
             <div>Alto engajamento — governa, coordena e facilita</div>
           </div>
         </div>
         <div class="pc-axis">
           <span class="pc-axis-icon">🌍</span>
           <div>
-            <div class="pc-axis-label">Rela&ccedil;&atilde;o com o territ&oacute;rio</div>
+            <div class="pc-axis-label" data-en="Relationship with the territory">Rela&ccedil;&atilde;o com o territ&oacute;rio</div>
             <div>Identidade profundamente ligada ao lugar</div>
           </div>
         </div>
@@ -3438,7 +3459,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
         </div>
       </div>
       <div class="pc-desafio">
-        <div class="pc-desafio-lbl" style="color:#52b788">⚠ Desafio central</div>
+        <div class="pc-desafio-lbl" style="color:#52b788" data-en="⚠ Core challenge">⚠ Desafio central</div>
         Sobrecarga: poucos assumem o que &eacute; de todos. Dificuldade em engajar mais pessoas nos processos.
       </div>
       <div class="pc-contrib" style="border-left-color:#52b78840">
@@ -3460,8 +3481,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
   <path d="M26 10 L30 16" stroke="#fcd5a0" stroke-width="1.5" opacity="0.6"/>
 </svg></div>
         <div class="pc-intro">
-          <div class="pc-nome" style="color:#f4a261">O Buscador Regenerativo</div>
-          <div class="pc-subtitulo">Terapeuta, facilitador, praticante espiritual</div>
+          <div class="pc-nome" style="color:#f4a261" data-en="The Regenerative Seeker">O Buscador Regenerativo</div>
+          <div class="pc-subtitulo" data-en="Therapist, facilitator, spiritual practitioner">Terapeuta, facilitador, praticante espiritual</div>
           <span class="pc-n-badge" style="background:#f4a26120;color:#f4a261;border:1px solid #f4a26140">~20–30 pessoas</span>
         </div>
       </div>
@@ -3469,14 +3490,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
         <div class="pc-axis">
           <span class="pc-axis-icon">⚡</span>
           <div>
-            <div class="pc-axis-label">Comportamental</div>
+            <div class="pc-axis-label" data-en="Behavioral">Comportamental</div>
             <div>Orientado ao prop&oacute;sito e &agrave; pr&aacute;tica regenerativa</div>
           </div>
         </div>
         <div class="pc-axis">
           <span class="pc-axis-icon">🌍</span>
           <div>
-            <div class="pc-axis-label">Rela&ccedil;&atilde;o com o territ&oacute;rio</div>
+            <div class="pc-axis-label" data-en="Relationship with the territory">Rela&ccedil;&atilde;o com o territ&oacute;rio</div>
             <div>Pertencimento espiritual &mdash; identidade ligada aos valores da ecovila</div>
           </div>
         </div>
@@ -3497,7 +3518,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
         </div>
       </div>
       <div class="pc-desafio">
-        <div class="pc-desafio-lbl" style="color:#f4a261">⚠ Desafio central</div>
+        <div class="pc-desafio-lbl" style="color:#f4a261" data-en="⚠ Core challenge">⚠ Desafio central</div>
         Manter a autenticidade espiritual do lugar diante da press&atilde;o de mercado.
       </div>
       <div class="pc-contrib" style="border-left-color:#f4a26140">
@@ -3517,8 +3538,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
   <rect x="37" y="46" width="6" height="6" fill="#fde68a" opacity="0.5"/>
 </svg></div>
         <div class="pc-intro">
-          <div class="pc-nome" style="color:#e9c46a">O Trabalhador do Turismo</div>
-          <div class="pc-subtitulo">Hospitalidade, alimenta&ccedil;&atilde;o, guia, organiza&ccedil;&atilde;o de retiros</div>
+          <div class="pc-nome" style="color:#e9c46a" data-en="The Tourism Worker">O Trabalhador do Turismo</div>
+          <div class="pc-subtitulo" data-en="Hospitality, food service, guide, retreat organization">Hospitalidade, alimenta&ccedil;&atilde;o, guia, organiza&ccedil;&atilde;o de retiros</div>
           <span class="pc-n-badge" style="background:#e9c46a20;color:#e9c46a;border:1px solid #e9c46a40">~55 pessoas</span>
         </div>
       </div>
@@ -3526,14 +3547,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
         <div class="pc-axis">
           <span class="pc-axis-icon">⚡</span>
           <div>
-            <div class="pc-axis-label">Comportamental</div>
+            <div class="pc-axis-label" data-en="Behavioral">Comportamental</div>
             <div>Orientado &agrave; entrega econ&ocirc;mica e ao servi&ccedil;o</div>
           </div>
         </div>
         <div class="pc-axis">
           <span class="pc-axis-icon">🌍</span>
           <div>
-            <div class="pc-axis-label">Rela&ccedil;&atilde;o com o territ&oacute;rio</div>
+            <div class="pc-axis-label" data-en="Relationship with the territory">Rela&ccedil;&atilde;o com o territ&oacute;rio</div>
             <div>Depend&ecirc;ncia econ&ocirc;mica do fluxo tur&iacute;stico local</div>
           </div>
         </div>
@@ -3554,7 +3575,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
         </div>
       </div>
       <div class="pc-desafio">
-        <div class="pc-desafio-lbl" style="color:#e9c46a">⚠ Desafio central</div>
+        <div class="pc-desafio-lbl" style="color:#e9c46a" data-en="⚠ Core challenge">⚠ Desafio central</div>
         Sazonalidade e depend&ecirc;ncia de um &uacute;nico vetor econ&ocirc;mico. Vulnerabilidade na baixa temporada.
       </div>
       <div class="pc-contrib" style="border-left-color:#e9c46a40">
@@ -3574,8 +3595,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
   <line x1="25" y1="66" x2="55" y2="66" stroke="#a8d4fc" stroke-width="1.5"/>
 </svg></div>
         <div class="pc-intro">
-          <div class="pc-nome" style="color:#4f9cf9">O Profissional Remoto</div>
-          <div class="pc-subtitulo">Consultor, tech, empreendedor digital</div>
+          <div class="pc-nome" style="color:#4f9cf9" data-en="The Remote Professional">O Profissional Remoto</div>
+          <div class="pc-subtitulo" data-en="Consultant, tech, digital entrepreneur">Consultor, tech, empreendedor digital</div>
           <span class="pc-n-badge" style="background:#4f9cf920;color:#4f9cf9;border:1px solid #4f9cf940">~35 pessoas</span>
         </div>
       </div>
@@ -3583,14 +3604,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
         <div class="pc-axis">
           <span class="pc-axis-icon">⚡</span>
           <div>
-            <div class="pc-axis-label">Comportamental</div>
+            <div class="pc-axis-label" data-en="Behavioral">Comportamental</div>
             <div>Alta autonomia digital &mdash; engajamento comunit&aacute;rio em constru&ccedil;&atilde;o</div>
           </div>
         </div>
         <div class="pc-axis">
           <span class="pc-axis-icon">🌍</span>
           <div>
-            <div class="pc-axis-label">Rela&ccedil;&atilde;o com o territ&oacute;rio</div>
+            <div class="pc-axis-label" data-en="Relationship with the territory">Rela&ccedil;&atilde;o com o territ&oacute;rio</div>
             <div>Chegou pela qualidade de vida &mdash; v&iacute;nculos em forma&ccedil;&atilde;o</div>
           </div>
         </div>
@@ -3611,7 +3632,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
         </div>
       </div>
       <div class="pc-desafio">
-        <div class="pc-desafio-lbl" style="color:#4f9cf9">⚠ Desafio central</div>
+        <div class="pc-desafio-lbl" style="color:#4f9cf9" data-en="⚠ Core challenge">⚠ Desafio central</div>
         Integra&ccedil;&atilde;o profunda com a vida comunit&aacute;ria. Risco de usar o territ&oacute;rio sem contribuir para ele.
       </div>
       <div class="pc-contrib" style="border-left-color:#4f9cf940">
@@ -3632,8 +3653,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
   <path d="M62 18 Q66 23 63 28" stroke="#e07070" stroke-width="1.5" fill="none" opacity="0.35" stroke-dasharray="3 2"/>
 </svg></div>
         <div class="pc-intro">
-          <div class="pc-nome" style="color:#e07070">A Raiz Ameaçada</div>
-          <div class="pc-subtitulo">Moradora essencial sem propriedade &mdash; em risco de sair</div>
+          <div class="pc-nome" style="color:#e07070" data-en="The Threatened Root">A Raiz Ameaçada</div>
+          <div class="pc-subtitulo" data-en="Essential resident without property — at risk of leaving">Moradora essencial sem propriedade &mdash; em risco de sair</div>
           <span class="pc-n-badge" style="background:#e0707020;color:#e07070;border:1px solid #e0707040">~57 pessoas</span>
         </div>
       </div>
@@ -3641,14 +3662,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
         <div class="pc-axis">
           <span class="pc-axis-icon">⚡</span>
           <div>
-            <div class="pc-axis-label">Comportamental</div>
+            <div class="pc-axis-label" data-en="Behavioral">Comportamental</div>
             <div>Muito integrada ao cotidiano &mdash; trabalho e cuidado essencial</div>
           </div>
         </div>
         <div class="pc-axis">
           <span class="pc-axis-icon">🌍</span>
           <div>
-            <div class="pc-axis-label">Rela&ccedil;&atilde;o com o territ&oacute;rio</div>
+            <div class="pc-axis-label" data-en="Relationship with the territory">Rela&ccedil;&atilde;o com o territ&oacute;rio</div>
             <div>Pertencimento profundo, mas v&iacute;nculo fundiário fr&aacute;gil</div>
           </div>
         </div>
@@ -3669,7 +3690,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
         </div>
       </div>
       <div class="pc-desafio">
-        <div class="pc-desafio-lbl" style="color:#e07070">⚠ Desafio central</div>
+        <div class="pc-desafio-lbl" style="color:#e07070" data-en="⚠ Core challenge">⚠ Desafio central</div>
         Ama o lugar, mas n&atilde;o consegue se manter. Tens&atilde;o estrutural entre pertencimento e viabilidade.
       </div>
       <div class="pc-contrib" style="border-left-color:#e0707040">
@@ -3691,8 +3712,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
   <circle cx="40" cy="40" r="33" fill="none" stroke="#a78bfa" stroke-width="1" stroke-dasharray="5 3" opacity="0.35"/>
 </svg></div>
         <div class="pc-intro">
-          <div class="pc-nome" style="color:#a78bfa">O Dono Distante</div>
-          <div class="pc-subtitulo">Propriet&aacute;rio que n&atilde;o mora &mdash; decide sem viver as consequ&ecirc;ncias</div>
+          <div class="pc-nome" style="color:#a78bfa" data-en="The Distant Owner">O Dono Distante</div>
+          <div class="pc-subtitulo" data-en="Owner who does not live there — decides without living the consequences">Propriet&aacute;rio que n&atilde;o mora &mdash; decide sem viver as consequ&ecirc;ncias</div>
           <span class="pc-n-badge" style="background:#a78bfa20;color:#a78bfa;border:1px solid #a78bfa40">~79 pessoas</span>
         </div>
       </div>
@@ -3700,14 +3721,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
         <div class="pc-axis">
           <span class="pc-axis-icon">⚡</span>
           <div>
-            <div class="pc-axis-label">Comportamental</div>
+            <div class="pc-axis-label" data-en="Behavioral">Comportamental</div>
             <div>Baixo engajamento cotidiano &mdash; presen&ccedil;a sazonal</div>
           </div>
         </div>
         <div class="pc-axis">
           <span class="pc-axis-icon">🌍</span>
           <div>
-            <div class="pc-axis-label">Rela&ccedil;&atilde;o com o territ&oacute;rio</div>
+            <div class="pc-axis-label" data-en="Relationship with the territory">Rela&ccedil;&atilde;o com o territ&oacute;rio</div>
             <div>Rela&ccedil;&atilde;o patrimonial &mdash; alto poder, baixa presen&ccedil;a</div>
           </div>
         </div>
@@ -3728,7 +3749,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
         </div>
       </div>
       <div class="pc-desafio">
-        <div class="pc-desafio-lbl" style="color:#a78bfa">⚠ Desafio central</div>
+        <div class="pc-desafio-lbl" style="color:#a78bfa" data-en="⚠ Core challenge">⚠ Desafio central</div>
         Poder concentrado sem responsabilidade cotidiana. A tens&atilde;o estrutural da propriedade em Piracanga.
       </div>
       <div class="pc-contrib" style="border-left-color:#a78bfa40">
@@ -3744,87 +3765,87 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 
 <div id="pg-diagnostico" class="outer-sec">
   <div class="page-header">
-    <h2>🔍 Diagnóstico do Sistema</h2>
-    <p>Tensões sistêmicas · Pontos de alavancagem (Donella Meadows) · Lacunas de dados</p>
+    <h2 data-en="🔍 System Diagnosis">🔍 Diagnóstico do Sistema</h2>
+    <p data-en="Systemic tensions · Leverage points (Donella Meadows) · Data gaps">Tensões sistêmicas · Pontos de alavancagem (Donella Meadows) · Lacunas de dados</p>
   </div>
   <div class="diag-wrap">
 
     <div class="diag-tabs">
-      <button class="diag-tab active" onclick="showDiagTab('diag-tensoes')">⚡ Tensões Sistêmicas</button>
-      <button class="diag-tab" onclick="showDiagTab('diag-alav')">🎯 Alavancagem</button>
-      <button class="diag-tab" onclick="showDiagTab('diag-lacunas')">🔎 Lacunas de Dados</button>
+      <button class="diag-tab active" onclick="showDiagTab('diag-tensoes')" data-en="⚡ Systemic Tensions">⚡ Tensões Sistêmicas</button>
+      <button class="diag-tab" onclick="showDiagTab('diag-alav')" data-en="🎯 Leverage">🎯 Alavancagem</button>
+      <button class="diag-tab" onclick="showDiagTab('diag-lacunas')" data-en="🔎 Data Gaps">🔎 Lacunas de Dados</button>
     </div>
 
     <div id="diag-tensoes" class="diag-panel active">
       <div class="tensao-card">
-  <div class="tens-nome">Permanência vs custo de vida</div>
-  <div class="tens-desc">Dificuldade financeira crescente ameaça permanência de moradores essenciais. 57% pensam em sair.</div>
+  <div class="tens-nome" data-en="Permanence vs cost of living">Permanência vs custo de vida</div>
+  <div class="tens-desc" data-en="Growing financial hardship threatens the permanence of essential residents. 57% consider leaving.">Dificuldade financeira crescente ameaça permanência de moradores essenciais. 57% pensam em sair.</div>
   <div class="tens-footer">
-    <span class="risco-medio">Risco Médio</span>
-    <span class="tens-tipo">Econômica / Social</span>
+    <span class="risco-medio" data-en="Medium Risk">Risco Médio</span>
+    <span class="tens-tipo" data-en="Economic / Social">Econômica / Social</span>
   </div>
 </div><div class="tensao-card">
-  <div class="tens-nome">Turismo vs qualidade de vida</div>
-  <div class="tens-desc">Dependência econômica do turismo cria sazonalidade e pressão sobre o território. Alta durante temporada.</div>
+  <div class="tens-nome" data-en="Tourism vs quality of life">Turismo vs qualidade de vida</div>
+  <div class="tens-desc" data-en="Economic dependence on tourism creates seasonality and pressure on the territory. High during peak season.">Dependência econômica do turismo cria sazonalidade e pressão sobre o território. Alta durante temporada.</div>
   <div class="tens-footer">
-    <span class="risco-medio">Risco Médio</span>
-    <span class="tens-tipo">Econômica / Social</span>
+    <span class="risco-medio" data-en="Medium Risk">Risco Médio</span>
+    <span class="tens-tipo" data-en="Economic / Social">Econômica / Social</span>
   </div>
 </div><div class="tensao-card">
-  <div class="tens-nome">Propriedade vs comunidade</div>
-  <div class="tens-desc">Decisões patrimoniais de quem não vive no território afetam diretamente quem vive. Tensão estrutural.</div>
+  <div class="tens-nome" data-en="Property vs community">Propriedade vs comunidade</div>
+  <div class="tens-desc" data-en="Property decisions by those who do not live in the territory directly affect those who do. Structural tension.">Decisões patrimoniais de quem não vive no território afetam diretamente quem vive. Tensão estrutural.</div>
   <div class="tens-footer">
-    <span class="risco-medio">Risco Médio</span>
-    <span class="tens-tipo">Territorial / Governança</span>
+    <span class="risco-medio" data-en="Medium Risk">Risco Médio</span>
+    <span class="tens-tipo" data-en="Territorial / Governance">Territorial / Governança</span>
   </div>
 </div><div class="tensao-card">
-  <div class="tens-nome">Governança vs participação</div>
-  <div class="tens-desc">Poucos participam das decisões; concentração em lideranças sobrecarregadas. Risco de burnout.</div>
+  <div class="tens-nome" data-en="Governance vs participation">Governança vs participação</div>
+  <div class="tens-desc" data-en="Few participate in decisions; concentration in overloaded leaderships. Risk of burnout.">Poucos participam das decisões; concentração em lideranças sobrecarregadas. Risco de burnout.</div>
   <div class="tens-footer">
-    <span class="risco-medio">Risco Médio</span>
-    <span class="tens-tipo">Governança / Social</span>
+    <span class="risco-medio" data-en="Medium Risk">Risco Médio</span>
+    <span class="tens-tipo" data-en="Governance / Social">Governança / Social</span>
   </div>
 </div><div class="tensao-card">
-  <div class="tens-nome">Vila vs bacia hidrográfica</div>
-  <div class="tens-desc">Impactos ambientais externos (desmatamento, agropecuária) ameaçam a bacia hidrográfica e o abastecimento de água.</div>
+  <div class="tens-nome" data-en="Village vs watershed">Vila vs bacia hidrográfica</div>
+  <div class="tens-desc" data-en="External environmental impacts (deforestation, agriculture) threaten the watershed and water supply.">Impactos ambientais externos (desmatamento, agropecuária) ameaçam a bacia hidrográfica e o abastecimento de água.</div>
   <div class="tens-footer">
-    <span class="risco-medio">Risco Médio</span>
-    <span class="tens-tipo">Ecológica / Territorial</span>
+    <span class="risco-medio" data-en="Medium Risk">Risco Médio</span>
+    <span class="tens-tipo" data-en="Ecological / Territorial">Ecológica / Territorial</span>
   </div>
 </div><div class="tensao-card">
-  <div class="tens-nome">Desenvolvimento imobiliário vs moradia acessível</div>
-  <div class="tens-desc">Valorização imobiliária eleva custos de moradia e expulsa moradores de menor renda do território.</div>
+  <div class="tens-nome" data-en="Real estate development vs affordable housing">Desenvolvimento imobiliário vs moradia acessível</div>
+  <div class="tens-desc" data-en="Real estate appreciation raises housing costs and displaces lower-income residents from the territory.">Valorização imobiliária eleva custos de moradia e expulsa moradores de menor renda do território.</div>
   <div class="tens-footer">
-    <span class="risco-medio">Risco Médio</span>
-    <span class="tens-tipo">Territorial / Econômica</span>
+    <span class="risco-medio" data-en="Medium Risk">Risco Médio</span>
+    <span class="tens-tipo" data-en="Territorial / Economic">Territorial / Econômica</span>
   </div>
 </div><div class="tensao-card">
-  <div class="tens-nome">Identidade espiritual-regenerativa vs mercantilização</div>
-  <div class="tens-desc">Pressão para adaptar a identidade da ecovila às demandas do mercado turístico, perdendo autenticidade.</div>
+  <div class="tens-nome" data-en="Spiritual-regenerative identity vs commodification">Identidade espiritual-regenerativa vs mercantilização</div>
+  <div class="tens-desc" data-en="Pressure to adapt the ecovillage identity to tourist market demands, losing authenticity.">Pressão para adaptar a identidade da ecovila às demandas do mercado turístico, perdendo autenticidade.</div>
   <div class="tens-footer">
-    <span class="risco-medio">Risco Médio</span>
-    <span class="tens-tipo">Cultural / Identitária</span>
+    <span class="risco-medio" data-en="Medium Risk">Risco Médio</span>
+    <span class="tens-tipo" data-en="Cultural / Identity">Cultural / Identitária</span>
   </div>
 </div><div class="tensao-card">
-  <div class="tens-nome">Infraestrutura deficiente vs qualidade de vida</div>
-  <div class="tens-desc">Estrada precária, saneamento insuficiente e internet instável limitam bem-estar e oportunidades econômicas.</div>
+  <div class="tens-nome" data-en="Insufficient infrastructure vs quality of life">Infraestrutura deficiente vs qualidade de vida</div>
+  <div class="tens-desc" data-en="Poor road, insufficient sanitation and unstable internet limit well-being and economic opportunities.">Estrada precária, saneamento insuficiente e internet instável limitam bem-estar e oportunidades econômicas.</div>
   <div class="tens-footer">
-    <span class="risco-medio">Risco Médio</span>
-    <span class="tens-tipo">Infraestrutura / Governança</span>
+    <span class="risco-medio" data-en="Medium Risk">Risco Médio</span>
+    <span class="tens-tipo" data-en="Infrastructure / Governance">Infraestrutura / Governança</span>
   </div>
 </div><div class="tensao-card">
-  <div class="tens-nome">Trabalhadores do Caubi vs invisibilidade sistêmica</div>
-  <div class="tens-desc">60 trabalhadores essenciais do entorno não têm representação na governança nem acesso a benefícios comunitários.</div>
+  <div class="tens-nome" data-en="Caubi workers vs systemic invisibility">Trabalhadores do Caubi vs invisibilidade sistêmica</div>
+  <div class="tens-desc" data-en="60 essential workers from the surrounding area lack representation in governance and access to community benefits.">60 trabalhadores essenciais do entorno não têm representação na governança nem acesso a benefícios comunitários.</div>
   <div class="tens-footer">
-    <span class="risco-medio">Risco Médio</span>
-    <span class="tens-tipo">Social / Econômica / Racial</span>
+    <span class="risco-medio" data-en="Medium Risk">Risco Médio</span>
+    <span class="tens-tipo" data-en="Social / Economic / Racial">Social / Econômica / Racial</span>
   </div>
 </div><div class="tensao-card">
-  <div class="tens-nome">Dados e transparência vs resistência à exposição</div>
-  <div class="tens-desc">A construção de inteligência territorial requer abertura de dados que pode gerar resistência por medo de exposição ou controle.</div>
+  <div class="tens-nome" data-en="Data and transparency vs resistance to exposure">Dados e transparência vs resistência à exposição</div>
+  <div class="tens-desc" data-en="Building territorial intelligence requires data openness that may generate resistance due to fear of exposure or control.">A construção de inteligência territorial requer abertura de dados que pode gerar resistência por medo de exposição ou controle.</div>
   <div class="tens-footer">
-    <span class="risco-medio">Risco Médio</span>
-    <span class="tens-tipo">Informação / Governança</span>
+    <span class="risco-medio" data-en="Medium Risk">Risco Médio</span>
+    <span class="tens-tipo" data-en="Information / Governance">Informação / Governança</span>
   </div>
 </div>
     </div>
@@ -3833,72 +3854,72 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
       <div class="alav-cards">
         <div class="alav-card">
   <div class="alav-num">4</div>
-  <span class="alav-level alav-l1">🟥 Nível Crítico</span>
-  <div class="alav-title">Paradigma e Propósito Coletivo</div>
-  <div class="alav-meadows">Ponto 12 — Paradigmas que sustentam o sistema</div>
+  <span class="alav-level alav-l1" data-en="🟥 Critical Level">🟥 Nível Crítico</span>
+  <div class="alav-title" data-en="Paradigm and Collective Purpose">Paradigma e Propósito Coletivo</div>
+  <div class="alav-meadows" data-en="Point 12 — Paradigms that sustain the system">Ponto 12 — Paradigmas que sustentam o sistema</div>
   <div class="alav-desc">A Ecovila ainda não tem um documento vivo de propósito estratégico compartilhado. Explicitar o paradigma regenerativo é a alavanca mais profunda.</div>
   <div class="alav-acao">
-    <div class="alav-acao-t">Ações estratégicas</div>
+    <div class="alav-acao-t" data-en="Strategic actions">Ações estratégicas</div>
     <ul><li>Co-criar &quot;Manifesto de Intenção Territorial&quot; 2025–2030</li><li>Definir métricas de sucesso coletivas</li><li>Revisar anualmente em assembleia</li></ul>
   </div>
 </div><div class="alav-card">
   <div class="alav-num">5</div>
-  <span class="alav-level alav-l1">🟥 Nível Crítico</span>
-  <div class="alav-title">Governança e Tomada de Decisão</div>
-  <div class="alav-meadows">Ponto 5 — Regras do sistema</div>
+  <span class="alav-level alav-l1" data-en="🟥 Critical Level">🟥 Nível Crítico</span>
+  <div class="alav-title" data-en="Governance and Decision-Making">Governança e Tomada de Decisão</div>
+  <div class="alav-meadows" data-en="Point 5 — Regras do sistema">Ponto 5 — Regras do sistema</div>
   <div class="alav-desc">Ausência de protocolo formal para decisões coletivas gera tensões recorrentes entre Caubi, A.Mor e proprietários não-residentes.</div>
   <div class="alav-acao">
-    <div class="alav-acao-t">Ações estratégicas</div>
+    <div class="alav-acao-t" data-en="Strategic actions">Ações estratégicas</div>
     <ul><li>Implementar protocolo de decisão (consentimento ou holacrácia simplificada)</li><li>Mapear papéis e responsabilidades no MAS</li><li>Criar fluxo de comunicação oficial</li></ul>
   </div>
 </div><div class="alav-card">
   <div class="alav-num">6</div>
-  <span class="alav-level alav-l2">🟧 Nível Alto</span>
-  <div class="alav-title">Fluxo de Informação e Dados</div>
-  <div class="alav-meadows">Ponto 6 — Estrutura de informação</div>
+  <span class="alav-level alav-l2" data-en="🟧 High Level">🟧 Nível Alto</span>
+  <div class="alav-title" data-en="Information and Data Flow">Fluxo de Informação e Dados</div>
+  <div class="alav-meadows" data-en="Point 6 — Estrutura de informação">Ponto 6 — Estrutura de informação</div>
   <div class="alav-desc">Sem dados sistematizados, decisões são tomadas por intuição. O Censo 2025 é o primeiro passo; há 18 lacunas de dados identificadas.</div>
   <div class="alav-acao">
-    <div class="alav-acao-t">Ações estratégicas</div>
+    <div class="alav-acao-t" data-en="Strategic actions">Ações estratégicas</div>
     <ul><li>Publicar dashboard público de indicadores</li><li>Completar mapeamento fundiário (CEFIR)</li><li>Criar ciclo anual de atualização de dados</li></ul>
   </div>
 </div><div class="alav-card">
   <div class="alav-num">7</div>
-  <span class="alav-level alav-l2">🟧 Nível Alto</span>
-  <div class="alav-title">Economia Circular e Renda Local</div>
-  <div class="alav-meadows">Ponto 8 — Força de loops de reforço</div>
+  <span class="alav-level alav-l2" data-en="🟧 High Level">🟧 Nível Alto</span>
+  <div class="alav-title" data-en="Circular Economy and Local Income">Economia Circular e Renda Local</div>
+  <div class="alav-meadows" data-en="Point 8 — Força de loops de reforço">Ponto 8 — Força de loops de reforço</div>
   <div class="alav-desc">Com 45 talentos em gestão e 55% dependendo do turismo, há potencial para criar circuitos econômicos locais que reduzam vulnerabilidade externa.</div>
   <div class="alav-acao">
-    <div class="alav-acao-t">Ações estratégicas</div>
+    <div class="alav-acao-t" data-en="Strategic actions">Ações estratégicas</div>
     <ul><li>Mapear oferta e demanda de serviços internos</li><li>Criar banco de horas/moeda local</li><li>Desenvolver pacotes de experiência territorial</li></ul>
   </div>
 </div><div class="alav-card">
   <div class="alav-num">8</div>
-  <span class="alav-level alav-l2">🟧 Nível Alto</span>
-  <div class="alav-title">Gestão da Água e Efluentes</div>
-  <div class="alav-meadows">Ponto 9 — Tamanho dos estoques e buffers</div>
+  <span class="alav-level alav-l2" data-en="🟧 High Level">🟧 Nível Alto</span>
+  <div class="alav-title" data-en="Water and Effluent Management">Gestão da Água e Efluentes</div>
+  <div class="alav-meadows" data-en="Point 9 — Tamanho dos estoques e buffers">Ponto 9 — Tamanho dos estoques e buffers</div>
   <div class="alav-desc">Água é prioridade ambiental #1 citada pelo censo. Sem monitoramento sistemático da microbacia, o capital natural corre risco irreversível.</div>
   <div class="alav-acao">
-    <div class="alav-acao-t">Ações estratégicas</div>
+    <div class="alav-acao-t" data-en="Strategic actions">Ações estratégicas</div>
     <ul><li>Implementar monitoramento trimestral da qualidade da água</li><li>Criar protocolo de gestão de efluentes por lote</li><li>Articular com APA Serra Grande–Itacaré</li></ul>
   </div>
 </div><div class="alav-card">
   <div class="alav-num">9</div>
-  <span class="alav-level alav-l3">🟨 Nível Médio</span>
-  <div class="alav-title">Integração de Novos Moradores</div>
-  <div class="alav-meadows">Ponto 10 — Estrutura dos loops de feedback</div>
+  <span class="alav-level alav-l3" data-en="🟨 Medium Level">🟨 Nível Médio</span>
+  <div class="alav-title" data-en="Integration of New Residents">Integração de Novos Moradores</div>
+  <div class="alav-meadows" data-en="Point 10 — Estrutura dos loops de feedback">Ponto 10 — Estrutura dos loops de feedback</div>
   <div class="alav-desc">22 novos moradores (&lt; 3 anos) representam 28% da comunidade. Sem onboarding estruturado, o capital cultural regenerativo se dilui.</div>
   <div class="alav-acao">
-    <div class="alav-acao-t">Ações estratégicas</div>
+    <div class="alav-acao-t" data-en="Strategic actions">Ações estratégicas</div>
     <ul><li>Criar &quot;Manual de Boas-Vindas Piracanga&quot;</li><li>Programa de mentoria por moradores antigos</li><li>Imersão na cultura e legislação local</li></ul>
   </div>
 </div><div class="alav-card">
   <div class="alav-num">10</div>
-  <span class="alav-level alav-l3">🟨 Nível Médio</span>
-  <div class="alav-title">Infraestrutura de Comunicação</div>
-  <div class="alav-meadows">Ponto 11 — Constantes e parâmetros</div>
+  <span class="alav-level alav-l3" data-en="🟨 Medium Level">🟨 Nível Médio</span>
+  <div class="alav-title" data-en="Communication Infrastructure">Infraestrutura de Comunicação</div>
+  <div class="alav-meadows" data-en="Point 11 — Constantes e parâmetros">Ponto 11 — Constantes e parâmetros</div>
   <div class="alav-desc">68% dos moradores usam WhatsApp como canal principal. A ausência de canais formais fragmenta a tomada de decisão e gera ruído.</div>
   <div class="alav-acao">
-    <div class="alav-acao-t">Ações estratégicas</div>
+    <div class="alav-acao-t" data-en="Strategic actions">Ações estratégicas</div>
     <ul><li>Implementar plataforma de governança digital</li><li>Estabelecer newsletter comunitária mensal</li><li>Criar ata pública de reuniões da A.Mor</li></ul>
   </div>
 </div>
@@ -5130,7 +5151,22 @@ function selectNPS(key) {
 
 <script>
 // Outer page navigation
-function showPage(id) {
+function toggleLanguage() {
+    var isEN = document.documentElement.lang === 'en';
+    document.querySelectorAll('[data-en]').forEach(function(el) {
+      if (!isEN) {
+        if (!el.dataset.pt) el.dataset.pt = el.innerHTML;
+        el.innerHTML = el.dataset.en;
+      } else {
+        if (el.dataset.pt) el.innerHTML = el.dataset.pt;
+      }
+    });
+    document.documentElement.lang = isEN ? 'pt-BR' : 'en';
+    var btn = document.getElementById('lang-toggle');
+    if (btn) btn.textContent = isEN ? 'EN' : 'PT';
+  }
+
+  function showPage(id) {
   document.querySelectorAll('.outer-sec').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.outer-nav button').forEach(b => b.classList.remove('active'));
   const el = document.getElementById('pg-' + id);
