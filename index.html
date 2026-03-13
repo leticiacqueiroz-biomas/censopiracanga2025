@@ -9,7 +9,7 @@
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://leticiacqueiroz-biomas.github.io/censopiracanga2025/" />
   <meta property="og:title"       content="Censo Piracanga 2025–2026" />
-  <meta property="og:description" content="Painel de inteligência territorial da Ecovila Piracanga: 87 casas, 116 respostas válidas ao censo, 42 organizações, 6 personas e análise sistêmica BIOMAS." />
+  <meta property="og:description" content="Painel de inteligência territorial da Ecovila Piracanga: 87 casas, 116 respostas válidas ao censo, 42 organizações, 6 arquétipos e análise sistêmica BIOMAS." />
   <meta property="og:image"       content="https://leticiacqueiroz-biomas.github.io/censopiracanga2025/preview.jpg" />
   <meta property="og:image:width"  content="1200" />
   <meta property="og:image:height" content="630" />
@@ -1038,7 +1038,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
   <button onclick="showPage('mapas')" data-en="🗺️ Maps">🗺️ Mapas</button>
   <button onclick="showPage('agentes')" data-en="👥 Agents">👥 Agentes</button>
   
-  <button onclick="showPage('personas')" data-en="&#128100; Personas">&#128100; Personas</button>
+  <button onclick="showPage('personas')" data-en="🌀 Arquétipos Piracanga">🌀 Arquétipos Piracanga</button>
   <button onclick="showPage('diagnostico')" data-en="🔍 Diagnosis">🔍 Diagnóstico</button>
 </nav>
 
@@ -2343,7 +2343,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 <div id="pg-agentes" class="outer-sec">
   <div class="page-header">
     <h2 data-en="👥 Agent Mapping">👥 Mapeamento de Agentes</h2>
-    <p data-en="20 agent types · 42 organizations and working groups · projects and impacts">20 tipos de agentes · 42 organizações e grupos de trabalho · projetos e impactos</p>
+    <p data-en="20 agent types · 45 organizations and working groups · projects and 2025 impacts">20 tipos de agentes · 45 organizações e grupos de trabalho · projetos e impactos 2025</p>
   </div>
   <div class="agentes-wrap">
 
@@ -2355,65 +2355,21 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
     </div>
 
     <div id="ag-agentes" class="ag-panel active">
-      <div class="agents-grid">
+      <div class="search-bar-wrap"><input class="search-bar" id="search-agentes" type="text" placeholder="🔍 Buscar tipo de agente..." oninput="filterAgentCards(this.value)" data-en="🔍 Search agent type..."></div>
+<div class="agents-grid">
 <div class="agent-card poder-medio">
   <div class="ac-header">
-    <div class="ac-name">Moradores Adultos (total)</div>
-    <span class="ac-n">110 pessoas</span>
+    <div class="ac-name">Turistas e visitantes</div>
+    <span class="ac-n">456 pessoas</span>
   </div>
-  <div class="ac-role">Núcleo vital da comunidade; sustentam a vida cotidiana e a cultura da Ecovila</div>
-  <div class="ac-desc"><strong>Quem são:</strong> Todos os adultos residentes na Ecovila Piracanga há mais de 6 meses</div>
-  <div class="ac-desc"><strong>Buscam:</strong> Qualidade de vida, integração comunitária, natureza e espiritualidade</div>
-  <div class="ac-desc"><strong>Entregam:</strong> Vida comunitária cotidiana, trabalho local, cuidado do território, cultura</div>
-  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Coesão social, continuidade cultural, permanência territorial</div>
+  <div class="ac-role">Principal motor econômico; sua ausência desestabiliza a economia local</div>
+  <div class="ac-desc"><strong>Quem são:</strong> Visitantes temporários (retiros, turismo de natureza, espiritualidade, eventos)</div>
+  <div class="ac-desc"><strong>Buscam:</strong> Experiência transformadora, conexão com a natureza, bem-estar</div>
+  <div class="ac-desc"><strong>Entregam:</strong> Renda para o território, demanda por serviços, visibilidade</div>
+  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Fluxo de renda; define sazonalidade e pressão sobre o território</div>
   <div class="ac-badges">
     <span class="tbadge pod-medio" title="Poder">Poder: Médio</span>
-    <span class="tbadge vuln-medio" title="Vulnerabilidade">Vuln: Médio</span>
-  </div>
-</div>
-<div class="agent-card poder-medio">
-  <div class="ac-header">
-    <div class="ac-name">Moradores não proprietários</div>
-    <span class="ac-n">73 pessoas</span>
-  </div>
-  <div class="ac-role">Sustentam a vida cotidiana; grupo mais vulnerável à saída do território</div>
-  <div class="ac-desc"><strong>Quem são:</strong> Residentes que não possuem lote ou casa própria; vivem de aluguel ou cessão</div>
-  <div class="ac-desc"><strong>Buscam:</strong> Qualidade de vida, estabilidade financeira, permanência no território</div>
-  <div class="ac-desc"><strong>Entregam:</strong> Trabalho cotidiano, vida comunitária, serviços locais</div>
-  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Estabilidade comunitária; sua saída fragiliza a vida social da vila</div>
-  <div class="ac-badges">
-    <span class="tbadge pod-medio" title="Poder">Poder: Médio</span>
-    <span class="tbadge vuln-alto" title="Vulnerabilidade">Vuln: Alto</span>
-  </div>
-</div>
-<div class="agent-card poder-alto">
-  <div class="ac-header">
-    <div class="ac-name">Moradores proprietários</div>
-    <span class="ac-n">31 pessoas</span>
-  </div>
-  <div class="ac-role">Núcleo mais estável da comunidade; base institucional da governança</div>
-  <div class="ac-desc"><strong>Quem são:</strong> Residentes que possuem lote ou casa; vivem e investem no território</div>
-  <div class="ac-desc"><strong>Buscam:</strong> Qualidade de vida, estabilidade territorial, valorização do patrimônio</div>
-  <div class="ac-desc"><strong>Entregam:</strong> Investimento local, participação cívica, governança</div>
-  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Continuidade institucional; âncoras da estabilidade territorial</div>
-  <div class="ac-badges">
-    <span class="tbadge pod-alto" title="Poder">Poder: Alto</span>
-    <span class="tbadge vuln-medio" title="Vulnerabilidade">Vuln: Médio</span>
-  </div>
-</div>
-<div class="agent-card poder-baixo">
-  <div class="ac-header">
-    <div class="ac-name">Crianças e jovens</div>
-    <span class="ac-n">21 pessoas</span>
-  </div>
-  <div class="ac-role">Reprodução social do território; indicador de permanência de famílias</div>
-  <div class="ac-desc"><strong>Quem são:</strong> Filhos e jovens dependentes de moradores residentes</div>
-  <div class="ac-desc"><strong>Buscam:</strong> Educação, estabilidade, pertencimento e futuro</div>
-  <div class="ac-desc"><strong>Entregam:</strong> Continuidade geracional, reprodução social do território</div>
-  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Permanência de longo prazo; indica arraigo de famílias no território</div>
-  <div class="ac-badges">
-    <span class="tbadge pod-baixo" title="Poder">Poder: Baixo</span>
-    <span class="tbadge vuln-medio" title="Vulnerabilidade">Vuln: Médio</span>
+    <span class="tbadge vuln-baixo" title="Vulnerabilidade">Vuln: Baixo</span>
   </div>
 </div>
 <div class="agent-card poder-alto">
@@ -2431,34 +2387,34 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
     <span class="tbadge vuln-baixo" title="Vulnerabilidade">Vuln: Baixo</span>
   </div>
 </div>
-<div class="agent-card poder-alto">
-  <div class="ac-header">
-    <div class="ac-name">Proprietários totais (todos os donos de lote)</div>
-    <span class="ac-n">110 pessoas</span>
-  </div>
-  <div class="ac-role">Detentores do ativo territorial; controlam a maior variável de longo prazo</div>
-  <div class="ac-desc"><strong>Quem são:</strong> Todos os donos de lotes na Ecovila (residentes + não residentes). Moradores prop. (31) + Prop. não moradores (79) = 110</div>
-  <div class="ac-desc"><strong>Buscam:</strong> Proteção e valorização do patrimônio</div>
-  <div class="ac-desc"><strong>Entregam:</strong> Capital e decisões sobre o uso da terra</div>
-  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Decisões sobre uso do solo, divisão de imóveis, aluguel, novos ocupantes</div>
-  <div class="ac-badges">
-    <span class="tbadge pod-alto" title="Poder">Poder: Alto</span>
-    <span class="tbadge vuln-baixo" title="Vulnerabilidade">Vuln: Baixo</span>
-  </div>
-</div>
 <div class="agent-card poder-medio">
   <div class="ac-header">
-    <div class="ac-name">Turistas e visitantes</div>
-    <span class="ac-n">456 pessoas</span>
+    <div class="ac-name">Moradores não proprietários</div>
+    <span class="ac-n">73 pessoas</span>
   </div>
-  <div class="ac-role">Principal motor econômico; sua ausência desestabiliza a economia local</div>
-  <div class="ac-desc"><strong>Quem são:</strong> Visitantes temporários (retiros, turismo de natureza, espiritualidade, eventos)</div>
-  <div class="ac-desc"><strong>Buscam:</strong> Experiência transformadora, conexão com a natureza, bem-estar</div>
-  <div class="ac-desc"><strong>Entregam:</strong> Renda para o território, demanda por serviços, visibilidade</div>
-  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Fluxo de renda; define sazonalidade e pressão sobre o território</div>
+  <div class="ac-role">Sustentam a vida cotidiana; grupo mais vulnerável à saída do território</div>
+  <div class="ac-desc"><strong>Quem são:</strong> Residentes que não possuem lote ou casa própria; vivem de aluguel ou cessão</div>
+  <div class="ac-desc"><strong>Buscam:</strong> Qualidade de vida, estabilidade financeira, permanência no território</div>
+  <div class="ac-desc"><strong>Entregam:</strong> Trabalho cotidiano, vida comunitária, serviços locais</div>
+  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Estabilidade comunitária; sua saída fragiliza a vida social da vila</div>
   <div class="ac-badges">
     <span class="tbadge pod-medio" title="Poder">Poder: Médio</span>
-    <span class="tbadge vuln-baixo" title="Vulnerabilidade">Vuln: Baixo</span>
+    <span class="tbadge vuln-alto" title="Vulnerabilidade">Vuln: Alto</span>
+  </div>
+</div>
+<div class="agent-card poder-baixo">
+  <div class="ac-header">
+    <div class="ac-name">Trabalhadores do Caubi</div>
+    <span class="ac-n">60 pessoas</span>
+  </div>
+  <div class="ac-role">Sustentam a infraestrutura operacional do território; invisíveis na governança</div>
+  <div class="ac-desc"><strong>Quem são:</strong> Trabalhadores do povoado vizinho Caubi que prestam serviços essenciais na Ecovila: limpeza, alimentação, construção civil e manutenção. Não residem na Ecovila.</div>
+  <div class="ac-desc"><strong>Buscam:</strong> Renda e oportunidade de trabalho próximo ao local onde vivem</div>
+  <div class="ac-desc"><strong>Entregam:</strong> Mão de obra essencial para o funcionamento operacional da Ecovila</div>
+  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Manutenção operacional do território; sua ausência paralisa serviços básicos</div>
+  <div class="ac-badges">
+    <span class="tbadge pod-baixo" title="Poder">Poder: Baixo</span>
+    <span class="tbadge vuln-alto" title="Vulnerabilidade">Vuln: Alto</span>
   </div>
 </div>
 <div class="agent-card poder-medio">
@@ -2491,19 +2447,49 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
     <span class="tbadge vuln-baixo" title="Vulnerabilidade">Vuln: Baixo</span>
   </div>
 </div>
+<div class="agent-card poder-alto">
+  <div class="ac-header">
+    <div class="ac-name">Moradores proprietários</div>
+    <span class="ac-n">31 pessoas</span>
+  </div>
+  <div class="ac-role">Núcleo mais estável da comunidade; base institucional da governança</div>
+  <div class="ac-desc"><strong>Quem são:</strong> Residentes que possuem lote ou casa; vivem e investem no território</div>
+  <div class="ac-desc"><strong>Buscam:</strong> Qualidade de vida, estabilidade territorial, valorização do patrimônio</div>
+  <div class="ac-desc"><strong>Entregam:</strong> Investimento local, participação cívica, governança</div>
+  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Continuidade institucional; âncoras da estabilidade territorial</div>
+  <div class="ac-badges">
+    <span class="tbadge pod-alto" title="Poder">Poder: Alto</span>
+    <span class="tbadge vuln-medio" title="Vulnerabilidade">Vuln: Médio</span>
+  </div>
+</div>
+<div class="agent-card poder-medio">
+  <div class="ac-header">
+    <div class="ac-name">Organizações locais com fins lucrativos</div>
+    <span class="ac-n">30 pessoas</span>
+  </div>
+  <div class="ac-role">Interface econômica da comunidade com o mercado; geram e distribuem renda</div>
+  <div class="ac-desc"><strong>Quem são:</strong> Empreendimentos locais: hospedagem, retiros, alimentação, artesanato, serviços (Unah, Karuh, Espaço Dharma, Casas Piracanga etc.)</div>
+  <div class="ac-desc"><strong>Buscam:</strong> Sustentabilidade econômica, crescimento, visibilidade</div>
+  <div class="ac-desc"><strong>Entregam:</strong> Serviços ao turismo e à comunidade, circulação de renda, empregos</div>
+  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Diversificação econômica; determinam qualidade da oferta turística</div>
+  <div class="ac-badges">
+    <span class="tbadge pod-medio" title="Poder">Poder: Médio</span>
+    <span class="tbadge vuln-medio" title="Vulnerabilidade">Vuln: Médio</span>
+  </div>
+</div>
 <div class="agent-card poder-baixo">
   <div class="ac-header">
-    <div class="ac-name">Trabalhadores do Caubi</div>
-    <span class="ac-n">60 pessoas</span>
+    <div class="ac-name">Crianças e jovens</div>
+    <span class="ac-n">21 pessoas</span>
   </div>
-  <div class="ac-role">Sustentam a infraestrutura operacional do território; invisíveis na governança</div>
-  <div class="ac-desc"><strong>Quem são:</strong> Trabalhadores do povoado vizinho Caubi que prestam serviços essenciais na Ecovila: limpeza, alimentação, construção civil e manutenção. Não residem na Ecovila.</div>
-  <div class="ac-desc"><strong>Buscam:</strong> Renda e oportunidade de trabalho próximo ao local onde vivem</div>
-  <div class="ac-desc"><strong>Entregam:</strong> Mão de obra essencial para o funcionamento operacional da Ecovila</div>
-  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Manutenção operacional do território; sua ausência paralisa serviços básicos</div>
+  <div class="ac-role">Reprodução social do território; indicador de permanência de famílias</div>
+  <div class="ac-desc"><strong>Quem são:</strong> Filhos e jovens dependentes de moradores residentes</div>
+  <div class="ac-desc"><strong>Buscam:</strong> Educação, estabilidade, pertencimento e futuro</div>
+  <div class="ac-desc"><strong>Entregam:</strong> Continuidade geracional, reprodução social do território</div>
+  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Permanência de longo prazo; indica arraigo de famílias no território</div>
   <div class="ac-badges">
     <span class="tbadge pod-baixo" title="Poder">Poder: Baixo</span>
-    <span class="tbadge vuln-alto" title="Vulnerabilidade">Vuln: Alto</span>
+    <span class="tbadge vuln-medio" title="Vulnerabilidade">Vuln: Médio</span>
   </div>
 </div>
 <div class="agent-card poder-medio">
@@ -2534,66 +2520,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
   <div class="ac-badges">
     <span class="tbadge pod-medio" title="Poder">Poder: Médio</span>
     <span class="tbadge vuln-medio" title="Vulnerabilidade">Vuln: Médio</span>
-  </div>
-</div>
-<div class="agent-card poder-medio">
-  <div class="ac-header">
-    <div class="ac-name">Organizações locais com fins lucrativos</div>
-    <span class="ac-n">30 pessoas</span>
-  </div>
-  <div class="ac-role">Interface econômica da comunidade com o mercado; geram e distribuem renda</div>
-  <div class="ac-desc"><strong>Quem são:</strong> Empreendimentos locais: hospedagem, retiros, alimentação, artesanato, serviços (Unah, Karuh, Espaço Dharma, Casas Piracanga etc.)</div>
-  <div class="ac-desc"><strong>Buscam:</strong> Sustentabilidade econômica, crescimento, visibilidade</div>
-  <div class="ac-desc"><strong>Entregam:</strong> Serviços ao turismo e à comunidade, circulação de renda, empregos</div>
-  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Diversificação econômica; determinam qualidade da oferta turística</div>
-  <div class="ac-badges">
-    <span class="tbadge pod-medio" title="Poder">Poder: Médio</span>
-    <span class="tbadge vuln-medio" title="Vulnerabilidade">Vuln: Médio</span>
-  </div>
-</div>
-<div class="agent-card poder-medio">
-  <div class="ac-header">
-    <div class="ac-name">Governança comunitária (A.MOR e conselho)</div>
-    <span class="ac-n">1 pessoas</span>
-  </div>
-  <div class="ac-role">Coordenação institucional da comunidade; interface com governo e externos</div>
-  <div class="ac-desc"><strong>Quem são:</strong> A.MOR – Associação de Moradores da Bacia do Rio Piracanga; comissão de governança e representação institucional da comunidade</div>
-  <div class="ac-desc"><strong>Buscam:</strong> Coordenação do território, representação dos moradores, projetos coletivos</div>
-  <div class="ac-desc"><strong>Entregam:</strong> Coordenação coletiva, representação formal, articulação de projetos comunitários</div>
-  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Capacidade de decisão coletiva; fragilidade = concentração em poucos</div>
-  <div class="ac-badges">
-    <span class="tbadge pod-medio" title="Poder">Poder: Médio</span>
-    <span class="tbadge vuln-alto" title="Vulnerabilidade">Vuln: Alto</span>
-  </div>
-</div>
-<div class="agent-card poder-alto">
-  <div class="ac-header">
-    <div class="ac-name">Governo (municipal, estadual, federal)</div>
-    
-  </div>
-  <div class="ac-role">Reguladores macro do território; determinam regras do jogo</div>
-  <div class="ac-desc"><strong>Quem são:</strong> Prefeitura de Maraú, Governo da Bahia, Governo Federal, ICMBio — regulam e proveem infraestrutura</div>
-  <div class="ac-desc"><strong>Buscam:</strong> Regulação, arrecadação, desenvolvimento regional, controle ambiental</div>
-  <div class="ac-desc"><strong>Entregam:</strong> Regulação, infraestrutura, políticas públicas, licenciamento ambiental</div>
-  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Leis, regras, infraestrutura; determinam o campo de possibilidades do território</div>
-  <div class="ac-badges">
-    <span class="tbadge pod-alto" title="Poder">Poder: Alto</span>
-    <span class="tbadge vuln-baixo" title="Vulnerabilidade">Vuln: Baixo</span>
-  </div>
-</div>
-<div class="agent-card poder-alto">
-  <div class="ac-header">
-    <div class="ac-name">Proprietários rurais da bacia hidrográfica</div>
-    
-  </div>
-  <div class="ac-role">Determinam a saúde ecológica da bacia hidrográfica — impacto indireto mas decisivo</div>
-  <div class="ac-desc"><strong>Quem são:</strong> Donos de terras na bacia do Rio Piracanga; agricultores, fazendeiros e pequenos produtores na zona de amortecimento da APA</div>
-  <div class="ac-desc"><strong>Buscam:</strong> Produção agrícola, valorização patrimonial, subsistência</div>
-  <div class="ac-desc"><strong>Entregam:</strong> Uso do solo que impacta diretamente a qualidade da água e da bacia</div>
-  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Saúde ecológica da bacia; impacto ambiental sobre toda a Ecovila</div>
-  <div class="ac-badges">
-    <span class="tbadge pod-alto" title="Poder">Poder: Alto</span>
-    <span class="tbadge vuln-baixo" title="Vulnerabilidade">Vuln: Baixo</span>
   </div>
 </div>
 <div class="agent-card poder-alto">
@@ -2656,138 +2582,254 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
     <span class="tbadge vuln-alto" title="Vulnerabilidade">Vuln: Alto</span>
   </div>
 </div>
+<div class="agent-card poder-medio">
+  <div class="ac-header">
+    <div class="ac-name">Governança comunitária (A.MOR e conselho)</div>
+    <span class="ac-n">1 pessoas</span>
+  </div>
+  <div class="ac-role">Coordenação institucional da comunidade; interface com governo e externos</div>
+  <div class="ac-desc"><strong>Quem são:</strong> A.MOR – Associação de Moradores da Bacia do Rio Piracanga; comissão de governança e representação institucional da comunidade</div>
+  <div class="ac-desc"><strong>Buscam:</strong> Coordenação do território, representação dos moradores, projetos coletivos</div>
+  <div class="ac-desc"><strong>Entregam:</strong> Coordenação coletiva, representação formal, articulação de projetos comunitários</div>
+  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Capacidade de decisão coletiva; fragilidade = concentração em poucos</div>
+  <div class="ac-badges">
+    <span class="tbadge pod-medio" title="Poder">Poder: Médio</span>
+    <span class="tbadge vuln-alto" title="Vulnerabilidade">Vuln: Alto</span>
+  </div>
+</div>
+<div class="agent-card poder-alto">
+  <div class="ac-header">
+    <div class="ac-name">Governo (municipal, estadual, federal)</div>
+    
+  </div>
+  <div class="ac-role">Reguladores macro do território; determinam regras do jogo</div>
+  <div class="ac-desc"><strong>Quem são:</strong> Prefeitura de Maraú, Governo da Bahia, Governo Federal, ICMBio — regulam e proveem infraestrutura</div>
+  <div class="ac-desc"><strong>Buscam:</strong> Regulação, arrecadação, desenvolvimento regional, controle ambiental</div>
+  <div class="ac-desc"><strong>Entregam:</strong> Regulação, infraestrutura, políticas públicas, licenciamento ambiental</div>
+  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Leis, regras, infraestrutura; determinam o campo de possibilidades do território</div>
+  <div class="ac-badges">
+    <span class="tbadge pod-alto" title="Poder">Poder: Alto</span>
+    <span class="tbadge vuln-baixo" title="Vulnerabilidade">Vuln: Baixo</span>
+  </div>
+</div>
+<div class="agent-card poder-alto">
+  <div class="ac-header">
+    <div class="ac-name">Proprietários rurais da bacia hidrográfica</div>
+    
+  </div>
+  <div class="ac-role">Determinam a saúde ecológica da bacia hidrográfica — impacto indireto mas decisivo</div>
+  <div class="ac-desc"><strong>Quem são:</strong> Donos de terras na bacia do Rio Piracanga; agricultores, fazendeiros e pequenos produtores na zona de amortecimento da APA</div>
+  <div class="ac-desc"><strong>Buscam:</strong> Produção agrícola, valorização patrimonial, subsistência</div>
+  <div class="ac-desc"><strong>Entregam:</strong> Uso do solo que impacta diretamente a qualidade da água e da bacia</div>
+  <div class="ac-impacto"><span class="ac-impacto-lbl">Impacto:</span> Saúde ecológica da bacia; impacto ambiental sobre toda a Ecovila</div>
+  <div class="ac-badges">
+    <span class="tbadge pod-alto" title="Poder">Poder: Alto</span>
+    <span class="tbadge vuln-baixo" title="Vulnerabilidade">Vuln: Baixo</span>
+  </div>
+</div>
 </div>
   </div>
 
   <div id="ag-orgs" class="ag-panel">
-      <div class="org-cards-grid">
-        <div class="org-card has-expand" onclick="toggleOrgExpand(0)" id="org-card-0">
+  <div class="search-bar-wrap">
+    <input class="search-bar" id="search-orgs" type="text" placeholder="🔍 Buscar organização..." oninput="filterCards('org-cards-grid','search-orgs')" data-en="🔍 Search organization...">
+  </div>
+  <div class="org-cards-grid" id="org-cards-grid">
+<div class="org-card has-expand" onclick="toggleOrgExpand(0)" id="org-card-0">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">Tartaru</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">⏸ Indisponível</span></div>
-      <div class="org-missao">Conservação das tartarugas-marinhas</div>
-      <div class="org-contacts">👤 Batista · Sarah</div>
+      <div class="org-card-name">A.MOR Associação de Moradores da Bacia do Rio Piracanga</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Governança Territorial</span><span class="org-proj-badge" title="Projetos mapeados">📁 1 projeto</span></div>
+      
+      <div class="org-contacts">👤 Santi · Cris Guimarães</div>
     </div>
     <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
+      <span class="org-tipo-badge badge-governanca">Governança</span>
       <span class="org-arrow" id="org-arrow-0">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-0" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-0" style="display:none;">
+      <div class="org-expand-section">
+        <div class="org-expand-label">Sobre a A.MOR</div>
+        <p style="font-size:12px;color:#444;line-height:1.5;margin:4px 0 0;">A A.MOR é fruto da participação horizontal de proprietários e moradores da Ecovila Piracanga. Associação sem fins lucrativos com atuação em 5 dimensões: Social, Natureza, Governança, Econômica e Espiritual. Em 2025, 95% das saídas foram destinados a projetos de regeneração socioambiental.</p>
+      </div>
+      <div class="org-expand-section">
+        <div class="org-expand-label">GTs ativos 2025</div>
+        <ul class="org-proj-list">
+          <li class="org-proj-item"><span class="org-proj-name">GT Dados</span><span class="proc-tag proc-s">Titular: Letícia Queiroz</span></li>
+          <li class="org-proj-item"><span class="org-proj-name">GT Governança</span><span class="proc-tag proc-s">Titular: Isa</span></li>
+          <li class="org-proj-item"><span class="org-proj-name">GT Feira</span><span class="proc-tag proc-s">Titular: Isa</span></li>
+          <li class="org-proj-item"><span class="org-proj-name">GT Empreendedores</span><span class="proc-tag proc-s">Titular: Tilelê</span></li>
+          <li class="org-proj-item"><span class="org-proj-name">GT Agrofloresta</span><span class="proc-tag proc-s">Titular: Santi</span></li>
+          <li class="org-proj-item"><span class="org-proj-name">GT Novos Moradores</span><span class="proc-tag proc-s">Titular: Suzana</span></li>
+          <li class="org-proj-item"><span class="org-proj-name">GT Emergências</span><span class="proc-tag proc-s">Ponto focal: Suzana</span></li>
+          <li class="org-proj-item"><span class="org-proj-name">GT Energia Boa</span><span class="proc-tag proc-s">Titular: Santi</span></li>
+          <li class="org-proj-item"><span class="org-proj-name">GT Equidade Racial</span><span class="proc-tag proc-s">Ativo</span></li>
+        </ul>
+      </div>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Impacto Financeiro 2025</div>
+        <div class="proc-desc-list">
+          <div class="proc-desc-item"><span class="proc-tag proc-s">💰</span><span class="proc-desc-text">Total apoiado a projetos: R$12.538,08</span></div>
+          <div class="proc-desc-item"><span class="proc-tag proc-s">🏪</span><span class="proc-desc-text">Feira da Vila: R$23.809,20 de faturamento (34 empreendedores, set–dez/25)</span></div>
+          <div class="proc-desc-item"><span class="proc-tag proc-s">🏦</span><span class="proc-desc-text">Fundo Emergências: saldo R$1.133,44 (dez/25)</span></div>
+          <div class="proc-desc-item"><span class="proc-tag proc-s">📊</span><span class="proc-desc-text">Censo Sócio-Econômico: 116 respostas válidas coletadas</span></div>
+        </div>
+      </div>
+    
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Santi · Cris Guimarães</div>
+      </div>
+    </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(1)" id="org-card-1">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">Axé mantras</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">🏠 Presencial</span></div>
-      <div class="org-missao">Axé mantras | mistura de massala com dendê! Nossa roda de mantras acontece às quartas em @unahpiracanga_ .</div>
-      <div class="org-contacts">👤 Bernardo</div>
+      <div class="org-card-name">Amo Piracanga</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Comunicação</span></div>
+      
+      <div class="org-contacts">👤 João Vianna</div>
     </div>
     <div class="org-card-right">
       <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
       <span class="org-arrow" id="org-arrow-1">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-1" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-1" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">João Vianna</div>
+      </div>
+    </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(2)" id="org-card-2">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">Casas Piracanga</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">💻 Online</span></div>
+      <div class="org-card-name">Ancestral Terapeutica</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Varejo</span></div>
       
-      <div class="org-contacts">👤 Bruno · Zé Luis</div>
+      <div class="org-contacts">👤 Keu</div>
     </div>
     <div class="org-card-right">
       <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
       <span class="org-arrow" id="org-arrow-2">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-2" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-2" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Keu</div>
+      </div>
+    </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(3)" id="org-card-3">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">Regenera Piracanga</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">💻 Online</span></div>
-      
-      <div class="org-contacts">👤 Bruno</div>
+      <div class="org-card-name">Axé mantras</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Arte e Cultura</span></div>
+      <div class="org-missao">Axé mantras | mistura de massala com dendê! Nossa roda de mantras acontece às quartas em @unahpiracanga_ .</div>
+      <div class="org-contacts">👤 Bernardo · Fred</div>
     </div>
     <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
+      <span class="org-tipo-badge badge-sem-fins">Sem fins lucrativos</span>
       <span class="org-arrow" id="org-arrow-3">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-3" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-3" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Bernardo · Fred</div>
+      </div>
+    </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(4)" id="org-card-4">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">Casa Iemanjá</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">⏸ Indisponível</span></div>
+      <div class="org-card-name">Cantim da Vila</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Alimentação/Eventos</span></div>
       
-      <div class="org-contacts">👤 Caio</div>
+      <div class="org-contacts">👤 Luana Pina</div>
     </div>
     <div class="org-card-right">
       <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
       <span class="org-arrow" id="org-arrow-4">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-4" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-4" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Luana Pina</div>
+      </div>
+    </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(5)" id="org-card-5">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">Fazenda Prazeres</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">⏸ Indisponível</span></div>
+      <div class="org-card-name">Casa Dourada</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Hospitalidade</span></div>
       
-      <div class="org-contacts">👤 Clever</div>
+      <div class="org-contacts">👤 Jana e Lourenço</div>
     </div>
     <div class="org-card-right">
       <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
       <span class="org-arrow" id="org-arrow-5">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-5" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-5" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Jana e Lourenço</div>
+      </div>
+    </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(6)" id="org-card-6">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">Frutos da TErra</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">-</span></div>
+      <div class="org-card-name">Casa Iemanjá</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Hospitalidade</span></div>
       
-      <div class="org-contacts">👤 Flavia</div>
+      <div class="org-contacts">👤 Caio · Naná</div>
     </div>
     <div class="org-card-right">
       <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
       <span class="org-arrow" id="org-arrow-6">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-6" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-6" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Caio · Naná</div>
+      </div>
+    </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(7)" id="org-card-7">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">FRANCIS - Sistemas Eletricos</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">🏠 Presencial</span></div>
+      <div class="org-card-name">Casas Piracanga</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Hospitalidade</span></div>
       
-      <div class="org-contacts">👤 Francis</div>
+      <div class="org-contacts">👤 Bruno · Zé Luis</div>
     </div>
     <div class="org-card-right">
       <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
       <span class="org-arrow" id="org-arrow-7">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-7" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-7" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Bruno · Zé Luis</div>
+      </div>
+    </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(8)" id="org-card-8">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">Escola Almar</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">🏠 Presencial</span></div>
+      <div class="org-card-name">CUDS</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Imobiliário</span></div>
       
-      <div class="org-contacts">👤 Fred</div>
+      
     </div>
     <div class="org-card-right">
       <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
@@ -2799,131 +2841,77 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 <div class="org-card has-expand" onclick="toggleOrgExpand(9)" id="org-card-9">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">Espaço Dharma</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">-</span></div>
+      <div class="org-card-name">Duhari</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Alimentação</span></div>
       
-      <div class="org-contacts">👤 Gabi Unibazo · Eliane</div>
+      <div class="org-contacts">👤 Yu</div>
     </div>
     <div class="org-card-right">
       <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
       <span class="org-arrow" id="org-arrow-9">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-9" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-9" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Yu</div>
+      </div>
+    </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(10)" id="org-card-10">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">Kokar</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">🏠 Presencial</span></div>
+      <div class="org-card-name">Econnect</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Serviços Técnicos</span></div>
       
-      <div class="org-contacts">👤 Giselle</div>
+      <div class="org-contacts">👤 Marcelo Pera</div>
     </div>
     <div class="org-card-right">
       <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
       <span class="org-arrow" id="org-arrow-10">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-10" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-10" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Marcelo Pera</div>
+      </div>
+    </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(11)" id="org-card-11">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">Amo Piracanga</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">⏸ Indisponível</span></div>
+      <div class="org-card-name">Escola Almar</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Educação</span></div>
       
-      <div class="org-contacts">👤 João Vianna</div>
+      <div class="org-contacts">👤 Fred</div>
     </div>
     <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
+      <span class="org-tipo-badge badge-sem-fins">Sem fins lucrativos</span>
       <span class="org-arrow" id="org-arrow-11">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-11" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-11" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Fred</div>
+      </div>
+    </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(12)" id="org-card-12">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">Instituto Somos Água</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">🏠 Presencial</span><span class="org-proj-badge" title="Projetos mapeados">📁 3 projetos</span></div>
-      
-      <div class="org-contacts">👤 Juli · Vanessa Manfrim</div>
-    </div>
-    <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
-      <span class="org-arrow" id="org-arrow-12">▾</span>
-    </div>
-  </div>
-  <div class="org-expand" id="org-expand-12" style="display:none;">
-      <div class="org-expand-section">
-        <div class="org-expand-label">Projetos</div>
-        <ul class="org-proj-list"><li class="org-proj-item"><span class="org-proj-name">Calculadora Pegada Hidrológica</span><span class="proc-tag proc-s" title="Gestão hídrica e acesso à água de qualidade">S8</span></li><li class="org-proj-item"><span class="org-proj-name">Análises de Agua mais aprofundadas</span><span class="proc-tag proc-s" title="Gestão hídrica e acesso à água de qualidade">S8</span></li><li class="org-proj-item"><span class="org-proj-name">Certificação de Cuidado com as Águas</span><span class="proc-tag proc-s" title="Gestão hídrica e acesso à água de qualidade">S8</span> <span class="proc-tag proc-s" title="Educação ambiental e socioambiental">S5</span></li></ul>
-      </div>
-      <div class="org-expand-section">
-        <div class="org-expand-label">Indicadores impactados</div>
-        <div class="proc-desc-list"><div class="proc-desc-item"><span class="proc-tag proc-s">S5</span><span class="proc-desc-text">Educação ambiental e socioambiental</span></div><div class="proc-desc-item"><span class="proc-tag proc-s">S8</span><span class="proc-desc-text">Gestão hídrica e acesso à água de qualidade</span></div></div>
-      </div>
-    </div>
-</div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(13)" id="org-card-13">
-  <div class="org-card-top">
-    <div class="org-card-left">
-      <div class="org-card-name">Plante!</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">🏠 Presencial</span></div>
-      
-      <div class="org-contacts">👤 Juli</div>
-    </div>
-    <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
-      <span class="org-arrow" id="org-arrow-13">▾</span>
-    </div>
-  </div>
-  <div class="org-expand" id="org-expand-13" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
-</div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(14)" id="org-card-14">
-  <div class="org-card-top">
-    <div class="org-card-left">
-      <div class="org-card-name">Ancestral Terapeutica</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">⏸ Indisponível</span></div>
-      
-      <div class="org-contacts">👤 Keu</div>
-    </div>
-    <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
-      <span class="org-arrow" id="org-arrow-14">▾</span>
-    </div>
-  </div>
-  <div class="org-expand" id="org-expand-14" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
-</div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(15)" id="org-card-15">
-  <div class="org-card-top">
-    <div class="org-card-left">
-      <div class="org-card-name">Cantim da Vila</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">🏠 Presencial</span></div>
-      
-      <div class="org-contacts">👤 Luana Pina</div>
-    </div>
-    <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
-      <span class="org-arrow" id="org-arrow-15">▾</span>
-    </div>
-  </div>
-  <div class="org-expand" id="org-expand-15" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
-</div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(16)" id="org-card-16">
-  <div class="org-card-top">
-    <div class="org-card-left">
       <div class="org-card-name">Escola da Natureza</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">🏠 Presencial</span><span class="org-proj-badge" title="Projetos mapeados">📁 3 projetos</span></div>
+      <div class="org-card-meta"><span class="org-area">🎯 Conservação Ambiental/Educação</span><span class="org-proj-badge" title="Projetos mapeados">📁 3 projetos</span></div>
       
       <div class="org-contacts">👤 Maira · Diana</div>
     </div>
     <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
-      <span class="org-arrow" id="org-arrow-16">▾</span>
+      <span class="org-tipo-badge badge-sem-fins">Sem fins lucrativos</span>
+      <span class="org-arrow" id="org-arrow-12">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-16" style="display:none;">
+  <div class="org-expand" id="org-expand-12" style="display:none;">
       <div class="org-expand-section">
         <div class="org-expand-label">Projetos</div>
         <ul class="org-proj-list"><li class="org-proj-item"><span class="org-proj-name">Viveiro de mudas nativas</span><span class="proc-tag proc-e" title="Biodiversidade — fauna e flora nativa">E4</span> <span class="proc-tag proc-e" title="Restauração ecológica e revegetação">E3</span></li><li class="org-proj-item"><span class="org-proj-name">Reflorestamento</span><span class="proc-tag proc-e" title="Biodiversidade — fauna e flora nativa">E4</span> <span class="proc-tag proc-e" title="Restauração ecológica e revegetação">E3</span> <span class="proc-tag proc-e" title="Proteção e ampliação do território ecológico (RPPN, condomínio etc)">E8</span></li><li class="org-proj-item"><span class="org-proj-name">Educação Ambiental</span><span class="proc-tag proc-s" title="Educação ambiental e socioambiental">S5</span></li></ul>
@@ -2932,220 +2920,108 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
         <div class="org-expand-label">Indicadores impactados</div>
         <div class="proc-desc-list"><div class="proc-desc-item"><span class="proc-tag proc-e">E3</span><span class="proc-desc-text">Restauração ecológica e revegetação</span></div><div class="proc-desc-item"><span class="proc-tag proc-e">E4</span><span class="proc-desc-text">Biodiversidade — fauna e flora nativa</span></div><div class="proc-desc-item"><span class="proc-tag proc-e">E8</span><span class="proc-desc-text">Proteção e ampliação do território ecológico (RPPN, condomínio etc)</span></div><div class="proc-desc-item"><span class="proc-tag proc-s">S5</span><span class="proc-desc-text">Educação ambiental e socioambiental</span></div></div>
       </div>
-    </div>
-</div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(17)" id="org-card-17">
-  <div class="org-card-top">
-    <div class="org-card-left">
-      <div class="org-card-name">Econnect</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">-</span></div>
-      
-      <div class="org-contacts">👤 Marcelo Pera</div>
-    </div>
-    <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
-      <span class="org-arrow" id="org-arrow-17">▾</span>
-    </div>
-  </div>
-  <div class="org-expand" id="org-expand-17" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
-</div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(18)" id="org-card-18">
-  <div class="org-card-top">
-    <div class="org-card-left">
-      <div class="org-card-name">Vila dos anjos</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">🏠 Presencial</span></div>
-      
-      <div class="org-contacts">👤 Nato · Mika</div>
-    </div>
-    <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
-      <span class="org-arrow" id="org-arrow-18">▾</span>
-    </div>
-  </div>
-  <div class="org-expand" id="org-expand-18" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
-</div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(19)" id="org-card-19">
-  <div class="org-card-top">
-    <div class="org-card-left">
-      <div class="org-card-name">Nego (saneamento)</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">🏠 Presencial</span></div>
-      
-      <div class="org-contacts">👤 Nego</div>
-    </div>
-    <div class="org-card-right">
-      <span class="org-tipo-badge badge-caubi">Caubi</span>
-      <span class="org-arrow" id="org-arrow-19">▾</span>
-    </div>
-  </div>
-  <div class="org-expand" id="org-expand-19" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
-</div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(20)" id="org-card-20">
-  <div class="org-card-top">
-    <div class="org-card-left">
-      <div class="org-card-name">Gota d'Água</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">🏠 Presencial</span></div>
-      
-      <div class="org-contacts">👤 Nicolle</div>
-    </div>
-    <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
-      <span class="org-arrow" id="org-arrow-20">▾</span>
-    </div>
-  </div>
-  <div class="org-expand" id="org-expand-20" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
-</div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(21)" id="org-card-21">
-  <div class="org-card-top">
-    <div class="org-card-left">
-      <div class="org-card-name">Unah</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">⏸ Indisponível</span></div>
-      
-      <div class="org-contacts">👤 Norton · Diego</div>
-    </div>
-    <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
-      <span class="org-arrow" id="org-arrow-21">▾</span>
-    </div>
-  </div>
-  <div class="org-expand" id="org-expand-21" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
-</div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(22)" id="org-card-22">
-  <div class="org-card-top">
-    <div class="org-card-left">
-      <div class="org-card-name">Projeto Praia Limpa</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">⏸ Indisponível</span><span class="org-proj-badge" title="Projetos mapeados">📁 1 projeto</span></div>
-      
-      <div class="org-contacts">👤 Roni · Sue</div>
-    </div>
-    <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
-      <span class="org-arrow" id="org-arrow-22">▾</span>
-    </div>
-  </div>
-  <div class="org-expand" id="org-expand-22" style="display:none;">
+    
       <div class="org-expand-section">
-        <div class="org-expand-label">Projetos</div>
-        <ul class="org-proj-list"><li class="org-proj-item"><span class="org-proj-name">Mutirões para coletar lixo da praia</span><span class="proc-tag proc-s" title="Educação ambiental e socioambiental">S5</span></li></ul>
-      </div>
-      <div class="org-expand-section">
-        <div class="org-expand-label">Indicadores impactados</div>
-        <div class="proc-desc-list"><div class="proc-desc-item"><span class="proc-tag proc-s">S5</span><span class="proc-desc-text">Educação ambiental e socioambiental</span></div></div>
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Maira · Diana</div>
       </div>
     </div>
 </div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(23)" id="org-card-23">
+<div class="org-card has-expand" onclick="toggleOrgExpand(13)" id="org-card-13">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">A.MOR Associação de Moradores da Bacia do Rio Piracanga</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">🏠 Presencial</span><span class="org-proj-badge" title="Projetos mapeados">📁 1 projeto</span></div>
+      <div class="org-card-name">Espaço Dharma</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Varejo/Eventos</span></div>
       
-      <div class="org-contacts">👤 Santi · Cris Guimarães</div>
+      <div class="org-contacts">👤 Gabi Unibazo · Eliane</div>
     </div>
     <div class="org-card-right">
-      <span class="org-tipo-badge badge-governanca">Governança</span>
-      <span class="org-arrow" id="org-arrow-23">▾</span>
+      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
+      <span class="org-arrow" id="org-arrow-13">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-23" style="display:none;">
+  <div class="org-expand" id="org-expand-13" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
       <div class="org-expand-section">
-        <div class="org-expand-label">Projetos</div>
-        <ul class="org-proj-list"><li class="org-proj-item"><span class="org-proj-name">Taxa Sócio Ambiental</span><span class="proc-tag proc-s" title="Economia local, geração de renda e empreendedorismo">S4</span> <span class="proc-tag proc-s" title="Participação e governança comunitária">S1</span> <span class="proc-tag proc-s" title="Dados, inteligência territorial e gestão da informação (BIOMAS)">S3</span></li></ul>
-      </div>
-      <div class="org-expand-section">
-        <div class="org-expand-label">Indicadores impactados</div>
-        <div class="proc-desc-list"><div class="proc-desc-item"><span class="proc-tag proc-s">S1</span><span class="proc-desc-text">Participação e governança comunitária</span></div><div class="proc-desc-item"><span class="proc-tag proc-s">S3</span><span class="proc-desc-text">Dados, inteligência territorial e gestão da informação (BIOMAS)</span></div><div class="proc-desc-item"><span class="proc-tag proc-s">S4</span><span class="proc-desc-text">Economia local, geração de renda e empreendedorismo</span></div></div>
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Gabi Unibazo · Eliane</div>
       </div>
     </div>
 </div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(24)" id="org-card-24">
+<div class="org-card has-expand" onclick="toggleOrgExpand(14)" id="org-card-14">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">Osho Bahia</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">💻 Online</span></div>
+      <div class="org-card-name">Frutos da Terra</div>
+<div class="org-card-meta"><span class="org-area">🎯 Varejo</span></div>
+      <div class="org-missao">15 edições da Feira da Vila (set–dez/25) — R$23.809,20 faturamento, 34 empreendedores; revitalização do espaço físico.</div>
       
-      <div class="org-contacts">👤 Sasha</div>
+      <div class="org-contacts">👤 Flavia</div>
     </div>
     <div class="org-card-right">
       <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
-      <span class="org-arrow" id="org-arrow-24">▾</span>
+      <span class="org-arrow" id="org-arrow-14">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-24" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-14" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Flavia</div>
+      </div>
+    </div>
 </div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(25)" id="org-card-25">
-  <div class="org-card-top">
-    <div class="org-card-left">
-      <div class="org-card-name">Karuh</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">🏠 Presencial</span></div>
-      
-      <div class="org-contacts">👤 Sheila · Adri</div>
-    </div>
-    <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
-      <span class="org-arrow" id="org-arrow-25">▾</span>
-    </div>
-  </div>
-  <div class="org-expand" id="org-expand-25" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
-</div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(26)" id="org-card-26">
-  <div class="org-card-top">
-    <div class="org-card-left">
-      <div class="org-card-name">GT Feira</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">-</span></div>
-      
-      <div class="org-contacts">👤 Tilele · Isabela</div>
-    </div>
-    <div class="org-card-right">
-      <span class="org-tipo-badge badge-gt">GT</span>
-      <span class="org-arrow" id="org-arrow-26">▾</span>
-    </div>
-  </div>
-  <div class="org-expand" id="org-expand-26" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
-</div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(27)" id="org-card-27">
-  <div class="org-card-top">
-    <div class="org-card-left">
-      <div class="org-card-name">Duhari</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">⏸ Indisponível</span></div>
-      
-      <div class="org-contacts">👤 Yu</div>
-    </div>
-    <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
-      <span class="org-arrow" id="org-arrow-27">▾</span>
-    </div>
-  </div>
-  <div class="org-expand" id="org-expand-27" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
-</div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(28)" id="org-card-28">
+<div class="org-card has-expand" onclick="toggleOrgExpand(15)" id="org-card-15">
   <div class="org-card-top">
     <div class="org-card-left">
       <div class="org-card-name">Gingerz</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">⏸ Indisponível</span></div>
+      <div class="org-card-meta"><span class="org-area">🎯 Alimentação</span></div>
       
       <div class="org-contacts">👤 Zaida</div>
     </div>
     <div class="org-card-right">
       <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
-      <span class="org-arrow" id="org-arrow-28">▾</span>
+      <span class="org-arrow" id="org-arrow-15">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-28" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-15" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Zaida</div>
+      </div>
+    </div>
 </div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(29)" id="org-card-29">
+<div class="org-card has-expand" onclick="toggleOrgExpand(16)" id="org-card-16">
+  <div class="org-card-top">
+    <div class="org-card-left">
+      <div class="org-card-name">Gota d'Água</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Varejo</span></div>
+      
+      <div class="org-contacts">👤 Nicolle</div>
+    </div>
+    <div class="org-card-right">
+      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
+      <span class="org-arrow" id="org-arrow-16">▾</span>
+    </div>
+  </div>
+  <div class="org-expand" id="org-expand-16" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Nicolle</div>
+      </div>
+    </div>
+</div>
+<div class="org-card has-expand" onclick="toggleOrgExpand(17)" id="org-card-17">
   <div class="org-card-top">
     <div class="org-card-left">
       <div class="org-card-name">Instituto Inkiri</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">🏠 Presencial</span><span class="org-proj-badge" title="Projetos mapeados">📁 1 projeto</span></div>
+      <div class="org-card-meta"><span class="org-area">🎯 Conservação Ambiental</span><span class="org-proj-badge" title="Projetos mapeados">📁 1 projeto</span></div>
       
       <div class="org-contacts">👤 Zé Luiz · Jana</div>
     </div>
     <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
-      <span class="org-arrow" id="org-arrow-29">▾</span>
+      <span class="org-tipo-badge badge-sem-fins">Sem fins lucrativos</span>
+      <span class="org-arrow" id="org-arrow-17">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-29" style="display:none;">
+  <div class="org-expand" id="org-expand-17" style="display:none;">
       <div class="org-expand-section">
         <div class="org-expand-label">Projetos</div>
         <ul class="org-proj-list"><li class="org-proj-item"><span class="org-proj-name">RPPN</span><span class="proc-tag proc-e" title="Proteção e ampliação do território ecológico (RPPN, condomínio etc)">E8</span></li></ul>
@@ -3154,28 +3030,322 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
         <div class="org-expand-label">Indicadores impactados</div>
         <div class="proc-desc-list"><div class="proc-desc-item"><span class="proc-tag proc-e">E8</span><span class="proc-desc-text">Proteção e ampliação do território ecológico (RPPN, condomínio etc)</span></div></div>
       </div>
+    
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Zé Luiz · Jana</div>
+      </div>
+    </div>
+</div>
+<div class="org-card has-expand" onclick="toggleOrgExpand(18)" id="org-card-18">
+  <div class="org-card-top">
+    <div class="org-card-left">
+      <div class="org-card-name">Instituto Somos Água</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Conservação Ambiental</span><span class="org-proj-badge" title="Projetos mapeados">📁 3 projetos</span></div>
+      <div class="org-missao">Preservação e monitoramento das águas da bacia do Rio Piracanga — em 2025 zerou os índices de coliformes fecais pela primeira vez. Incubada na A.MOR até criar CNPJ próprio.</div>
+      <div class="org-contacts">👤 Juli · Vanessa Manfrim</div>
+    </div>
+    <div class="org-card-right">
+      <span class="org-tipo-badge badge-sem-fins">Sem fins lucrativos</span>
+      <span class="org-arrow" id="org-arrow-18">▾</span>
+    </div>
+  </div>
+  <div class="org-expand" id="org-expand-18" style="display:none;">
+      <div class="org-expand-section">
+        <div class="org-expand-label">Impacto 2025</div>
+        <div class="proc-desc-list">
+          <div class="proc-desc-item"><span class="proc-tag proc-s">💧</span><span class="proc-desc-text">Primeira vez que os índices de coliformes fecais zeraram nas amostras coletadas</span></div>
+          <div class="proc-desc-item"><span class="proc-tag proc-s">🏛️</span><span class="proc-desc-text">Trabalha junto à prefeitura de Maraú desenhando soluções para a situação hídrica da península</span></div>
+          <div class="proc-desc-item"><span class="proc-tag proc-s">💰</span><span class="proc-desc-text">Recebeu R$3.622,16 de apoio financeiro da A.MOR em 2025</span></div>
+        </div>
+      </div>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Projetos</div>
+        <ul class="org-proj-list">
+          <li class="org-proj-item"><span class="org-proj-name">Calculadora Pegada Hidrológica</span><span class="proc-tag proc-s" title="Gestão hídrica e acesso à água de qualidade">S8</span></li>
+          <li class="org-proj-item"><span class="org-proj-name">Análises de Água aprofundadas</span><span class="proc-tag proc-s" title="Gestão hídrica e acesso à água de qualidade">S8</span></li>
+          <li class="org-proj-item"><span class="org-proj-name">Certificação de Cuidado com as Águas</span><span class="proc-tag proc-s" title="Gestão hídrica e acesso à água de qualidade">S8</span></li>
+        </ul>
+      </div>
+    
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Juli · Vanessa Manfrim</div>
+      </div>
+    </div>
+</div>
+<div class="org-card has-expand" onclick="toggleOrgExpand(19)" id="org-card-19">
+  <div class="org-card-top">
+    <div class="org-card-left">
+      <div class="org-card-name">Karuh</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Alimentação</span></div>
+      
+      <div class="org-contacts">👤 Sheila · Adri</div>
+    </div>
+    <div class="org-card-right">
+      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
+      <span class="org-arrow" id="org-arrow-19">▾</span>
+    </div>
+  </div>
+  <div class="org-expand" id="org-expand-19" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Sheila · Adri</div>
+      </div>
+    </div>
+</div>
+<div class="org-card has-expand" onclick="toggleOrgExpand(20)" id="org-card-20">
+  <div class="org-card-top">
+    <div class="org-card-left">
+      <div class="org-card-name">Kokar</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Varejo</span></div>
+      
+      <div class="org-contacts">👤 Giselle</div>
+    </div>
+    <div class="org-card-right">
+      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
+      <span class="org-arrow" id="org-arrow-20">▾</span>
+    </div>
+  </div>
+  <div class="org-expand" id="org-expand-20" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Giselle</div>
+      </div>
+    </div>
+</div>
+<div class="org-card has-expand" onclick="toggleOrgExpand(21)" id="org-card-21">
+  <div class="org-card-top">
+    <div class="org-card-left">
+      <div class="org-card-name">Nego (saneamento)</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Serviços Técnicos</span></div>
+      
+      <div class="org-contacts">👤 Nego</div>
+    </div>
+    <div class="org-card-right">
+      <span class="org-tipo-badge badge-caubi">Trabalhadores</span>
+      <span class="org-arrow" id="org-arrow-21">▾</span>
+    </div>
+  </div>
+  <div class="org-expand" id="org-expand-21" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Nego</div>
+      </div>
+    </div>
+</div>
+<div class="org-card has-expand" onclick="toggleOrgExpand(22)" id="org-card-22">
+  <div class="org-card-top">
+    <div class="org-card-left">
+      <div class="org-card-name">Osho Bahia</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Hospitalidade</span></div>
+      
+      <div class="org-contacts">👤 Sasha</div>
+    </div>
+    <div class="org-card-right">
+      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
+      <span class="org-arrow" id="org-arrow-22">▾</span>
+    </div>
+  </div>
+  <div class="org-expand" id="org-expand-22" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Sasha</div>
+      </div>
+    </div>
+</div>
+<div class="org-card has-expand" onclick="toggleOrgExpand(23)" id="org-card-23">
+  <div class="org-card-top">
+    <div class="org-card-left">
+      <div class="org-card-name">Plante!</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Varejo</span></div>
+      
+      <div class="org-contacts">👤 Juli</div>
+    </div>
+    <div class="org-card-right">
+      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
+      <span class="org-arrow" id="org-arrow-23">▾</span>
+    </div>
+  </div>
+  <div class="org-expand" id="org-expand-23" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Juli</div>
+      </div>
+    </div>
+</div>
+<div class="org-card has-expand" onclick="toggleOrgExpand(24)" id="org-card-24">
+  <div class="org-card-top">
+    <div class="org-card-left">
+      <div class="org-card-name">Projeto Praia Limpa</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Conservação Ambiental</span><span class="org-proj-badge" title="Projetos mapeados">📁 1 projeto</span></div>
+      <div class="org-missao">Limpeza contínua da praia, rio e mangue com mutirões semanais, EcoPonto de triagem e expedições de mapeamento de resíduos no Rio de Contas.</div>
+      <div class="org-contacts">👤 Roni · Sue</div>
+    </div>
+    <div class="org-card-right">
+      <span class="org-tipo-badge badge-sem-fins">Sem fins lucrativos</span>
+      <span class="org-arrow" id="org-arrow-24">▾</span>
+    </div>
+  </div>
+  <div class="org-expand" id="org-expand-24" style="display:none;">
+      <div class="org-expand-section">
+        <div class="org-expand-label">Impacto 2025</div>
+        <div class="proc-desc-list">
+          <div class="proc-desc-item"><span class="proc-tag proc-s">🗑️</span><span class="proc-desc-text">Quase 2 toneladas de resíduos recolhidas na praia, rio e mangue</span></div>
+          <div class="proc-desc-item"><span class="proc-tag proc-s">🚣</span><span class="proc-desc-text">1ª e 2ª expedições no Rio de Contas para mapeamento de resíduos</span></div>
+          <div class="proc-desc-item"><span class="proc-tag proc-s">🏛️</span><span class="proc-desc-text">Proposta aprovada em fase preliminar pela Gestora da APA</span></div>
+          <div class="proc-desc-item"><span class="proc-tag proc-s">💰</span><span class="proc-desc-text">Recebeu R$766 de apoio financeiro da A.MOR em 2025</span></div>
+        </div>
+      </div>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Projetos</div>
+        <ul class="org-proj-list">
+          <li class="org-proj-item"><span class="org-proj-name">Mutirões semanais de limpeza</span><span class="proc-tag proc-s" title="Educação ambiental e socioambiental">S5</span></li>
+          <li class="org-proj-item"><span class="org-proj-name">EcoPonto — triagem de resíduos</span><span class="proc-tag proc-s">S5</span></li>
+          <li class="org-proj-item"><span class="org-proj-name">Expedição Rio de Contas</span><span class="proc-tag proc-s">S8</span></li>
+        </ul>
+      </div>
+    
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Roni · Sue</div>
+      </div>
+    </div>
+</div>
+<div class="org-card has-expand" onclick="toggleOrgExpand(25)" id="org-card-25">
+  <div class="org-card-top">
+    <div class="org-card-left">
+      <div class="org-card-name">Regenera Piracanga</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Imobiliário</span></div>
+      
+      <div class="org-contacts">👤 Bruno</div>
+    </div>
+    <div class="org-card-right">
+      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
+      <span class="org-arrow" id="org-arrow-25">▾</span>
+    </div>
+  </div>
+  <div class="org-expand" id="org-expand-25" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Bruno</div>
+      </div>
+    </div>
+</div>
+<div class="org-card has-expand" onclick="toggleOrgExpand(26)" id="org-card-26">
+  <div class="org-card-top">
+    <div class="org-card-left">
+      <div class="org-card-name">Resiliência Engenharia</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Serviços Técnicos</span></div>
+      
+      <div class="org-contacts">👤 Francis</div>
+    </div>
+    <div class="org-card-right">
+      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
+      <span class="org-arrow" id="org-arrow-26">▾</span>
+    </div>
+  </div>
+  <div class="org-expand" id="org-expand-26" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Francis</div>
+      </div>
+    </div>
+</div>
+<div class="org-card has-expand" onclick="toggleOrgExpand(27)" id="org-card-27">
+  <div class="org-card-top">
+    <div class="org-card-left">
+      <div class="org-card-name">Tartaru</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Conservação Ambiental</span></div>
+      <div class="org-missao">Conservação das tartarugas-marinhas</div>
+      <div class="org-contacts">👤 Batista · Sarah</div>
+    </div>
+    <div class="org-card-right">
+      <span class="org-tipo-badge badge-sem-fins">Sem fins lucrativos</span>
+      <span class="org-arrow" id="org-arrow-27">▾</span>
+    </div>
+  </div>
+  <div class="org-expand" id="org-expand-27" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Batista · Sarah</div>
+      </div>
+    </div>
+</div>
+<div class="org-card has-expand" onclick="toggleOrgExpand(28)" id="org-card-28">
+  <div class="org-card-top">
+    <div class="org-card-left">
+      <div class="org-card-name">Unah</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Hospitalidade</span></div>
+      
+      <div class="org-contacts">👤 Norton · Diego</div>
+    </div>
+    <div class="org-card-right">
+      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
+      <span class="org-arrow" id="org-arrow-28">▾</span>
+    </div>
+  </div>
+  <div class="org-expand" id="org-expand-28" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Norton · Diego</div>
+      </div>
+    </div>
+</div>
+<div class="org-card has-expand" onclick="toggleOrgExpand(29)" id="org-card-29">
+  <div class="org-card-top">
+    <div class="org-card-left">
+      <div class="org-card-name">Vila dos anjos</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Hospitalidade</span></div>
+      
+      <div class="org-contacts">👤 Nato · Mika</div>
+    </div>
+    <div class="org-card-right">
+      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
+      <span class="org-arrow" id="org-arrow-29">▾</span>
+    </div>
+  </div>
+  <div class="org-expand" id="org-expand-29" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Nato · Mika</div>
+      </div>
     </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(30)" id="org-card-30">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">Casa Dourada</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-presencial">⏸ Indisponível</span></div>
-      
-      <div class="org-contacts">👤 Jana e Lourenço</div>
+      <div class="org-card-name">GT Agrofloresta</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Agroecologia</span></div>
+      <div class="org-missao">Implantação de agrofloresta na área coletiva: 15 mutirões em 2025 reunindo ~75 pessoas. Podas, delimitação de canteiros, planejamento de espécies e captação de recursos.</div>
+      <div class="org-contacts">👤 Santi · Maria Zeferina</div>
     </div>
     <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
+      <span class="org-tipo-badge badge-gt">GT</span>
       <span class="org-arrow" id="org-arrow-30">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-30" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-30" style="display:none;">
+    <div class="org-expand-section">
+      <div class="org-expand-label">Impacto 2025</div>
+      <div class="proc-desc-list">
+        <div class="proc-desc-item"><span class="proc-tag proc-s">🌱</span><span class="proc-desc-text">15 mutirões realizados, reunindo aproximadamente 75 pessoas</span></div>
+        <div class="proc-desc-item"><span class="proc-tag proc-s">🗺️</span><span class="proc-desc-text">Desenho da agrofloresta com consultoria especializada; canteiros demarcados</span></div>
+        <div class="proc-desc-item"><span class="proc-tag proc-s">💰</span><span class="proc-desc-text">Recebeu R$495,55 de apoio da A.MOR; campanha de financiamento para ferramentas e insumos</span></div>
+      </div>
+    </div>
+  
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Santi · Maria Zeferina</div>
+      </div>
+    </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(31)" id="org-card-31">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">Terapeutas Piracanga (alguém da Unah)?</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span></div>
+      <div class="org-card-name">GT CONDOMÍNIO</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Governança Territorial</span><span class="org-proj-badge" title="Projetos mapeados">📁 1 projeto</span></div>
       
       
     </div>
@@ -3184,13 +3354,25 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
       <span class="org-arrow" id="org-arrow-31">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-31" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-31" style="display:none;">
+      <div class="org-expand-section">
+        <div class="org-expand-label">Projetos</div>
+        <ul class="org-proj-list"><li class="org-proj-item"><span class="org-proj-name">Condomínio</span><span class="proc-tag proc-e" title="Proteção e ampliação do território ecológico (RPPN, condomínio etc)">E8</span> <span class="proc-tag proc-s" title="Dados, inteligência territorial e gestão da informação (BIOMAS)">S3</span></li></ul>
+      </div>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Indicadores impactados</div>
+        <div class="proc-desc-list"><div class="proc-desc-item"><span class="proc-tag proc-e">E8</span><span class="proc-desc-text">Proteção e ampliação do território ecológico (RPPN, condomínio etc)</span></div><div class="proc-desc-item"><span class="proc-tag proc-s">S3</span><span class="proc-desc-text">Dados, inteligência territorial e gestão da informação (BIOMAS)</span></div></div>
+      </div>
+    </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(32)" id="org-card-32">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">GT Estrada</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span></div>
+      <div class="org-card-name">GT Dados</div>
+<div class="org-card-meta"><span class="org-area">🎯 Governança Territorial</span></div>
+      <div class="org-missao">Censo sócio-econômico e cultura de dados para Piracanga — 116 respostas coletadas em dez/2025.</div>
+      <div class="org-contacts">👤 Letícia Queiroz · Rodrigo Teles</div>
+    </div>
       
       
     </div>
@@ -3199,13 +3381,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
       <span class="org-arrow" id="org-arrow-32">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-32" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
-</div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(33)" id="org-card-33">
   <div class="org-card-top">
     <div class="org-card-left">
       <div class="org-card-name">GT Dengue</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span></div>
+      <div class="org-card-meta"><span class="org-area">🎯 Saúde</span></div>
       
       
     </div>
@@ -3219,53 +3399,72 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 <div class="org-card has-expand" onclick="toggleOrgExpand(34)" id="org-card-34">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">GT Emergencias</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span></div>
-      
-      
+      <div class="org-card-name">GT Emergências</div>
+      <div class="org-card-meta"></div>
+      <div class="org-missao">Resposta a emergências imediatas da Ecovila — surtos, acidentes e mediação de casos críticos com estrita confidencialidade.</div>
+      <div class="org-contacts">👤 Tiago · Suzana</div>
     </div>
     <div class="org-card-right">
       <span class="org-tipo-badge badge-gt">GT</span>
       <span class="org-arrow" id="org-arrow-34">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-34" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-34" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Tiago · Suzana</div>
+      </div>
+    </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(35)" id="org-card-35">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">CUDS</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span></div>
+      <div class="org-card-name">GT Empreendedores</div>
+<div class="org-card-meta"><span class="org-area">🎯 Economia</span></div>
+      <div class="org-missao">Apoiar a prosperidade dos empreendedores de Piracanga: Feira da Vila, catálogo de empreendedores e Festival de Verão.</div>
+      <div class="org-contacts">👤 Tilelê · Isa</div>
+    </div>
       
       
     </div>
     <div class="org-card-right">
-      <span class="org-tipo-badge badge-com-fins">Com fins lucrativos</span>
+      <span class="org-tipo-badge badge-gt">GT</span>
       <span class="org-arrow" id="org-arrow-35">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-35" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
-</div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(36)" id="org-card-36">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">Motoristas</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span></div>
-      
-      
+      <div class="org-card-name">GT Energia Boa</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Energia/Cultura</span></div>
+      <div class="org-missao">Levantamento do posicionamento dos proprietários sobre a chegada de energia elétrica em Piracanga; facilitação do debate e elaboração de abaixo-assinado pela autonomia energética.</div>
+      <div class="org-contacts">👤 Santi · Mariana</div>
     </div>
     <div class="org-card-right">
       <span class="org-tipo-badge badge-gt">GT</span>
       <span class="org-arrow" id="org-arrow-36">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-36" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+  <div class="org-expand" id="org-expand-36" style="display:none;">
+    <div class="org-expand-section">
+      <div class="org-expand-label">Entregas 2025</div>
+      <div class="proc-desc-list">
+        <div class="proc-desc-item"><span class="proc-tag proc-s">⚡</span><span class="proc-desc-text">Assembleia sobre energia elétrica com dinâmica de prós e contras realizada</span></div>
+        <div class="proc-desc-item"><span class="proc-tag proc-s">📝</span><span class="proc-desc-text">Abaixo-assinado de "desejo de conservação da autonomia energética" elaborado para protocolar junto à Coelba e Poder Público</span></div>
+      </div>
+    </div>
+  
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Santi · Mariana</div>
+      </div>
+    </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(37)" id="org-card-37">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">GT EMPREENDEDORES</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-proj-badge" title="Projetos mapeados">📁 2 projetos</span></div>
+      <div class="org-card-name">GT Equidade Racial</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Inclusão Social</span><span class="org-proj-badge" title="Projetos mapeados">📁 1 projeto</span></div>
       
       
     </div>
@@ -3277,54 +3476,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
   <div class="org-expand" id="org-expand-37" style="display:none;">
       <div class="org-expand-section">
         <div class="org-expand-label">Projetos</div>
-        <ul class="org-proj-list"><li class="org-proj-item"><span class="org-proj-name">Feira de domingo</span><span class="proc-tag proc-s" title="Economia local, geração de renda e empreendedorismo">S4</span></li><li class="org-proj-item"><span class="org-proj-name">Coletivo de Empreendedores</span><span class="proc-tag proc-s" title="Economia local, geração de renda e empreendedorismo">S4</span></li></ul>
-      </div>
-      <div class="org-expand-section">
-        <div class="org-expand-label">Indicadores impactados</div>
-        <div class="proc-desc-list"><div class="proc-desc-item"><span class="proc-tag proc-s">S4</span><span class="proc-desc-text">Economia local, geração de renda e empreendedorismo</span></div></div>
-      </div>
-    </div>
-</div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(38)" id="org-card-38">
-  <div class="org-card-top">
-    <div class="org-card-left">
-      <div class="org-card-name">GT DADOS</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-proj-badge" title="Projetos mapeados">📁 1 projeto</span></div>
-      
-      
-    </div>
-    <div class="org-card-right">
-      <span class="org-tipo-badge badge-gt">GT</span>
-      <span class="org-arrow" id="org-arrow-38">▾</span>
-    </div>
-  </div>
-  <div class="org-expand" id="org-expand-38" style="display:none;">
-      <div class="org-expand-section">
-        <div class="org-expand-label">Projetos</div>
-        <ul class="org-proj-list"><li class="org-proj-item"><span class="org-proj-name">Criação do Centro de Inteligencia da Vila</span><span class="proc-tag proc-s" title="Dados, inteligência territorial e gestão da informação (BIOMAS)">S3</span></li></ul>
-      </div>
-      <div class="org-expand-section">
-        <div class="org-expand-label">Indicadores impactados</div>
-        <div class="proc-desc-list"><div class="proc-desc-item"><span class="proc-tag proc-s">S3</span><span class="proc-desc-text">Dados, inteligência territorial e gestão da informação (BIOMAS)</span></div></div>
-      </div>
-    </div>
-</div>
-<div class="org-card has-expand" onclick="toggleOrgExpand(39)" id="org-card-39">
-  <div class="org-card-top">
-    <div class="org-card-left">
-      <div class="org-card-name">GT EQUIDADE RACIAL</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-proj-badge" title="Projetos mapeados">📁 1 projeto</span></div>
-      
-      
-    </div>
-    <div class="org-card-right">
-      <span class="org-tipo-badge badge-gt">GT</span>
-      <span class="org-arrow" id="org-arrow-39">▾</span>
-    </div>
-  </div>
-  <div class="org-expand" id="org-expand-39" style="display:none;">
-      <div class="org-expand-section">
-        <div class="org-expand-label">Projetos</div>
         <ul class="org-proj-list"><li class="org-proj-item"><span class="org-proj-name">Letramento Racial</span><span class="proc-tag proc-s" title="Equidade, diversidade e inclusão social">S6</span> <span class="proc-tag proc-x" title="Formação, capacitação e transferência de conhecimento">X3</span></li></ul>
       </div>
       <div class="org-expand-section">
@@ -3333,59 +3484,124 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
       </div>
     </div>
 </div>
+<div class="org-card has-expand" onclick="toggleOrgExpand(38)" id="org-card-38">
+  <div class="org-card-top">
+    <div class="org-card-left">
+      <div class="org-card-name">GT Estrada</div>
+<div class="org-card-meta"><span class="org-area">🎯 Infraestrutura</span></div>
+      <div class="org-missao">Resposta a emergências imediatas da Ecovila — surtos, acidentes e mediação de casos críticos com estrita confidencialidade.</div>
+      
+      
+    </div>
+    <div class="org-card-right">
+      <span class="org-tipo-badge badge-gt">GT</span>
+      <span class="org-arrow" id="org-arrow-38">▾</span>
+    </div>
+  </div>
+  <div class="org-expand" id="org-expand-38" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
+</div>
+<div class="org-card has-expand" onclick="toggleOrgExpand(39)" id="org-card-39">
+  <div class="org-card-top">
+    <div class="org-card-left">
+      <div class="org-card-name">GT Feira</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Alimentação</span></div>
+      
+      <div class="org-contacts">👤 Tilelê · Isabela</div>
+    </div>
+    <div class="org-card-right">
+      <span class="org-tipo-badge badge-gt">GT</span>
+      <span class="org-arrow" id="org-arrow-39">▾</span>
+    </div>
+  </div>
+  <div class="org-expand" id="org-expand-39" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Tilelê · Isabela</div>
+      </div>
+    </div>
+</div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(40)" id="org-card-40">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">GT CONDOMÍNIO</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span><span class="org-proj-badge" title="Projetos mapeados">📁 1 projeto</span></div>
-      
-      
+      <div class="org-card-name">GT Governança</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Governança Territorial</span></div>
+      <div class="org-missao">Estrutura de governança da A.MOR: rituais de gestão, admissão de associados, assembleias comunitárias e mediação de conflitos.</div>
+      <div class="org-contacts">👤 Isa · Santi</div>
     </div>
     <div class="org-card-right">
       <span class="org-tipo-badge badge-gt">GT</span>
       <span class="org-arrow" id="org-arrow-40">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-40" style="display:none;">
+  <div class="org-expand" id="org-expand-40" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p>
       <div class="org-expand-section">
-        <div class="org-expand-label">Projetos</div>
-        <ul class="org-proj-list"><li class="org-proj-item"><span class="org-proj-name">Condomínio</span><span class="proc-tag proc-e" title="Proteção e ampliação do território ecológico (RPPN, condomínio etc)">E8</span> <span class="proc-tag proc-s" title="Dados, inteligência territorial e gestão da informação (BIOMAS)">S3</span></li></ul>
-      </div>
-      <div class="org-expand-section">
-        <div class="org-expand-label">Indicadores impactados</div>
-        <div class="proc-desc-list"><div class="proc-desc-item"><span class="proc-tag proc-e">E8</span><span class="proc-desc-text">Proteção e ampliação do território ecológico (RPPN, condomínio etc)</span></div><div class="proc-desc-item"><span class="proc-tag proc-s">S3</span><span class="proc-desc-text">Dados, inteligência territorial e gestão da informação (BIOMAS)</span></div></div>
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Isa · Santi</div>
       </div>
     </div>
 </div>
 <div class="org-card has-expand" onclick="toggleOrgExpand(41)" id="org-card-41">
   <div class="org-card-top">
     <div class="org-card-left">
-      <div class="org-card-name">GT GOVERNANÇA</div>
-      <div class="org-card-meta"><span class="org-foco">📍 Local</span></div>
-      
-      
+      <div class="org-card-name">GT Novos Moradores</div>
+      <div class="org-card-meta"><span class="org-area">🎯 Integração Comunitária</span></div>
+      <div class="org-missao">Integração e conexão de novos moradores e "demoradores" da Ecovila — mapeamento de casas, cartilha de boas-vindas, encontros mensais e semana de introdução à Piracanga.</div>
+      <div class="org-contacts">👤 Suzana · Miho</div>
     </div>
     <div class="org-card-right">
       <span class="org-tipo-badge badge-gt">GT</span>
       <span class="org-arrow" id="org-arrow-41">▾</span>
     </div>
   </div>
-  <div class="org-expand" id="org-expand-41" style="display:none;"><p class="org-no-proj">Nenhum projeto mapeado</p></div>
-</div>
-
+  <div class="org-expand" id="org-expand-41" style="display:none;">
+    <div class="org-expand-section">
+      <div class="org-expand-label">Entregas 2025</div>
+      <div class="proc-desc-list">
+        <div class="proc-desc-item"><span class="proc-tag proc-s">🤝</span><span class="proc-desc-text">1º Encontro de Conexão e Integração de Moradores e Demoradores realizado</span></div>
+        <div class="proc-desc-item"><span class="proc-tag proc-s">📋</span><span class="proc-desc-text">Formulário do Censo aplicado; cartilha de boas-vindas atualizada</span></div>
       </div>
     </div>
-
+  
+      <div class="org-expand-section">
+        <div class="org-expand-label">Contatos</div>
+        <div class="org-contact-chips">Suzana · Miho</div>
+      </div>
+    </div>
+</div>
+  </div>
+</div>
     <div id="ag-projetos" class="ag-panel">
       <div class="orgs-table-wrap">
-        <table class="orgs-table">
+        <div class="search-bar-wrap"><input class="search-bar" id="search-projetos" type="text" placeholder="🔍 Buscar projeto..." oninput="filterProjects(this.value)" data-en="🔍 Search project..."></div>
+      <table class="orgs-table">
           <thead><tr><th>Projeto</th><th>Status</th><th>Responsável</th><th>Impacto</th></tr></thead>
-          <tbody><tr><td><strong>Taxa Sócio Ambiental</strong></td><td></td><td style="color:#555;">A.MOR Associação de Moradores da Bacia do Rio Piracanga</td><td style="color:#555;"></td></tr><tr><td><strong>Viveiro de mudas nativas</strong></td><td></td><td style="color:#555;">Escola da Natureza </td><td style="color:#555;"></td></tr><tr><td><strong>Reflorestamento</strong></td><td></td><td style="color:#555;">Escola da Natureza </td><td style="color:#555;"></td></tr><tr><td><strong>Educação Ambiental</strong></td><td></td><td style="color:#555;">Escola da Natureza </td><td style="color:#555;"></td></tr><tr><td><strong>Condomínio</strong></td><td></td><td style="color:#555;">GT CONDOMÍNIO</td><td style="color:#555;"></td></tr><tr><td><strong>Criação do Centro de Inteligencia da Vila</strong></td><td></td><td style="color:#555;">GT DADOS</td><td style="color:#555;"></td></tr><tr><td><strong>Feira de domingo</strong></td><td></td><td style="color:#555;">GT EMPREENDEDORES</td><td style="color:#555;"></td></tr><tr><td><strong>Coletivo de Empreendedores</strong></td><td></td><td style="color:#555;">GT EMPREENDEDORES</td><td style="color:#555;"></td></tr><tr><td><strong>Letramento Racial</strong></td><td></td><td style="color:#555;">GT EQUIDADE RACIAL</td><td style="color:#555;"></td></tr><tr><td><strong>RPPN</strong></td><td></td><td style="color:#555;">Instituto Inkiri</td><td style="color:#555;"></td></tr><tr><td><strong>Calculadora Pegada Hidrológica</strong></td><td></td><td style="color:#555;">Instituto Somos Água</td><td style="color:#555;"></td></tr><tr><td><strong>Análises de Agua mais aprofundadas</strong></td><td></td><td style="color:#555;">Instituto Somos Água</td><td style="color:#555;"></td></tr><tr><td><strong>Certificação de Cuidado com as Águas</strong></td><td></td><td style="color:#555;">Instituto Somos Água</td><td style="color:#555;"></td></tr><tr><td><strong>Mutirões para coletar lixo da praia</strong></td><td></td><td style="color:#555;">Projeto Praia Limpa</td><td style="color:#555;"></td></tr></tbody>
+          <tbody>
+<tr><td><strong>Assembleias Comunitárias</strong></td><td><span style="color:#2d6a4f;font-weight:600">● Ativo</span></td><td style="color:#555;">GT Governança</td><td style="color:#555;">4 edições em 2025 — momento mensal de conexão, informação e escuta com a vila</td></tr>
+<tr><td><strong>Autonomia Energética</strong></td><td><span style="color:#e67e22;font-weight:600">◐ Em andamento</span></td><td style="color:#555;">GT Energia Boa</td><td style="color:#555;">Abaixo-assinado de conservação da autonomia energética para protocolar junto à Coelba e Poder Público</td></tr>
+<tr><td><strong>Calculadora Pegada Hidrológica</strong></td><td><span style="color:#e67e22;font-weight:600">◐ Em andamento</span></td><td style="color:#555;">Instituto Somos Água</td><td style="color:#555;"></td></tr>
+<tr><td><strong>Catálogo de Empreendedores</strong></td><td><span style="color:#e67e22;font-weight:600">◐ Em andamento</span></td><td style="color:#555;">GT Empreendedores</td><td style="color:#555;">Mapeamento e divulgação dos empreendedores de Piracanga</td></tr>
+<tr><td><strong>Censo Sócio-Econômico</strong></td><td><span style="color:#1d6fa4;font-weight:600">✓ Concluído</span></td><td style="color:#555;">GT Dados · A.MOR · Fundação BioMAS</td><td style="color:#555;">116 respostas válidas coletadas em Piracanga e Caubi (dez/2025)</td></tr>
+<tr><td><strong>Certificação de Cuidado com as Águas</strong></td><td><span style="color:#1d6fa4;font-weight:600">✓ Concluído</span></td><td style="color:#555;">Instituto Somos Água</td><td style="color:#555;">Zerou coliformes fecais em 2025</td></tr>
+<tr><td><strong>Educação Ambiental</strong></td><td><span style="color:#2d6a4f;font-weight:600">● Ativo</span></td><td style="color:#555;">Escola da Natureza</td><td style="color:#555;"></td></tr>
+<tr><td><strong>Equidade Racial</strong></td><td><span style="color:#2d6a4f;font-weight:600">● Ativo</span></td><td style="color:#555;">GT Equidade Racial</td><td style="color:#555;">2º Fórum de Equidade Racial de Piracanga · apoio R$2.016</td></tr>
+<tr><td><strong>Escola Almar</strong></td><td><span style="color:#2d6a4f;font-weight:600">● Ativo</span></td><td style="color:#555;">Escola Almar</td><td style="color:#555;">Apoio financeiro da A.MOR: R$4.155,37 (5% do faturamento por edição)</td></tr>
+<tr><td><strong>Feira da Vila</strong></td><td><span style="color:#2d6a4f;font-weight:600">● Ativo</span></td><td style="color:#555;">GT Feira · GT Empreendedores</td><td style="color:#555;">15 edições (set–dez/25) · 34 empreendedores · R$23.809,20 faturamento total</td></tr>
+<tr><td><strong>GT Agrofloresta — Mutirões</strong></td><td><span style="color:#2d6a4f;font-weight:600">● Ativo</span></td><td style="color:#555;">GT Agrofloresta</td><td style="color:#555;">15 mutirões · ~75 pessoas · podas, canteiros e planejamento de espécies</td></tr>
+<tr><td><strong>Instituto Somos Água</strong></td><td><span style="color:#2d6a4f;font-weight:600">● Ativo</span></td><td style="color:#555;">Instituto Somos Água (incubado A.MOR)</td><td style="color:#555;">Zerou coliformes fecais em 2025 · parceria com Prefeitura de Maraú · apoio R$3.622,16</td></tr>
+<tr><td><strong>Integração de Novos Moradores</strong></td><td><span style="color:#2d6a4f;font-weight:600">● Ativo</span></td><td style="color:#555;">GT Novos Moradores</td><td style="color:#555;">Encontros mensais · cartilha de boas-vindas · semana introdutória à Piracanga</td></tr>
+<tr><td><strong>Placas de Acordos</strong></td><td><span style="color:#1d6fa4;font-weight:600">✓ Concluído</span></td><td style="color:#555;">GT Governança</td><td style="color:#555;">5 placas instaladas na vila — comunicação visual dos acordos de convivência</td></tr>
+<tr><td><strong>Projeto Praia Limpa e EcoPonto</strong></td><td><span style="color:#2d6a4f;font-weight:600">● Ativo</span></td><td style="color:#555;">Projeto Praia Limpa (incubado A.MOR)</td><td style="color:#555;">~2t resíduos recolhidas · expedições no Rio de Contas · proposta aprovada pela APA · apoio R$766</td></tr>
+<tr><td><strong>Reflorestamento</strong></td><td><span style="color:#2d6a4f;font-weight:600">● Ativo</span></td><td style="color:#555;">Escola da Natureza</td><td style="color:#555;"></td></tr>
+<tr><td><strong>RPPN</strong></td><td><span style="color:#e67e22;font-weight:600">◐ Em andamento</span></td><td style="color:#555;">Instituto Inkiri</td><td style="color:#555;"></td></tr>
+<tr><td><strong>Taxa Sócio Ambiental</strong></td><td><span style="color:#2d6a4f;font-weight:600">● Ativo</span></td><td style="color:#555;">A.MOR</td><td style="color:#555;">Financiamento de projetos de regeneração — 95% das saídas destinados a projetos socioambientais</td></tr>
+<tr><td><strong>Viveiro de mudas nativas</strong></td><td><span style="color:#e67e22;font-weight:600">◐ Em andamento</span></td><td style="color:#555;">Escola da Natureza</td><td style="color:#555;"></td></tr>
+</tbody>
         </table>
       </div>
     </div>
 
     <div id="ag-poder" class="ag-panel">
+      <div class="search-bar-wrap"><input class="search-bar" id="search-poder" type="text" placeholder="🔍 Buscar agente..." oninput="filterPoder(this.value)" data-en="🔍 Search agent..."></div>
       <table class="pow-table">
         <thead><tr><th>Agente</th><th>Poder</th><th>Vulnerabilidade</th><th>Contexto</th></tr></thead>
         <tbody><tr><td><strong>Moradores não proprietários</strong></td><td class="text-green">Médio</td><td class="text-red">Alto</td><td style="color:#555;font-size:12px;"></td></tr><tr><td><strong>Moradores proprietários</strong></td><td class="text-red">Alto</td><td class="text-green">Médio</td><td style="color:#555;font-size:12px;"></td></tr><tr><td><strong>Proprietários não moradores</strong></td><td class="text-red">Alto</td><td class="text-green">Baixo</td><td style="color:#555;font-size:12px;"></td></tr><tr><td><strong>Trabalhadores do turismo</strong></td><td class="text-green">Médio</td><td class="text-red">Alto</td><td style="color:#555;font-size:12px;"></td></tr><tr><td><strong>Profissionais remotos</strong></td><td class="text-green">Médio</td><td class="text-green">Baixo</td><td style="color:#555;font-size:12px;"></td></tr><tr><td><strong>Governança comunitária (A.MOR)</strong></td><td class="text-green">Médio</td><td class="text-red">Alto</td><td style="color:#555;font-size:12px;"></td></tr><tr><td><strong>Projetos e instituições locais</strong></td><td class="text-green">Médio</td><td class="text-green">Médio</td><td style="color:#555;font-size:12px;"></td></tr><tr><td><strong>Turistas e visitantes</strong></td><td class="text-green">Médio</td><td class="text-green">Baixo</td><td style="color:#555;font-size:12px;"></td></tr><tr><td><strong>Proprietários rurais da bacia</strong></td><td class="text-red">Alto</td><td class="text-green">Baixo</td><td style="color:#555;font-size:12px;"></td></tr><tr><td><strong>Governo (municipal/estadual/federal)</strong></td><td class="text-red">Alto</td><td class="text-green">Baixo</td><td style="color:#555;font-size:12px;"></td></tr><tr><td><strong>Organizações de ensino e pesquisa</strong></td><td class="text-green">Médio</td><td class="text-green">Baixo</td><td style="color:#555;font-size:12px;"></td></tr><tr><td><strong>Organizações externas / BIOMAS</strong></td><td class="text-green">Médio</td><td class="text-green">Médio</td><td style="color:#555;font-size:12px;"></td></tr><tr><td><strong>Trabalhadores do Caubi</strong></td><td class="text-green">Baixo</td><td class="text-red">Alto</td><td style="color:#555;font-size:12px;"></td></tr><tr><td><strong>Crianças e jovens</strong></td><td class="text-green">Baixo</td><td class="text-green">Médio</td><td style="color:#555;font-size:12px;"></td></tr><tr><td><strong>BIOMAS – Plataforma de dados</strong></td><td class="text-green">Baixo (crescente)</td><td class="text-red">Alto</td><td style="color:#555;font-size:12px;"></td></tr></tbody>
@@ -3405,7 +3621,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
 
   <div class="personas-header">
     <div class="personas-eyebrow" data-en="Territorial Intelligence Panel">Painel de Intelig&ecirc;ncia Territorial</div>
-    <h2 class="personas-title" data-en="Who lives in Piracanga?">Quem vive em Piracanga?</h2>
+    <h2 class="personas-title" data-en="Piracanga Archetypes">🌀 Arquétipos Piracanga</h2>
     <p class="personas-sub" data-en="Six qualitative profiles built from the 2025 Census data and the System Agent Mapping. Each persona represents a real archetype — with distinct patterns of behavior, motivation and relationship with the territory.">
       Seis perfis qualitativos constru&iacute;dos a partir dos dados do Censo 2025 e do Mapeamento de Agentes do Sistema.
       Cada persona representa um arqu&eacute;tipo real &mdash; com padr&otilde;es distintos de comportamento, motiva&ccedil;&atilde;o e rela&ccedil;&atilde;o com o territ&oacute;rio.
@@ -5417,6 +5633,38 @@ function toggleOrgExpand(idx) {
 
 // ── END BIOMAS TOOLTIPS ──────────────────────────────────────
 
+
+// ── SEARCH / FILTER FUNCTIONS ──
+function filterCards(gridId, inputId) {
+  var q = document.getElementById(inputId).value.toLowerCase().trim();
+  var grid = document.getElementById(gridId);
+  if (!grid) return;
+  Array.from(grid.children).forEach(function(c) {
+    var text = c.textContent.toLowerCase();
+    c.style.display = (q === '' || text.includes(q)) ? '' : 'none';
+  });
+}
+function filterAgentCards(q) {
+  q = q.toLowerCase().trim();
+  document.querySelectorAll('#ag-agentes .agent-card').forEach(function(c) {
+    var text = c.textContent.toLowerCase();
+    c.style.display = (q === '' || text.includes(q)) ? '' : 'none';
+  });
+}
+function filterProjects(q) {
+  q = q.toLowerCase().trim();
+  document.querySelectorAll('#ag-projetos tbody tr').forEach(function(r) {
+    var text = r.textContent.toLowerCase();
+    r.style.display = (q === '' || text.includes(q)) ? '' : 'none';
+  });
+}
+function filterPoder(q) {
+  q = q.toLowerCase().trim();
+  document.querySelectorAll('#ag-poder tbody tr').forEach(function(r) {
+    var text = r.textContent.toLowerCase();
+    r.style.display = (q === '' || text.includes(q)) ? '' : 'none';
+  });
+}
 </script>
 
 
@@ -5442,6 +5690,51 @@ function toggleOrgExpand(idx) {
   font-weight:600;
 }
 .site-footer a:hover{color:#95d5b2;}
+
+/* ── SEARCH BAR ── */
+.search-bar-wrap {
+  padding: 12px 16px 6px;
+  display: flex;
+  justify-content: flex-start;
+}
+.search-bar {
+  width: 100%;
+  max-width: 420px;
+  padding: 8px 16px;
+  border: 1px solid #c5e3ce;
+  border-radius: 20px;
+  font-size: 13px;
+  background: #f6fbf7;
+  color: #1b4332;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color .15s, background .15s;
+}
+.search-bar:focus {
+  border-color: #52b788;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(82,183,136,.15);
+}
+
+/* ── ORG AREA TAG ── */
+.org-area {
+  display: inline-block;
+  background: #e8f5e9;
+  color: #2d6a4f;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-right: 4px;
+}
+/* ── ORG CONTACT CHIPS ── */
+.org-contact-chips {
+  font-size: 12px;
+  color: #333;
+  font-weight: 500;
+  padding: 4px 0;
+  line-height: 1.6;
+}
 </style>
 </body>
 </html>
