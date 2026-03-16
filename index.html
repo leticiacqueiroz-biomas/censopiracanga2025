@@ -2631,6 +2631,21 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
   </div>
 
   <div id="ag-orgs" class="ag-panel">
+  <!-- View Toggle -->
+  <div class="org-view-toggle">
+    <button class="view-btn active" onclick="setOrgView('network', event)">🕸 Teia</button>
+    <button class="view-btn" onclick="setOrgView('lista', event)">☰ Lista</button>
+    <span class="org-view-info">42 agentes · clique num nó para explorar</span>
+  </div>
+
+  <!-- Network View (default) -->
+  <div id="org-network-view">
+    <svg id="org-network-svg"></svg>
+    <div id="org-detail-panel" class="org-detail-panel odp-hidden"></div>
+  </div>
+
+  <!-- List View (hidden by default) -->
+  <div id="org-list-view" style="display:none">
   <div class="search-bar-wrap">
     <input class="search-bar" id="search-orgs" type="text" placeholder="🔍 Buscar organização..." oninput="filterCards('org-cards-grid','search-orgs')" data-en="🔍 Search organization...">
   </div>
@@ -3569,12 +3584,25 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--creme);color:#
     </div>
 </div>
   </div>
+  </div>
 </div>
+
     <div id="ag-projetos" class="ag-panel">
       <div class="orgs-table-wrap">
         <div class="search-bar-wrap"><input class="search-bar" id="search-projetos" type="text" placeholder="🔍 Buscar projeto..." oninput="filterProjects(this.value)" data-en="🔍 Search project..."></div>
       <table class="orgs-table">
-          <thead><tr><th>Projeto</th><th>Status</th><th>Responsável</th><th>Impacto</th></tr></thead>
+          <thead>
+  <tr>
+    <th onclick="sortProjetos(0)" style="cursor:pointer;user-select:none" title="Ordenar por Projeto">
+      Projeto <span id="proj-sort-icon-0">⇅</span></th>
+    <th onclick="sortProjetos(1)" style="cursor:pointer;user-select:none" title="Ordenar por Status">
+      Status <span id="proj-sort-icon-1">⇅</span></th>
+    <th onclick="sortProjetos(2)" style="cursor:pointer;user-select:none" title="Ordenar por Responsável">
+      Responsável <span id="proj-sort-icon-2">⇅</span></th>
+    <th onclick="sortProjetos(3)" style="cursor:pointer;user-select:none" title="Ordenar por Impacto">
+      Impacto <span id="proj-sort-icon-3">⇅</span></th>
+  </tr>
+</thead>
           <tbody>
 <tr><td><strong>Assembleias Comunitárias</strong></td><td><span style="color:#2d6a4f;font-weight:600">● Ativo</span></td><td style="color:#555;">GT Governança</td><td style="color:#555;">4 edições em 2025 — momento mensal de conexão, informação e escuta com a vila</td></tr>
 <tr><td><strong>Autonomia Energética</strong></td><td><span style="color:#e67e22;font-weight:600">◐ Em andamento</span></td><td style="color:#555;">GT Energia Boa</td><td style="color:#555;">Abaixo-assinado de conservação da autonomia energética para protocolar junto à Coelba e Poder Público</td></tr>
@@ -5735,6 +5763,463 @@ function filterPoder(q) {
   padding: 4px 0;
   line-height: 1.6;
 }
+
+/* ── NETWORK V4 – DARK CLUSTER STYLE ── */
+
+/* Toggle buttons */
+.org-view-toggle{display:flex;align-items:center;gap:8px;padding:10px 14px 8px;flex-wrap:wrap;}
+.view-btn{padding:6px 16px;border-radius:20px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#94a3b8;font-size:12px;letter-spacing:1px;cursor:pointer;transition:all .2s;}
+.view-btn:hover{background:rgba(255,255,255,0.10);color:#e2e8f0;}
+.view-btn.active{background:rgba(255,255,255,0.14);color:#e2e8f0;border-color:rgba(255,255,255,0.3);}
+.org-view-info{font-size:11px;color:#64748b;letter-spacing:0.5px;margin-left:4px;}
+
+/* Network container */
+#org-network-view{position:relative;width:100%;background:#0D1B2A;border-radius:12px;overflow:hidden;}
+#org-network-svg{width:100%;min-height:480px;display:block;cursor:grab;}
+#org-network-svg:active{cursor:grabbing;}
+
+/* Nodes */
+.org-node{fill:rgba(255,255,255,0.03);stroke-width:2px;cursor:pointer;transition:fill .15s,stroke-width .15s;}
+.org-node:hover{fill:rgba(255,255,255,0.12);stroke-width:3px;}
+.org-node.selected{fill:rgba(255,255,255,0.18);stroke-width:3.5px;}
+.org-node.dimmed{opacity:0.14;transition:opacity .2s;}
+
+/* Labels */
+.org-label{font-family:Arial,sans-serif;font-size:10px;letter-spacing:2px;pointer-events:none;text-anchor:middle;dominant-baseline:hanging;font-weight:400;opacity:0.85;}
+.org-label.dimmed{opacity:0.10;transition:opacity .2s;}
+
+/* Links */
+.org-link{stroke:rgba(255,255,255,0.10);stroke-width:1.2;stroke-dasharray:3,3;}
+
+/* Area hull blobs */
+.area-hull{stroke-width:1px;pointer-events:none;}
+
+/* Area labels */
+.area-cluster-label{font-family:Arial,sans-serif;font-size:9px;letter-spacing:3px;font-weight:700;pointer-events:none;text-anchor:middle;text-transform:uppercase;opacity:0.38;fill:#cbd5e1;}
+
+/* Detail panel */
+.org-detail-panel{position:absolute;top:12px;right:12px;width:268px;max-height:calc(100% - 24px);overflow-y:auto;background:#0f2233;border:1px solid #1e3a52;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.55);padding:0;z-index:10;transition:opacity .2s,transform .2s;}
+.org-detail-panel.odp-hidden{opacity:0;pointer-events:none;transform:translateX(18px);}
+.odp-header{display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #1e3a52;}
+.odp-logo{width:50px;height:50px;border-radius:50%;object-fit:cover;background:#1a2f44;flex-shrink:0;border:2px solid #2a4a62;}
+.odp-logo-placeholder{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.odp-title{flex:1;min-width:0;}
+.odp-title h4{margin:0 0 4px;font-size:13px;font-weight:700;color:#e2e8f0;line-height:1.35;}
+.odp-badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:9px;font-weight:600;letter-spacing:0.5px;}
+.odp-body{padding:14px 16px;}
+.odp-row{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#94a3b8;margin-bottom:8px;line-height:1.5;}
+.odp-row strong{color:#cbd5e1;min-width:72px;flex-shrink:0;}
+.odp-close{position:absolute;top:10px;right:12px;background:none;border:none;font-size:18px;cursor:pointer;color:#64748b;line-height:1;padding:2px 6px;border-radius:4px;}
+.odp-close:hover{background:#1e3a52;color:#e2e8f0;}
+.odp-gt-list{margin-top:10px;border-top:1px solid #1e3a52;padding-top:10px;}
+.odp-gt-list h5{font-size:10px;color:#64748b;margin:0 0 8px;text-transform:uppercase;letter-spacing:2px;}
+.odp-gt-item{display:flex;align-items:center;gap:8px;padding:5px 4px;cursor:pointer;border-radius:6px;transition:background .15s;}
+.odp-gt-item:hover{background:#1e3a52;padding-left:8px;}
+.odp-gt-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.odp-gt-name{font-size:12px;color:#cbd5e1;}
+
+/* Legend */
+.org-area-legend{padding:10px 14px 12px;display:flex;flex-wrap:wrap;gap:6px;background:#0D1B2A;border-radius:0 0 12px 12px;}
+.leg-item{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.04);cursor:pointer;transition:background .18s,opacity .18s;font-size:10px;color:#94a3b8;letter-spacing:1.5px;border:1px solid rgba(255,255,255,0.07);}
+.leg-item:hover,.leg-item.active{background:rgba(255,255,255,0.11);color:#e2e8f0;border-color:rgba(255,255,255,0.2);}
+.leg-item.dimmed{opacity:0.22;}
+.leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+/* A.MOR pulse */
+@keyframes pulse{0%,100%{r:22;opacity:.20;}50%{r:28;opacity:.06;}}
+.amor-pulse{animation:pulse 3.5s ease-in-out infinite;}
+/* ── SORTABLE TABLE HEADERS ── */
+th[onclick]{transition:background .15s;}
+th[onclick]:hover{background:rgba(45,106,79,.1);}
 </style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+(function(){
+'use strict';
+
+// ── Data ─────────────────────────────────────────────────────────────────
+var ORG_NODES=[
+ {id:'amor',name:'A.MOR Associação de Moradores da Bacia do Rio Piracanga',short:'A.MOR',contacts:'Santi · Cris Guimarães',area:'Governança Territorial',isHub:true,logo:'logos/amor.png'},
+ {id:'gt-agrofloresta',name:'GT Agrofloresta',short:'GT Agrofloresta',contacts:'Santi · Maria Zeferina',area:'Grupos de Trabalho',parent:'amor',logo:'logos/gt-agrofloresta.png'},
+ {id:'gt-condominio',name:'GT CONDOMÍNIO',short:'GT Condomínio',contacts:'',area:'Grupos de Trabalho',parent:'amor',logo:'logos/gt-condominio.png'},
+ {id:'gt-dados',name:'GT Dados',short:'GT Dados',contacts:'Letícia Queiroz',area:'Grupos de Trabalho',parent:'amor',logo:'logos/gt-dados.png'},
+ {id:'gt-dengue',name:'GT Dengue',short:'GT Dengue',contacts:'',area:'Grupos de Trabalho',parent:'amor',logo:'logos/gt-dengue.png'},
+ {id:'gt-emergencias',name:'GT Emergências',short:'GT Emergências',contacts:'Tiago · Suzana',area:'Grupos de Trabalho',parent:'amor',logo:'logos/gt-emergencias.png'},
+ {id:'gt-empreendedores',name:'GT Empreendedores',short:'GT Empreendedores',contacts:'',area:'Grupos de Trabalho',parent:'amor',logo:'logos/gt-empreendedores.png'},
+ {id:'gt-energia-boa',name:'GT Energia Boa',short:'GT Energia Boa',contacts:'Santi · Mariana',area:'Grupos de Trabalho',parent:'amor',logo:'logos/gt-energia-boa.png'},
+ {id:'gt-equidade-racial',name:'GT Equidade Racial',short:'GT Equidade',contacts:'',area:'Grupos de Trabalho',parent:'amor',logo:'logos/gt-equidade-racial.png'},
+ {id:'gt-estrada',name:'GT Estrada',short:'GT Estrada',contacts:'',area:'Grupos de Trabalho',parent:'amor',logo:'logos/gt-estrada.png'},
+ {id:'gt-feira',name:'GT Feira',short:'GT Feira',contacts:'Tilelê · Isabela',area:'Grupos de Trabalho',parent:'amor',logo:'logos/gt-feira.png'},
+ {id:'gt-governanca',name:'GT Governança',short:'GT Governança',contacts:'Isa · Santi',area:'Grupos de Trabalho',parent:'amor',logo:'logos/gt-governanca.png'},
+ {id:'gt-novos-moradores',name:'GT Novos Moradores',short:'GT Novos Moradores',contacts:'Suzana · Miho',area:'Grupos de Trabalho',parent:'amor',logo:'logos/gt-novos-moradores.png'},
+ {id:'amo-piracanga',name:'Amo Piracanga',short:'Amo Piracanga',contacts:'João Vianna',area:'Comunicação',logo:'logos/amo-piracanga.png'},
+ {id:'ancestral-terapeutica',name:'Ancestral Terapeutica',short:'Ancestral',contacts:'Keu',area:'Varejo',logo:'logos/ancestral-terapeutica.png'},
+ {id:'axe-mantras',name:'Axé mantras',short:'Axé Mantras',contacts:'Bernardo · Fred',area:'Arte e Cultura',logo:'logos/axe-mantras.png'},
+ {id:'cantim-da-vila',name:'Cantim da Vila',short:'Cantim da Vila',contacts:'Daniel',area:'Alimentação',logo:'logos/cantim-da-vila.png'},
+ {id:'casa-dourada',name:'Casa Dourada',short:'Casa Dourada',contacts:'Jana e Lourenço',area:'Hospitalidade',logo:'logos/casa-dourada.png'},
+ {id:'casa-iemanja',name:'Casa Iemanjá',short:'Casa Iemanjá',contacts:'Caio · Naná',area:'Hospitalidade',logo:'logos/casa-iemanja.png'},
+ {id:'casas-piracanga',name:'Casas Piracanga',short:'Casas Piracanga',contacts:'Bruno · Zé Luis',area:'Hospitalidade',logo:'logos/casas-piracanga.png'},
+ {id:'cuds',name:'CUDS',short:'CUDS',contacts:'',area:'Imobiliário',logo:'logos/cuds.png'},
+ {id:'duhari',name:'Duhari',short:'Duhari',contacts:'Yu',area:'Alimentação',logo:'logos/duhari.png'},
+ {id:'econnect',name:'Econnect',short:'Econnect',contacts:'Marcelo Pera',area:'Serviços Técnicos',logo:'logos/econnect.png'},
+ {id:'escola-almar',name:'Escola Almar',short:'Escola Almar',contacts:'Fred',area:'Educação',logo:'logos/escola-almar.png'},
+ {id:'escola-da-natureza',name:'Escola da Natureza',short:'Escola da Natureza',contacts:'Maira · Diana',area:'Educação',logo:'logos/escola-da-natureza.png'},
+ {id:'espaco-dharma',name:'Espaço Dharma',short:'Espaço Dharma',contacts:'Gabi Unibanco · Eliane',area:'Varejo',logo:'logos/espaco-dharma.png'},
+ {id:'frutos-da-terra',name:'Frutos da Terra',short:'Frutos da Terra',contacts:'Flavia',area:'Varejo',logo:'logos/frutos-da-terra.png'},
+ {id:'gingerz',name:'Gingerz',short:'Gingerz',contacts:'Zaida',area:'Alimentação',logo:'logos/gingerz.png'},
+ {id:'gota-dagua',name:"Gota d'Água",short:"Gota d'Água",contacts:'Nicolle',area:'Varejo',logo:'logos/gota-dagua.png'},
+ {id:'instituto-inkiri',name:'Instituto Inkiri',short:'Inst. Inkiri',contacts:'Zé Luiz · Jana',area:'Conservação Ambiental',logo:'logos/instituto-inkiri.png'},
+ {id:'instituto-somos-agua',name:'Instituto Somos Água',short:'Somos Água',contacts:'Juli · Vanessa Manfrim',area:'Conservação Ambiental',logo:'logos/instituto-somos-agua.png'},
+ {id:'karuh',name:'Karuh',short:'Karuh',contacts:'Sheila · Adri',area:'Alimentação',logo:'logos/karuh.png'},
+ {id:'kokar',name:'Kokar',short:'Kokar',contacts:'Giselle',area:'Varejo',logo:'logos/kokar.png'},
+ {id:'nego-saneamento',name:'Nego (saneamento)',short:'Nego',contacts:'Nego',area:'Serviços Técnicos',logo:'logos/nego-saneamento.png'},
+ {id:'osho-bahia',name:'Osho Bahia',short:'Osho Bahia',contacts:'Sasha',area:'Hospitalidade',logo:'logos/osho-bahia.png'},
+ {id:'plante',name:'Plante!',short:'Plante!',contacts:'Juli',area:'Varejo',logo:'logos/plante.png'},
+ {id:'projeto-praia-limpa',name:'Projeto Praia Limpa',short:'Praia Limpa',contacts:'Roni · Sue',area:'Conservação Ambiental',logo:'logos/projeto-praia-limpa.png'},
+ {id:'regenera-piracanga',name:'Regenera Piracanga',short:'Regenera',contacts:'Bruno',area:'Imobiliário',logo:'logos/regenera-piracanga.png'},
+ {id:'resiliencia-engenharia',name:'Resiliência Engenharia',short:'Resiliência Eng.',contacts:'Francis',area:'Serviços Técnicos',logo:'logos/resiliencia-engenharia.png'},
+ {id:'tartaru',name:'Tartaru',short:'Tartaru',contacts:'Batista · Sarah',area:'Conservação Ambiental',logo:'logos/tartaru.png'},
+ {id:'unah',name:'Unah',short:'Unah',contacts:'Norton · Diego',area:'Hospitalidade',logo:'logos/unah.png'},
+ {id:'vila-dos-anjos',name:'Vila dos anjos',short:'Vila dos Anjos',contacts:'Nato · Mika',area:'Hospitalidade',logo:'logos/vila-dos-anjos.png'}
+];
+
+var AREA_COLORS={
+ 'Alimentação':           '#D97706',
+ 'Arte e Cultura':        '#A855F7',
+ 'Comunicação':           '#0EA5E9',
+ 'Conservação Ambiental': '#10B981',
+ 'Educação':              '#6366F1',
+ 'Governança Territorial':'#34D399',
+ 'Grupos de Trabalho':    '#94A3B8',
+ 'Hospitalidade':         '#22D3EE',
+ 'Imobiliário':           '#F59E0B',
+ 'Serviços Técnicos':     '#64748B',
+ 'Varejo':                '#FB923C'
+};
+
+var _sim = null;
+var _lockedArea = null;
+
+// ── initNetwork ──────────────────────────────────────────────────────────
+function initNetwork(){
+  var svgEl = document.getElementById('org-network-svg');
+  var container = document.getElementById('org-network-view');
+  if(!svgEl || !container) return;
+  // Already initialized? (has child elements)
+  if(svgEl.children.length > 0) return;
+  // Not visible yet?
+  var W = container.clientWidth;
+  if(!W || W < 50){
+    setTimeout(initNetwork, 200);
+    return;
+  }
+
+  var H = Math.round(W * 0.60);
+  svgEl.style.height = H + 'px';
+
+  var svg = d3.select(svgEl)
+    .attr('viewBox', '0 0 ' + W + ' ' + H);
+
+  // Background
+  svg.append('rect')
+    .attr('width', W).attr('height', H)
+    .attr('fill', '#0D1B2A').attr('rx', 10);
+
+  // Cluster centers: areas in a circle
+  var areas = Object.keys(AREA_COLORS).sort();
+  var nA = areas.length;
+  var R  = Math.min(W, H) * 0.33;
+  var cx = W / 2, cy = H / 2;
+  var clusterCenters = {};
+  areas.forEach(function(a, i){
+    var angle = (i / nA) * 2 * Math.PI - Math.PI / 2;
+    clusterCenters[a] = { x: cx + R * Math.cos(angle), y: cy + R * Math.sin(angle) };
+  });
+
+  // Seed positions
+  ORG_NODES.forEach(function(d){
+    var c = clusterCenters[d.area] || {x:cx, y:cy};
+    d.x = c.x + (Math.random() - 0.5) * 60;
+    d.y = c.y + (Math.random() - 0.5) * 60;
+    d.vx = 0; d.vy = 0;
+    d.fx = null; d.fy = null;
+  });
+
+  // Fresh links each init (D3 will mutate source/target to node refs)
+  var simLinks = ORG_NODES
+    .filter(function(d){ return d.parent; })
+    .map(function(d){ return {source: d.parent, target: d.id}; });
+
+  // Custom cluster force
+  function clusterForce(centers, strength){
+    var nodes;
+    function force(alpha){
+      nodes.forEach(function(d){
+        var c = centers[d.area];
+        if(!c) return;
+        d.vx += (c.x - d.x) * strength * alpha;
+        d.vy += (c.y - d.y) * strength * alpha;
+      });
+    }
+    force.initialize = function(n){ nodes = n; };
+    return force;
+  }
+
+  var R_NODE = 15;
+
+  var sim = d3.forceSimulation(ORG_NODES)
+    .force('link', d3.forceLink(simLinks).id(function(d){ return d.id; }).distance(42).strength(0.3))
+    .force('charge', d3.forceManyBody().strength(-110))
+    .force('collide', d3.forceCollide(R_NODE + 7))
+    .force('cluster', clusterForce(clusterCenters, 0.18))
+    .force('x', d3.forceX(function(d){ return (clusterCenters[d.area]||{x:cx}).x; }).strength(0.04))
+    .force('y', d3.forceY(function(d){ return (clusterCenters[d.area]||{y:cy}).y; }).strength(0.04))
+    .alphaDecay(0.018);
+
+  _sim = sim;
+
+  // Layers
+  var hullG   = svg.append('g').attr('class', 'hull-g');
+  var linkG   = svg.append('g');
+  var pulseG  = svg.append('g');
+  var nodeG   = svg.append('g');
+  var labelG  = svg.append('g');
+  var aLabelG = svg.append('g');
+
+  // Drag
+  function drag(sim){
+    return d3.drag()
+      .on('start', function(e){ if(!e.active) sim.alphaTarget(0.1).restart(); e.subject.fx = e.subject.x; e.subject.fy = e.subject.y; })
+      .on('drag',  function(e){ e.subject.fx = e.x; e.subject.fy = e.y; })
+      .on('end',   function(e){ if(!e.active) sim.alphaTarget(0); e.subject.fx = null; e.subject.fy = null; });
+  }
+
+  var link = linkG.selectAll('line').data(simLinks).join('line').attr('class','org-link');
+
+  var node = nodeG.selectAll('circle').data(ORG_NODES).join('circle')
+    .attr('class', 'org-node')
+    .attr('r', R_NODE)
+    .attr('stroke', function(d){ return AREA_COLORS[d.area] || '#94a3b8'; })
+    .call(drag(sim))
+    .on('click', function(e, d){ e.stopPropagation(); showDetail(d); });
+
+  // Pulse ring for A.MOR
+  var hubs = ORG_NODES.filter(function(d){ return d.isHub; });
+  pulseG.selectAll('circle').data(hubs).join('circle')
+    .attr('class', 'amor-pulse')
+    .attr('r', R_NODE + 8)
+    .attr('fill', 'none')
+    .attr('stroke', function(d){ return AREA_COLORS[d.area] || '#34D399'; })
+    .attr('stroke-width', 1.5);
+
+  var label = labelG.selectAll('text').data(ORG_NODES).join('text')
+    .attr('class', 'org-label')
+    .attr('fill', function(d){ return AREA_COLORS[d.area] || '#94a3b8'; })
+    .text(function(d){ return d.short; });
+
+  var aLabel = aLabelG.selectAll('text').data(areas).join('text')
+    .attr('class', 'area-cluster-label')
+    .text(function(d){ return d; });
+
+  sim.on('tick', function(){
+    link
+      .attr('x1', function(d){ return d.source.x; })
+      .attr('y1', function(d){ return d.source.y; })
+      .attr('x2', function(d){ return d.target.x; })
+      .attr('y2', function(d){ return d.target.y; });
+
+    node.attr('cx', function(d){ return d.x; }).attr('cy', function(d){ return d.y; });
+
+    pulseG.selectAll('circle').data(hubs)
+      .attr('cx', function(d){ return d.x; })
+      .attr('cy', function(d){ return d.y; });
+
+    label
+      .attr('x', function(d){ return d.x; })
+      .attr('y', function(d){ return d.y + R_NODE + 6; });
+
+    // Area labels at cluster centers
+    aLabel
+      .attr('x', function(a){ return (clusterCenters[a]||{x:cx}).x; })
+      .attr('y', function(a){ return (clusterCenters[a]||{y:cy}).y - R * 0.20; });
+
+    // Hull backgrounds
+    hullG.selectAll('path').remove();
+    var areaMap = {};
+    ORG_NODES.forEach(function(d){
+      if(!areaMap[d.area]) areaMap[d.area] = [];
+      areaMap[d.area].push(d);
+    });
+    Object.entries(areaMap).forEach(function(entry){
+      var area = entry[0], nodes = entry[1];
+      var color = AREA_COLORS[area] || '#64748b';
+      var pad = R_NODE + 22;
+      var pts = [];
+      nodes.forEach(function(n){
+        pts.push([n.x-pad, n.y-pad], [n.x+pad, n.y-pad],
+                 [n.x+pad, n.y+pad], [n.x-pad, n.y+pad]);
+      });
+      if(pts.length < 3) return;
+      try{
+        var hull = d3.polygonHull(pts);
+        if(hull && hull.length > 2){
+          hullG.append('path')
+            .attr('d', 'M'+hull.map(function(p){ return p.join(','); }).join('L')+'Z')
+            .attr('fill', color)
+            .attr('fill-opacity', 0.10)
+            .attr('stroke', color)
+            .attr('stroke-width', 1)
+            .attr('stroke-opacity', 0.18)
+            .attr('class', 'area-hull');
+        }
+      }catch(ex){}
+    });
+  });
+
+  svg.on('click', function(){ closeDetail(); });
+  buildLegend(areas);
+}
+
+// ── setOrgView (called by toggle buttons) ────────────────────────────────
+window.setOrgView = function(view, e){
+  // Update button active state
+  document.querySelectorAll('.view-btn').forEach(function(b){ b.classList.remove('active'); });
+  var btn = e && (e.currentTarget || e.target);
+  if(btn) btn.classList.add('active');
+
+  var netView  = document.getElementById('org-network-view');
+  var listView = document.getElementById('org-list-view');
+
+  if(view === 'network'){
+    if(netView)  netView.style.display  = '';
+    if(listView) listView.style.display = 'none';
+    // Init if not yet done
+    setTimeout(initNetwork, 80);
+  } else {
+    if(netView)  netView.style.display  = 'none';
+    if(listView) listView.style.display = '';
+  }
+};
+
+// ── Detail panel ──────────────────────────────────────────────────────────
+function showDetail(d){
+  d3.selectAll('.org-node').classed('selected', function(n){ return n.id === d.id; });
+  var panel = document.getElementById('org-detail-panel');
+  if(!panel) return;
+  panel.classList.remove('odp-hidden');
+  var ac = AREA_COLORS[d.area] || '#64748b';
+  var logoHtml = '<img class="odp-logo" src="'+(d.logo||'')+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'" alt="">'
+    + '<div class="odp-logo-placeholder" style="background:'+ac+'22;display:none">🏢</div>';
+  var gtItems = ORG_NODES.filter(function(n){ return n.parent === d.id; });
+  var gtHtml = '';
+  if(gtItems.length){
+    gtHtml = '<div class="odp-gt-list"><h5>Grupos de Trabalho ('+gtItems.length+')</h5>'
+      + gtItems.map(function(g){
+          return '<div class="odp-gt-item" onclick="showDetailById(\''+g.id+'\')">'
+            + '<span class="odp-gt-dot" style="background:'+(AREA_COLORS[g.area]||'#94a3b8')+'"></span>'
+            + '<span class="odp-gt-name">'+g.short+'</span></div>';
+        }).join('')
+      + '</div>';
+  }
+  var parentNode = d.parent ? ORG_NODES.find(function(n){ return n.id===d.parent; }) : null;
+  panel.innerHTML =
+    '<button class="odp-close" onclick="closeDetail()">✕</button>'
+    +'<div class="odp-header">'+logoHtml
+      +'<div class="odp-title"><h4>'+d.name+'</h4>'
+      +'<span class="odp-badge" style="background:'+ac+'33;color:'+ac+'">'+d.area+'</span>'
+    +'</div></div>'
+    +'<div class="odp-body">'
+      +(d.contacts ? '<div class="odp-row"><strong>Contatos</strong><span>'+d.contacts+'</span></div>' : '')
+      +(parentNode  ? '<div class="odp-row"><strong>Vinculado a</strong><span>'+parentNode.short+'</span></div>' : '')
+      +gtHtml
+    +'</div>';
+}
+
+window.showDetailById = function(id){
+  var d = ORG_NODES.find(function(n){ return n.id===id; });
+  if(d) showDetail(d);
+};
+
+function closeDetail(){
+  d3.selectAll('.org-node').classed('selected', false);
+  var p = document.getElementById('org-detail-panel');
+  if(p) p.classList.add('odp-hidden');
+}
+
+// ── Legend ────────────────────────────────────────────────────────────────
+function buildLegend(areas){
+  var el = document.getElementById('org-area-legend');
+  if(!el) return;
+  el.innerHTML = areas.map(function(a){
+    var c = AREA_COLORS[a] || '#64748b';
+    return '<span class="leg-item" data-area="'+a+'" '
+      +'onmouseenter="highlightArea(\''+a+'\')" '
+      +'onmouseleave="highlightArea(null)" '
+      +'onclick="toggleLegendArea(\''+a+'\')">'
+      +'<span class="leg-dot" style="background:'+c+'"></span>'+a+'</span>';
+  }).join('');
+}
+
+window.toggleLegendArea = function(area){
+  _lockedArea = (_lockedArea === area) ? null : area;
+  highlightArea(_lockedArea);
+};
+
+function highlightArea(area){
+  var active = area || _lockedArea;
+  d3.selectAll('.org-node').classed('dimmed', function(d){ return !!active && d.area !== active; });
+  d3.selectAll('.org-label').classed('dimmed', function(d){ return !!active && d.area !== active; });
+  document.querySelectorAll('.leg-item').forEach(function(el){
+    el.classList.toggle('dimmed',  !!active && el.dataset.area !== active);
+    el.classList.toggle('active',  !!active && el.dataset.area === active);
+  });
+}
+
+// ── Boot ──────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function(){
+  var target = document.getElementById('ag-orgs')
+             || document.querySelector('[data-section="ag-orgs"]');
+  if(!target){ initNetwork(); return; }
+
+  // IntersectionObserver: init when section scrolls into view
+  var obs = new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting){ initNetwork(); obs.disconnect(); }
+  }, {threshold: 0.05});
+  obs.observe(target);
+
+  // Fallback: also try after 1.5s in case already in viewport on load
+  setTimeout(initNetwork, 1500);
+});
+
+})();
+
+// ── Sortable projetos table ──────────────────────────────────────────────────
+(function() {
+  var projSortCol = -1, projSortAsc = true;
+  window.sortProjetos = function(col) {
+    var table = document.querySelector('.orgs-table');
+    if (!table) return;
+    var tbody = table.querySelector('tbody');
+    var rows = Array.from(tbody.querySelectorAll('tr'));
+    if (projSortCol === col) { projSortAsc = !projSortAsc; }
+    else { projSortCol = col; projSortAsc = true; }
+
+    rows.sort(function(a, b) {
+      var ta = a.cells[col] ? a.cells[col].innerText.trim().toLowerCase() : '';
+      var tb = b.cells[col] ? b.cells[col].innerText.trim().toLowerCase() : '';
+      return projSortAsc ? ta.localeCompare(tb, 'pt') : tb.localeCompare(ta, 'pt');
+    });
+    rows.forEach(function(r) { tbody.appendChild(r); });
+
+    // Update sort icons
+    for (var i = 0; i < 4; i++) {
+      var ic = document.getElementById('proj-sort-icon-' + i);
+      if (ic) ic.textContent = (i === col) ? (projSortAsc ? '▲' : '▼') : '⇅';
+    }
+  };
+})();
+
+</script>
 </body>
 </html>
