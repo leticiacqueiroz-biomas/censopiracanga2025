@@ -1072,6 +1072,7 @@ body{font-family:'Clear Sans','Verdana',system-ui,sans-serif;background:var(--cr
 <button data-en="👥 Agents" onclick="showPage('agentes')">👥 Agentes</button>
 <button data-en="🌀 Piracanga Archetypes" onclick="showPage('personas')">🌀 Arquétipos Piracanga</button>
 <button data-en="🔍 Diagnosis" onclick="showPage('diagnostico')">🔍 Diagnóstico</button>
+<button data-en="🌍 KYT × Census" onclick="showPage('kyt')">🌍 KYT × Censo</button>
 </nav>
 <button id="lang-toggle" onclick="toggleLanguage()" title="Switch to English">EN</button>
 <!-- ══════════════════════════════════════════════════
@@ -1172,6 +1173,7 @@ body{font-family:'Clear Sans','Verdana',system-ui,sans-serif;background:var(--cr
 </div>
 </div>
 <!-- ═══ REGENERAÇÃO NA PRÁTICA ═══ -->
+
 <div class="regen-section" data-en="Abandoned coconut farm — ravaged soil and vegetation" style="max-width:1100px; margin:0 auto; padding:48px 24px 56px; border-top:1px solid rgba(45,106,79,0.12);">
 <!-- Header -->
 <div style="text-align:center; margin-bottom:36px;">
@@ -2607,9 +2609,7 @@ body{font-family:'Clear Sans','Verdana',system-ui,sans-serif;background:var(--cr
 </div>
 <div class="ag-panel" id="ag-orgs">
 <!-- View Toggle -->
-
 <!-- Network View (default) -->
-
 <!-- List View (hidden by default) -->
 <div id="org-list-view" style="">
 <div class="search-bar-wrap">
@@ -5685,8 +5685,227 @@ function filterPoder(q) {
 /* ── SORTABLE TABLE HEADERS ── */
 th[onclick]{transition:background .15s;}
 th[onclick]:hover{background:rgba(45,106,79,.1);}
+
+/* ── KYT Section ─────────────────────────────────────────────────────── */
+.kyt-section{padding:56px 24px 48px;background:#f7f9f4;border-top:1px solid #e2ead8;}
+.kyt-header{max-width:900px;margin:0 auto 32px;}
+.kyt-header h2{font-size:1.5rem;font-weight:800;color:#063e51;margin:0 0 6px;}
+.kyt-header p{color:#5a6a60;font-size:.95rem;line-height:1.6;margin:0;}
+.kyt-source{display:inline-block;font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;color:#05ab85;font-weight:700;background:#d0f0e6;border-radius:20px;padding:3px 10px;margin-bottom:10px;}
+.kyt-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:640px){.kyt-grid{grid-template-columns:1fr;}}
+.kyt-scorecard{background:white;border-radius:16px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06);grid-column:1/-1;}
+.kyt-scorecard h3{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#888;font-weight:700;margin:0 0 16px;}
+.kyt-dim-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid #f0f0f0;}
+.kyt-dim-row:last-child{border-bottom:none;}
+.kyt-dim-name{font-size:.82rem;font-weight:600;color:#063e51;}
+.kyt-pill{display:inline-block;font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:20px;text-align:center;}
+.kyt-pill.opp-high{background:#d0f0e6;color:#05ab85;}
+.kyt-pill.opp-med{background:#fff7cc;color:#b7791f;}
+.kyt-pill.opp-low{background:#f0f0f0;color:#666;}
+.kyt-pill.risk-high{background:#ffe4e4;color:#c0392b;}
+.kyt-pill.risk-med{background:#ffe8cc;color:#c07120;}
+.kyt-pill.risk-low{background:#d0f0e6;color:#05ab85;}
+.kyt-pill.risk-none{background:#f7f7f7;color:#aaa;font-style:italic;}
+.kyt-insights{display:grid;grid-template-columns:1fr 1fr;gap:14px;grid-column:1/-1;}
+@media(max-width:640px){.kyt-insights{grid-template-columns:1fr;}}
+.kyt-card{background:white;border-radius:14px;padding:18px 20px;box-shadow:0 2px 10px rgba(0,0,0,.06);border-left:4px solid #063e51;}
+.kyt-card.green{border-left-color:#05ab85;}
+.kyt-card.orange{border-left-color:#e67e22;}
+.kyt-card.red{border-left-color:#c0392b;}
+.kyt-card.blue{border-left-color:#1d6fa4;}
+.kyt-card-icon{font-size:1.4rem;margin-bottom:6px;}
+.kyt-card-title{font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#063e51;margin-bottom:6px;}
+.kyt-card-val{font-size:1.5rem;font-weight:900;color:#063e51;line-height:1.1;margin-bottom:4px;}
+.kyt-card-val span{font-size:.85rem;font-weight:600;color:#888;}
+.kyt-card-desc{font-size:.8rem;color:#5a6a60;line-height:1.5;}
+.kyt-card-note{font-size:.75rem;color:#05ab85;font-weight:700;margin-top:6px;}
+.kyt-vs{display:flex;gap:16px;margin-top:8px;}
+.kyt-vs-item{font-size:.78rem;color:#888;}
+.kyt-vs-item strong{color:#063e51;}
+.kyt-footer{max-width:900px;margin:20px auto 0;font-size:.75rem;color:#999;text-align:center;}
+.kyt-actions{grid-column:1/-1;background:#063e51;border-radius:16px;padding:24px 28px;color:white;}
+.kyt-actions h3{font-size:.95rem;font-weight:800;color:#d0f0e6;margin:0 0 14px;letter-spacing:.3px;}
+.kyt-action-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:640px){.kyt-action-list{grid-template-columns:1fr;}}
+.kyt-action-list li{display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:#c5ddd4;line-height:1.5;}
+.kyt-action-list li b{color:#05ab85;font-size:.85rem;}
 </style>
 
+<!-- ═══════════════════════════════════════════════════════
+     PG-KYT  ·  KYT × Censo Piracanga
+═══════════════════════════════════════════════════════ -->
+<div class="outer-sec" id="pg-kyt">
+
+<!-- Page Header -->
+<div style="background:linear-gradient(135deg,#063e51 0%,#0a5a6e 60%,#05ab85 100%);padding:48px 32px 40px;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="80" cy="20" r="40" fill="rgba(255,255,255,0.03)"/><circle cx="20" cy="80" r="30" fill="rgba(255,255,255,0.03)"/></svg>') no-repeat center/cover;pointer-events:none;"></div>
+  <div style="max-width:1000px;margin:0 auto;position:relative;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:20px;">
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:#63c5ab;text-transform:uppercase;margin-bottom:10px;" data-en="TERRITORIAL INTELLIGENCE · KYT × CENSUS">INTELIGÊNCIA TERRITORIAL · KYT × CENSO</div>
+        <h1 style="font-size:2rem;font-weight:900;color:white;margin:0 0 12px;line-height:1.1;" data-en="🌍 KYT × Piracanga Census">🌍 KYT × Censo Piracanga</h1>
+        <p style="color:rgba(255,255,255,0.8);font-size:.95rem;line-height:1.6;max-width:600px;margin:0 0 20px;" data-en="Cross-analysis between the Know Your Territory (KYT) Index — 80+ municipal indicators — and the Piracanga Community Census 2025–2026. Reference municipality: Maraú (BA), where the Piracanga River Basin is located.">Cruzamento entre o Índice Know Your Territory (KYT) — 80+ indicadores municipais — e o Censo Comunitário Piracanga 2025–2026. Município de referência: Maraú (BA), onde está localizada a Bacia do Rio Piracanga.</p>
+        <!-- Reference Pills -->
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <a href="https://app.kyt.greenbridgefacility.com/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:7px 14px;color:white;font-size:.8rem;font-weight:600;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='rgba(255,255,255,0.22)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'" data-en="🔗 Open KYT Platform">🔗 Acessar Plataforma KYT</a>
+          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:7px 14px;color:rgba(255,255,255,0.75);font-size:.8rem;" data-en="📍 Maraú (BA) · Mata Atlântica biome · Rural">📍 Maraú (BA) · Bioma Mata Atlântica · Rural</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:7px 14px;color:rgba(255,255,255,0.75);font-size:.8rem;" data-en="🏛️ Green Bridge Facility · Instituto Igarapé">🏛️ Green Bridge Facility · Instituto Igarapé</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:7px 14px;color:rgba(255,255,255,0.75);font-size:.8rem;" data-en="📅 Updated: Dec 2025">📅 Atualizado: Dez 2025</span>
+        </div>
+      </div>
+      <!-- KYT Overall Score Badge -->
+      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:16px;padding:20px 24px;text-align:center;min-width:160px;flex-shrink:0;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#63c5ab;text-transform:uppercase;margin-bottom:6px;" data-en="OVERALL KYT">GERAL KYT</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px;">
+          <div>
+            <div style="font-size:1.6rem;font-weight:900;color:#63c5ab;line-height:1;">35,9</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:.5px;" data-en="Opportunity">Oportunidade</div>
+          </div>
+          <div>
+            <div style="font-size:1.6rem;font-weight:900;color:#ffd166;line-height:1;">21,1</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:.5px;" data-en="Risk">Risco</div>
+          </div>
+        </div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.55);" data-en="Better than Bahia avg">Melhor que média Bahia</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Methodology Reference Banner -->
+<div style="background:#f0f7f4;border-bottom:2px solid #e2ead8;padding:14px 32px;">
+  <div style="max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <span style="font-size:.8rem;color:#5a6a60;font-weight:700;text-transform:uppercase;letter-spacing:.5px;" data-en="METHODOLOGY:">METODOLOGIA:</span>
+    <span style="font-size:.85rem;color:#3a5a47;line-height:1.5;" data-en="KYT classifies municipalities into national quartiles (Low / Med-Low / Med-High / High) for Risk and Opportunity independently across 6 dimensions, using 80+ indicators from IBGE, MapBiomas, INPE, and others.">O KYT classifica municípios em quartis nacionais (Baixo / Méd-Baixo / Méd-Alto / Alto) para Risco e Oportunidade em 6 dimensões, com 80+ indicadores de IBGE, MapBiomas, INPE e outros.</span>
+    <a href="https://app.kyt.greenbridgefacility.com/" target="_blank" rel="noopener" style="font-size:.8rem;color:#05ab85;font-weight:700;text-decoration:none;white-space:nowrap;" data-en="→ Access the full report">→ Acessar o relatório completo</a>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div style="max-width:1000px;margin:0 auto;padding:40px 24px 64px;">
+
+  <!-- Scorecard -->
+  <div class="kyt-scorecard" style="margin-bottom:32px;">
+    <h3 data-en="KYT Scorecard — Maraú (BA) vs. Bahia average">Scorecard KYT — Maraú (BA) vs. média baiana</h3>
+    <div class="kyt-dim-row" style="font-size:.72rem;color:#aaa;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding-bottom:6px;">
+      <div data-en="Dimension">Dimensão</div>
+      <div data-en="Opportunity">Oportunidade</div>
+      <div data-en="Risk">Risco</div>
+    </div>
+    <div class="kyt-dim-row">
+      <div class="kyt-dim-name" data-en="Land Use">Uso da Terra</div>
+      <div><span class="kyt-pill opp-low" data-en="40.4 · Low">40,4 · Baixa</span></div>
+      <div><span class="kyt-pill risk-low" data-en="5.1 · Low ✓">5,1 · Baixo ✓</span></div>
+    </div>
+    <div class="kyt-dim-row">
+      <div class="kyt-dim-name" data-en="Climate &amp; Nature">Clima e Natureza</div>
+      <div><span class="kyt-pill opp-med" data-en="29.1 · Med.High">29,1 · Méd.Alta</span></div>
+      <div><span class="kyt-pill risk-high" data-en="51.2 · High ⚠">51,2 · Alto ⚠</span></div>
+    </div>
+    <div class="kyt-dim-row">
+      <div class="kyt-dim-name" data-en="Economic Context">Contexto Econômico</div>
+      <div><span class="kyt-pill opp-med" data-en="22.7 · Med.High">22,7 · Méd.Alta</span></div>
+      <div><span class="kyt-pill risk-none" data-en="n/a">n/a</span></div>
+    </div>
+    <div class="kyt-dim-row">
+      <div class="kyt-dim-name" data-en="Social Fabric">Tecido Social</div>
+      <div><span class="kyt-pill opp-low" data-en="37.2 · Low">37,2 · Baixa</span></div>
+      <div><span class="kyt-pill risk-high" data-en="2.9 · High ⚠">2,9 · Alto ⚠</span></div>
+    </div>
+    <div class="kyt-dim-row">
+      <div class="kyt-dim-name" data-en="Institutional Presence">Presença Institucional</div>
+      <div><span class="kyt-pill opp-low" data-en="50.0 · Med.Low">50,0 · Méd.Baixa</span></div>
+      <div><span class="kyt-pill risk-med" data-en="42.0 · Med.Low">42,0 · Méd.Baixo</span></div>
+    </div>
+    <div class="kyt-dim-row">
+      <div class="kyt-dim-name" data-en="Security">Segurança</div>
+      <div><span class="kyt-pill risk-none" data-en="n/a">n/a</span></div>
+      <div><span class="kyt-pill risk-high" data-en="4.1 · High ⚠">4,1 · Alto ⚠</span></div>
+    </div>
+    <div class="kyt-dim-row" style="border-top:2px solid #e0e8e0;margin-top:4px;padding-top:12px;">
+      <div class="kyt-dim-name" data-en="OVERALL" style="font-weight:800;color:#063e51;">GERAL</div>
+      <div><span class="kyt-pill opp-low" data-en="35.9 · Low (↑ Bahia avg 30.6)" style="font-weight:800;">35,9 · Baixa ↑</span></div>
+      <div><span class="kyt-pill risk-med" data-en="21.1 · Med.Low (↓ Bahia avg 23.6)" style="font-weight:800;">21,1 · Méd.Baixo ↓</span></div>
+    </div>
+  </div>
+
+  <!-- Insight Cards -->
+  <div style="margin-bottom:12px;font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;" data-en="KYT × CENSUS — KEY INSIGHTS">KYT × CENSO — INSIGHTS PRINCIPAIS</div>
+  <div class="kyt-insights" style="margin-bottom:32px;">
+    <div class="kyt-card green">
+      <div class="kyt-card-icon">🌿</div>
+      <div class="kyt-card-title" data-en="Exceptional Forest Integrity">Integridade Florestal Excepcional</div>
+      <div class="kyt-card-val">5,1 <span data-en="/ 100 land risk">/ 100 risco fundiário</span></div>
+      <div class="kyt-card-desc" data-en="Maraú has the lowest land-use risk in Bahia: 5.1 vs. state average of 44.3. Legal Reserve surplus of 16,695 ha and 43,006 ha of natural vegetation. Piracanga sits inside this rare forest integrity.">Maraú tem um dos menores riscos fundiários da Bahia: 5,1 vs. média estadual de 44,3. Excedente de Reserva Legal de 16.695 ha e 43.006 ha de vegetação natural. Piracanga está inserida nessa raridade ecológica.</div>
+    </div>
+    <div class="kyt-card orange">
+      <div class="kyt-card-icon">☁️</div>
+      <div class="kyt-card-title" data-en="HIGH Climate Risk">Risco Climático ALTO</div>
+      <div class="kyt-card-val">51,2 <span data-en="/ 100 climate risk">/ 100 risco climático</span></div>
+      <div class="kyt-card-desc" data-en="17.6% of the territory has slopes above 12% (landslide risk). Extreme rainfall deviation +1.2% above 5-year average. R$ 587k in natural disaster losses. Directly threatens the Piracanga River basin.">17,6% do território tem declividade acima de 12% (risco de deslizamento). Desvio de chuva extrema +1,2% acima da média de 5 anos. R$587k em perdas por desastres. Ameaça direta à bacia hidrográfica.</div>
+    </div>
+    <div class="kyt-card green">
+      <div class="kyt-card-icon">🌱</div>
+      <div class="kyt-card-title" data-en="Carbon Opportunity">Oportunidade de Carbono</div>
+      <div class="kyt-card-val">42,2 <span>tC/ha</span></div>
+      <div class="kyt-card-desc" data-en="Average above-ground carbon stock of 42.2 tC/ha in primary vegetation + 16,695 ha of Legal Reserve surplus. Structural foundation for a REDD+/VCS carbon project that can generate permanent revenue for Piracanga.">Estoque médio de carbono acima do solo de 42,2 tC/ha na vegetação primária + 16.695 ha de Reserva Legal excedente. Base estrutural para projeto de carbono REDD+/VCS que pode gerar renda permanente para Piracanga.</div>
+      <div class="kyt-card-note" data-en="→ Strategic: Permanence Fund via carbon credits">→ Estratégico: Fundo de Permanência via créditos de carbono</div>
+    </div>
+    <div class="kyt-card red">
+      <div class="kyt-card-icon">🚰</div>
+      <div class="kyt-card-title" data-en="Critical Sanitation Gap">Saneamento Crítico</div>
+      <div class="kyt-card-val">7,75% <span data-en="sewage coverage">rede de esgoto</span></div>
+      <div class="kyt-card-desc" data-en="Only 7.75% of households connected to sewage — one of Bahia's lowest. Direct threat to the river basin that is Piracanga's core ecological asset. Waste collection reaches only 53.5% of households.">Apenas 7,75% dos domicílios com rede de esgoto — um dos menores da Bahia. Ameaça direta à bacia hidrográfica que é o bem ecológico central de Piracanga. Coleta de lixo alcança apenas 53,5% dos domicílios.</div>
+      <div class="kyt-card-note" data-en="→ Direct risk to Piracanga River water quality" style="color:#c0392b;">→ Risco direto à qualidade da água do Rio Piracanga</div>
+    </div>
+    <div class="kyt-card blue">
+      <div class="kyt-card-icon">📶</div>
+      <div class="kyt-card-title" data-en="Connectivity Gap">Lacuna de Conectividade</div>
+      <div class="kyt-card-val">46% <span data-en="4G/5G coverage">cobertura 4G/5G</span></div>
+      <div class="kyt-card-desc" data-en="Only 46% of the population has 4G/5G coverage — well below the Bahia average. The census confirms this gap directly limits remote work income (R$7,067/mo vs R$3,839/mo in-person), affecting 35% of Piracanga residents.">Apenas 46% da população com cobertura 4G/5G — bem abaixo da média baiana. O censo confirma que essa lacuna limita diretamente a renda de trabalho remoto (R$7.067/mês vs R$3.839/mês presencial), afetando 35% dos moradores de Piracanga.</div>
+    </div>
+    <div class="kyt-card orange">
+      <div class="kyt-card-icon">⚠️</div>
+      <div class="kyt-card-title" data-en="Social &amp; Security Vulnerabilities">Vulnerabilidades Sociais e Segurança</div>
+      <div class="kyt-card-val" data-en="HIGH risk in 2 dimensions" style="font-size:1rem;">Risco ALTO em 2 dimensões</div>
+      <div class="kyt-card-desc" data-en="Social Fabric: 340 malnourished children (0–5y), 7 cases of slave labor, 10 suicide deaths. Security: 9 violent crimes/year, 1 land/water conflict/year (confirmed by census: 71% of residents are non-owners — high displacement risk).">Tecido Social: 340 crianças com desnutrição (0–5a), 7 casos de trabalho escravo, 10 óbitos por lesão autoprovocada. Segurança: 9 crimes violentos/ano, 1 conflito de terra/água/ano (confirmado pelo censo: 71% dos moradores sem propriedade — risco alto de deslocamento).</div>
+    </div>
+    <div class="kyt-card green">
+      <div class="kyt-card-icon">🌾</div>
+      <div class="kyt-card-title" data-en="Green Bioeconomy Signal">Sinal de Bioeconomia Verde</div>
+      <div class="kyt-card-val">68 <span data-en="green establishments">estabelecimentos verdes</span></div>
+      <div class="kyt-card-desc" data-en="68 establishments classified under FEBRABAN Green Taxonomy (9% of workers). Agricultural production grew 66.9%. R$2.3M in federal grants for sustainable agriculture. Piracanga is already operating within this emerging green economy.">68 estabelecimentos classificados na Taxonomia Verde FEBRABAN (9% dos trabalhadores). Produção agrícola cresceu 66,9%. R$2,3M em repasses federais para agricultura sustentável. Piracanga já opera dentro dessa bioeconomia emergente.</div>
+    </div>
+    <div class="kyt-card blue">
+      <div class="kyt-card-icon">🏛️</div>
+      <div class="kyt-card-title" data-en="Institutional Gaps">Lacunas Institucionais</div>
+      <div class="kyt-card-val">0 <span data-en="public banks · 0 universities">bancos públicos · 0 universidades</span></div>
+      <div class="kyt-card-desc" data-en="No Banco do Brasil or Caixa branches. No federal university. 15 municipal councils active (a positive signal). IDEB high school: 3.3/10 (below national floor). For Piracanga, this reinforces the need to build internal institutional capacity.">Nenhuma agência de Banco do Brasil ou Caixa. Nenhuma universidade federal. 15 conselhos municipais ativos (sinal positivo). IDEB ensino médio: 3,3/10 (abaixo do piso nacional). Para Piracanga, isso reforça a necessidade de construir capacidade institucional interna.</div>
+    </div>
+  </div>
+
+  <!-- Priority Actions -->
+  <div class="kyt-actions">
+    <h3 data-en="⚡ Priority Actions — KYT × Census 2025–2026">⚡ Ações Prioritárias — KYT × Censo 2025–2026</h3>
+    <ul class="kyt-action-list">
+      <li><b>1.</b> <span data-en="Land protection pact: Right of First Refusal between aligned owners + A.MOR (addresses KYT land conflict + 71% non-owner risk from census)">Pacto fundiário: Direito de Preferência entre proprietários alinhados + A.MOR (endereça risco de conflito KYT + 71% não-proprietários do censo)</span></li>
+      <li><b>2.</b> <span data-en="REDD+ carbon project: Structure using 16,695 ha RL surplus + 42.2 tC/ha stock. Revenue for a Permanence Fund.">Projeto de carbono REDD+: Estruturar usando 16.695 ha de RL excedente + estoque de 42,2 tC/ha. Receita para Fundo de Permanência.</span></li>
+      <li><b>3.</b> <span data-en="Water monitoring protocol: Convert existing analysis into continuous monitoring with governance-linked alerts (7.75% sewage coverage = direct river risk).">Protocolo de monitoramento hídrico: Transformar análises existentes em sistema contínuo com alertas de governança (7,75% de esgoto = risco direto ao rio).</span></li>
+      <li><b>4.</b> <span data-en="RPPN registration: Map eligible properties and initiate at least 3 RPPN processes in 2026 (locks in carbon assets permanently).">Registro de RPPNs: Mapear propriedades elegíveis e iniciar ao menos 3 processos em 2026 (trava ativos de carbono permanentemente).</span></li>
+      <li><b>5.</b> <span data-en="Connectivity: Partner with municipal/state govt to expand 4G/5G — direct impact on R$7,067/mo remote work income for 35% of residents.">Conectividade: Parceria com prefeitura/estado para ampliar 4G/5G — impacto direto na renda de R$7.067/mês dos trabalhadores remotos (35% dos moradores).</span></li>
+      <li><b>6.</b> <span data-en="Territorial Foundation: Constitute a private foundation to hold land permanently off the market. First acquisition target: 2027.">Fundação Territorial: Constituir fundação privada para retirar terra permanentemente do mercado. Meta: primeira aquisição em 2027.</span></li>
+    </ul>
+  </div>
+
+  <!-- Source Footer -->
+  <div style="margin-top:32px;padding:16px 20px;background:#f0f7f4;border-radius:10px;border:1px solid #d0e8d8;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <span style="font-size:.8rem;color:#5a7a60;line-height:1.5;" data-en="Source: KYT-e Index · Green Bridge Facility / Instituto Igarapé · Maraú (BA) · Dec 2025 · Cross-referenced with Piracanga Community Census 2025–2026 (BIOMAS)">Fonte: Índice KYT-e · Green Bridge Facility / Instituto Igarapé · Maraú (BA) · Dez 2025 · Cruzado com Censo Comunitário Piracanga 2025–2026 (BIOMAS)</span>
+    <a href="https://app.kyt.greenbridgefacility.com/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#063e51;color:white;border-radius:8px;padding:8px 16px;font-size:.8rem;font-weight:700;text-decoration:none;" data-en="🌐 Open KYT Platform →">🌐 Acessar Plataforma KYT →</a>
+  </div>
+
+</div><!-- end max-width wrapper -->
+</div><!-- end pg-kyt -->
 
 </body>
 </html>
