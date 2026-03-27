@@ -5739,173 +5739,285 @@ th[onclick]:hover{background:rgba(45,106,79,.1);}
 
 <!-- Page Header -->
 <div style="background:linear-gradient(135deg,#063e51 0%,#0a5a6e 60%,#05ab85 100%);padding:48px 32px 40px;position:relative;overflow:hidden;">
-
   <div style="max-width:1000px;margin:0 auto;position:relative;">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:20px;">
       <div>
         <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:#63c5ab;text-transform:uppercase;margin-bottom:10px;" data-en="TERRITORIAL INTELLIGENCE · KYT × CENSUS">INTELIGÊNCIA TERRITORIAL · KYT × CENSO</div>
         <h1 style="font-size:2rem;font-weight:900;color:white;margin:0 0 12px;line-height:1.1;" data-en="🌍 KYT × Piracanga Census">🌍 KYT × Censo Piracanga</h1>
-        <p style="color:rgba(255,255,255,0.8);font-size:.95rem;line-height:1.6;max-width:600px;margin:0 0 20px;" data-en="Cross-analysis between the Know Your Territory (KYT) Index — 80+ municipal indicators — and the Piracanga Community Census 2025–2026. Reference municipality: Maraú (BA), where the Piracanga River Basin is located.">Cruzamento entre o Índice Know Your Territory (KYT) — 80+ indicadores municipais — e o Censo Comunitário Piracanga 2025–2026. Município de referência: Maraú (BA), onde está localizada a Bacia do Rio Piracanga.</p>
-        <!-- Reference Pills -->
+        <p style="color:rgba(255,255,255,0.8);font-size:.95rem;line-height:1.6;max-width:620px;margin:0 0 20px;" data-en="Cross-analysis between the KYT Index (Know Your Territory) — 80+ municipal indicators in 6 dimensions — and the Piracanga Community Census 2025–2026. Reference municipality: Maraú (BA), inside the Atlantic Forest biome. Developed by Green Bridge Facility / Instituto Igarapé (Dec 2025).">Cruzamento entre o Índice KYT (Know Your Territory) — 80+ indicadores municipais em 6 dimensões — e o Censo Comunitário Piracanga 2025–2026. Município de referência: Maraú (BA), bioma Mata Atlântica. Desenvolvido pela Green Bridge Facility / Instituto Igarapé (Dez 2025).</p>
         <div style="display:flex;flex-wrap:wrap;gap:10px;">
-          <a href="https://app.kyt.greenbridgefacility.com/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:7px 14px;color:white;font-size:.8rem;font-weight:600;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='rgba(255,255,255,0.22)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'" data-en="🔗 Open KYT Platform">🔗 Acessar Plataforma KYT</a>
-          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:7px 14px;color:rgba(255,255,255,0.75);font-size:.8rem;" data-en="📍 Maraú (BA) · Mata Atlântica biome · Rural">📍 Maraú (BA) · Bioma Mata Atlântica · Rural</span>
-          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:7px 14px;color:rgba(255,255,255,0.75);font-size:.8rem;" data-en="🏛️ Green Bridge Facility · Instituto Igarapé">🏛️ Green Bridge Facility · Instituto Igarapé</span>
-          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:7px 14px;color:rgba(255,255,255,0.75);font-size:.8rem;" data-en="📅 Updated: Dec 2025">📅 Atualizado: Dez 2025</span>
+          <a href="https://app.kyt.greenbridgefacility.com/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:7px 14px;color:white;font-size:.8rem;font-weight:600;text-decoration:none;" data-en="🔗 Open KYT Platform">🔗 Acessar Plataforma KYT</a>
+          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:7px 14px;color:rgba(255,255,255,0.75);font-size:.8rem;" data-en="📍 Maraú (BA) · Pop. 24,527 · 848.89 km² · Rural">📍 Maraú (BA) · Pop. 24.527 · 848,89 km² · Rural</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:7px 14px;color:rgba(255,255,255,0.75);font-size:.8rem;" data-en="📅 Dec 2025 · 70+ indicators · 6 dimensions">📅 Dez 2025 · 70+ indicadores · 6 dimensões</span>
         </div>
       </div>
-      <!-- KYT Overall Score Badge -->
-      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:16px;padding:20px 24px;text-align:center;min-width:160px;flex-shrink:0;">
-        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#63c5ab;text-transform:uppercase;margin-bottom:6px;" data-en="OVERALL KYT">GERAL KYT</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px;">
+      <!-- Overall Score Badge -->
+      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:16px;padding:20px 24px;text-align:center;min-width:180px;flex-shrink:0;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:#63c5ab;text-transform:uppercase;margin-bottom:10px;" data-en="OVERALL KYT · MARAÚ (BA)">GERAL KYT · MARAÚ (BA)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;">
           <div>
-            <div style="font-size:1.6rem;font-weight:900;color:#63c5ab;line-height:1;">35,9</div>
-            <div style="font-size:9px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:.5px;" data-en="Opportunity">Oportunidade</div>
+            <div style="font-size:1.8rem;font-weight:900;color:#63c5ab;line-height:1;">35,9</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;" data-en="Opportunity">Oportunidade</div>
+            <div style="font-size:9px;color:#63c5ab;font-weight:700;">↑ Bahia 30,6</div>
           </div>
           <div>
-            <div style="font-size:1.6rem;font-weight:900;color:#ffd166;line-height:1;">21,1</div>
-            <div style="font-size:9px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:.5px;" data-en="Risk">Risco</div>
+            <div style="font-size:1.8rem;font-weight:900;color:#ffd166;line-height:1;">21,1</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;" data-en="Risk">Risco</div>
+            <div style="font-size:9px;color:#63c5ab;font-weight:700;">↓ Bahia 23,6</div>
           </div>
         </div>
-        <div style="font-size:10px;color:rgba(255,255,255,0.55);" data-en="Better than Bahia avg">Melhor que média Bahia</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.5);border-top:1px solid rgba(255,255,255,0.15);padding-top:8px;" data-en="Better than Bahia average in both dimensions">Melhor que média Bahia nas duas métricas</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Methodology Reference Banner -->
-<div style="background:#f0f7f4;border-bottom:2px solid #e2ead8;padding:14px 32px;">
+<!-- Methodology Banner -->
+<div style="background:#f0f7f4;border-bottom:2px solid #e2ead8;padding:12px 32px;">
   <div style="max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-    <span style="font-size:.8rem;color:#5a6a60;font-weight:700;text-transform:uppercase;letter-spacing:.5px;" data-en="METHODOLOGY:">METODOLOGIA:</span>
-    <span style="font-size:.85rem;color:#3a5a47;line-height:1.5;" data-en="KYT classifies municipalities into national quartiles (Low / Med-Low / Med-High / High) for Risk and Opportunity independently across 6 dimensions, using 80+ indicators from IBGE, MapBiomas, INPE, and others.">O KYT classifica municípios em quartis nacionais (Baixo / Méd-Baixo / Méd-Alto / Alto) para Risco e Oportunidade em 6 dimensões, com 80+ indicadores de IBGE, MapBiomas, INPE e outros.</span>
+    <span style="font-size:.75rem;color:#5a6a60;font-weight:700;text-transform:uppercase;letter-spacing:.5px;" data-en="METHODOLOGY:">METODOLOGIA:</span>
+    <span style="font-size:.82rem;color:#3a5a47;line-height:1.5;" data-en="KYT classifies municipalities into national quartiles (Low / Med-Low / Med-High / High) for Risk and Opportunity independently, across 6 dimensions, using 80+ indicators from IBGE, MapBiomas, INPE, IBAMA, DATASUS, BCB, and others.">O KYT classifica municípios em quartis nacionais (Baixo / Méd-Baixo / Méd-Alto / Alto) para Risco e Oportunidade em 6 dimensões, com 80+ indicadores do IBGE, MapBiomas, INPE, IBAMA, DATASUS, BCB e outros.</span>
     <a href="https://raw.githubusercontent.com/leticiacqueiroz-biomas/censopiracanga2025/main/KYT/Insights_KYT_Piracanga.pdf" target="_blank" rel="noopener" style="font-size:.8rem;color:#05ab85;font-weight:700;text-decoration:none;white-space:nowrap;" data-en="→ Access the full report">→ Acessar o relatório completo</a>
   </div>
 </div>
 
 <!-- Main Content -->
-<div style="max-width:1000px;margin:0 auto;padding:40px 24px 64px;">
+<div style="max-width:1000px;margin:0 auto;padding:36px 24px 64px;">
 
-  <!-- Scorecard -->
-  <div class="kyt-scorecard" style="margin-bottom:32px;">
-    <h3 data-en="KYT Scorecard — Maraú (BA) vs. Bahia average">Scorecard KYT — Maraú (BA) vs. média baiana</h3>
-    <div class="kyt-dim-row" style="font-size:.72rem;color:#aaa;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding-bottom:6px;">
+  <!-- ── SCORECARD ── -->
+  <div class="kyt-scorecard" style="margin-bottom:36px;">
+    <h3 data-en="KYT Scorecard — Maraú (BA) vs. Bahia state average">Scorecard KYT — Maraú (BA) vs. média estadual Bahia</h3>
+    <!-- Header row -->
+    <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:6px;font-size:.68rem;color:#aaa;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding-bottom:8px;border-bottom:1px solid #e8ede8;margin-bottom:8px;">
       <div data-en="Dimension">Dimensão</div>
-      <div data-en="Opportunity">Oportunidade</div>
-      <div data-en="Risk">Risco</div>
+      <div data-en="Opp Score">Score Oport.</div>
+      <div data-en="Opp Level">Nível Oport.</div>
+      <div data-en="Risk Score">Score Risco</div>
+      <div data-en="Risk Level">Nível Risco</div>
     </div>
-    <div class="kyt-dim-row">
-      <div class="kyt-dim-name" data-en="Land Use">Uso da Terra</div>
-      <div><span class="kyt-pill opp-low" data-en="40.4 · Low">40,4 · Baixa</span></div>
-      <div><span class="kyt-pill risk-low" data-en="5.1 · Low ✓">5,1 · Baixo ✓</span></div>
+    <!-- Rows -->
+    <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid #f0f5f0;">
+      <div style="font-size:.82rem;font-weight:600;color:#1a3a2a;" data-en="1. Land Use Management">1. Gestão do Uso da Terra</div>
+      <div style="font-size:.85rem;color:#444;font-weight:700;">40,35 <span style="font-size:.7rem;color:#aaa;font-weight:400;">Bahia –</span></div>
+      <div><span class="kyt-pill opp-low" data-en="Low">Baixa</span></div>
+      <div style="font-size:.85rem;color:#444;font-weight:700;">5,14 <span style="font-size:.7rem;color:#05ab85;font-weight:700;">↓ 44,34</span></div>
+      <div><span class="kyt-pill risk-low" data-en="Low ✓✓">Baixo ✓✓</span></div>
     </div>
-    <div class="kyt-dim-row">
-      <div class="kyt-dim-name" data-en="Climate &amp; Nature">Clima e Natureza</div>
-      <div><span class="kyt-pill opp-med" data-en="29.1 · Med.High">29,1 · Méd.Alta</span></div>
-      <div><span class="kyt-pill risk-high" data-en="51.2 · High ⚠">51,2 · Alto ⚠</span></div>
+    <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid #f0f5f0;">
+      <div style="font-size:.82rem;font-weight:600;color:#1a3a2a;" data-en="2. Climate &amp; Nature">2. Clima e Natureza</div>
+      <div style="font-size:.85rem;color:#444;font-weight:700;">29,05 <span style="font-size:.7rem;color:#05ab85;font-weight:700;">↑ 14,23</span></div>
+      <div><span class="kyt-pill opp-med" data-en="Med.High ★">Méd.Alta ★</span></div>
+      <div style="font-size:.85rem;color:#444;font-weight:700;">51,18 <span style="font-size:.7rem;color:#c0392b;font-weight:700;">↑ 48,92</span></div>
+      <div><span class="kyt-pill risk-high" data-en="High ⚠">Alto ⚠</span></div>
     </div>
-    <div class="kyt-dim-row">
-      <div class="kyt-dim-name" data-en="Economic Context">Contexto Econômico</div>
-      <div><span class="kyt-pill opp-med" data-en="22.7 · Med.High">22,7 · Méd.Alta</span></div>
-      <div><span class="kyt-pill risk-none" data-en="n/a">n/a</span></div>
+    <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid #f0f5f0;">
+      <div style="font-size:.82rem;font-weight:600;color:#1a3a2a;" data-en="3. Economic Context">3. Contexto Econômico</div>
+      <div style="font-size:.85rem;color:#444;font-weight:700;">22,73 <span style="font-size:.7rem;color:#05ab85;font-weight:700;">↑ 20,56</span></div>
+      <div><span class="kyt-pill opp-med" data-en="Med.High">Méd.Alta</span></div>
+      <div style="font-size:.82rem;color:#aaa;" data-en="N/A">N/A</div>
+      <div style="font-size:.82rem;color:#aaa;" data-en="N/A (opp only)">—</div>
     </div>
-    <div class="kyt-dim-row">
-      <div class="kyt-dim-name" data-en="Social Fabric">Tecido Social</div>
-      <div><span class="kyt-pill opp-low" data-en="37.2 · Low">37,2 · Baixa</span></div>
-      <div><span class="kyt-pill risk-high" data-en="2.9 · High ⚠">2,9 · Alto ⚠</span></div>
+    <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid #f0f5f0;">
+      <div style="font-size:.82rem;font-weight:600;color:#1a3a2a;" data-en="4. Social Fabric">4. Tecido Social</div>
+      <div style="font-size:.85rem;color:#444;font-weight:700;">37,19 <span style="font-size:.7rem;color:#aaa;font-weight:400;">Bahia –</span></div>
+      <div><span class="kyt-pill opp-low" data-en="Low">Baixa</span></div>
+      <div style="font-size:.85rem;color:#444;font-weight:700;">2,86 <span style="font-size:.7rem;color:#c0392b;font-weight:700;">↑ 2,51</span></div>
+      <div><span class="kyt-pill risk-high" data-en="High ⚠">Alto ⚠</span></div>
     </div>
-    <div class="kyt-dim-row">
-      <div class="kyt-dim-name" data-en="Institutional Presence">Presença Institucional</div>
-      <div><span class="kyt-pill opp-low" data-en="50.0 · Med.Low">50,0 · Méd.Baixa</span></div>
-      <div><span class="kyt-pill risk-med" data-en="42.0 · Med.Low">42,0 · Méd.Baixo</span></div>
+    <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid #f0f5f0;">
+      <div style="font-size:.82rem;font-weight:600;color:#1a3a2a;" data-en="5. Institutional Presence">5. Presença Institucional</div>
+      <div style="font-size:.85rem;color:#444;font-weight:700;">50,02 <span style="font-size:.7rem;color:#c0392b;font-weight:700;">↓ 53,15</span></div>
+      <div><span class="kyt-pill opp-low" data-en="Med.Low">Méd.Baixa</span></div>
+      <div style="font-size:.85rem;color:#444;font-weight:700;">41,98 <span style="font-size:.7rem;color:#05ab85;font-weight:700;">↓ 42,43</span></div>
+      <div><span class="kyt-pill risk-med" data-en="Med.Low">Méd.Baixo</span></div>
     </div>
-    <div class="kyt-dim-row">
-      <div class="kyt-dim-name" data-en="Security">Segurança</div>
-      <div><span class="kyt-pill risk-none" data-en="n/a">n/a</span></div>
-      <div><span class="kyt-pill risk-high" data-en="4.1 · High ⚠">4,1 · Alto ⚠</span></div>
+    <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid #f0f5f0;">
+      <div style="font-size:.82rem;font-weight:600;color:#1a3a2a;" data-en="6. Security">6. Segurança</div>
+      <div style="font-size:.82rem;color:#aaa;" data-en="N/A (risk only)">—</div>
+      <div style="font-size:.82rem;color:#aaa;">—</div>
+      <div style="font-size:.85rem;color:#444;font-weight:700;">4,08 <span style="font-size:.7rem;color:#c0392b;font-weight:700;">↑ 3,36</span></div>
+      <div><span class="kyt-pill risk-high" data-en="High ⚠">Alto ⚠</span></div>
     </div>
-    <div class="kyt-dim-row" style="border-top:2px solid #e0e8e0;margin-top:4px;padding-top:12px;">
-      <div class="kyt-dim-name" data-en="OVERALL" style="font-weight:800;color:#063e51;">GERAL</div>
-      <div><span class="kyt-pill opp-low" data-en="35.9 · Low (↑ Bahia avg 30.6)" style="font-weight:800;">35,9 · Baixa ↑</span></div>
-      <div><span class="kyt-pill risk-med" data-en="21.1 · Med.Low (↓ Bahia avg 23.6)" style="font-weight:800;">21,1 · Méd.Baixo ↓</span></div>
+    <!-- Overall -->
+    <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:6px;align-items:center;padding:10px 0 4px;border-top:2px solid #c8ddc8;margin-top:4px;">
+      <div style="font-size:.85rem;font-weight:900;color:#063e51;" data-en="OVERALL">GERAL</div>
+      <div style="font-size:.9rem;font-weight:900;color:#063e51;">35,87 <span style="font-size:.7rem;color:#05ab85;font-weight:700;">↑ 30,56</span></div>
+      <div><span class="kyt-pill opp-low" style="font-weight:800;" data-en="Low (↑ Bahia)">Baixa ↑</span></div>
+      <div style="font-size:.9rem;font-weight:900;color:#063e51;">21,05 <span style="font-size:.7rem;color:#05ab85;font-weight:700;">↓ 23,59</span></div>
+      <div><span class="kyt-pill risk-med" style="font-weight:800;" data-en="Med.Low (↓ Bahia)">Méd.Baixo ↓</span></div>
+    </div>
+    <div style="font-size:.73rem;color:#aaa;margin-top:8px;" data-en="↑ = above Bahia avg (worse for risk, better for opportunity) · ↓ = below Bahia avg · ★ = standout vs Bahia avg">↑ = acima da média Bahia · ↓ = abaixo da média Bahia · ★ = destaque vs média estadual</div>
+  </div>
+
+  <!-- ── DIMENSION INSIGHTS ── -->
+  <div style="margin-bottom:12px;font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;" data-en="INSIGHTS BY DIMENSION — KYT × PIRACANGA CENSUS">INSIGHTS POR DIMENSÃO — KYT × CENSO PIRACANGA</div>
+
+  <!-- D1: Land Use -->
+  <div style="background:white;border-radius:14px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);border-left:4px solid #05ab85;margin-bottom:16px;">
+    <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:220px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <span style="font-size:1.3rem;">🌿</span>
+          <span style="font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#063e51;" data-en="1. Land Use Management — LOW RISK">1. Gestão do Uso da Terra — RISCO BAIXO</span>
+          <span class="kyt-pill risk-low" style="font-size:.65rem;" data-en="5.14 vs Bahia 44.34">5,14 vs Bahia 44,34</span>
+        </div>
+        <p style="font-size:.85rem;color:#445a4a;line-height:1.6;margin:0 0 10px;" data-en="Maraú's most favorable dimension: risk score of 5.14 vs. Bahia average of 44.34. 43,007 ha of native vegetation (weighted avg 2013–2023), deforestation rate of only 1.14 km²/year, and just 0.71% of the area converted to agriculture. Piracanga sits inside a territory with exceptional forest integrity.">Dimensão mais favorável de Maraú: risco 5,14 vs. média baiana de 44,34. 43.007 ha de vegetação nativa (média ponderada 2013–2023), desmatamento de apenas 1,14 km²/ano e 0,71% da área convertida para agropecuária. Piracanga está inserida em um território com raridade ecológica real.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="background:#e8f5e9;color:#2a7a4a;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="43,007 ha native vegetation">43.007 ha vegetação nativa</span>
+          <span style="background:#e8f5e9;color:#2a7a4a;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="16,695 ha Legal Reserve surplus">16.695 ha Reserva Legal excedente</span>
+          <span style="background:#e8f5e9;color:#2a7a4a;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="1.14 km²/year deforestation">1,14 km²/ano desmatamento</span>
+          <span style="background:#fff3cd;color:#7a5a00;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="47 IBAMA embargoed areas (due diligence)">47 áreas embargadas IBAMA</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Insight Cards -->
-  <div style="margin-bottom:12px;font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;" data-en="KYT × CENSUS — KEY INSIGHTS">KYT × CENSO — INSIGHTS PRINCIPAIS</div>
-  <div class="kyt-insights" style="margin-bottom:32px;">
-    <div class="kyt-card green">
-      <div class="kyt-card-icon">🌿</div>
-      <div class="kyt-card-title" data-en="Exceptional Forest Integrity">Integridade Florestal Excepcional</div>
-      <div class="kyt-card-val">5,1 <span data-en="/ 100 land risk">/ 100 risco fundiário</span></div>
-      <div class="kyt-card-desc" data-en="Maraú has the lowest land-use risk in Bahia: 5.1 vs. state average of 44.3. Legal Reserve surplus of 16,695 ha and 43,006 ha of natural vegetation. Piracanga sits inside this rare forest integrity.">Maraú tem um dos menores riscos fundiários da Bahia: 5,1 vs. média estadual de 44,3. Excedente de Reserva Legal de 16.695 ha e 43.006 ha de vegetação natural. Piracanga está inserida nessa raridade ecológica.</div>
-    </div>
-    <div class="kyt-card orange">
-      <div class="kyt-card-icon">☁️</div>
-      <div class="kyt-card-title" data-en="HIGH Climate Risk">Risco Climático ALTO</div>
-      <div class="kyt-card-val">51,2 <span data-en="/ 100 climate risk">/ 100 risco climático</span></div>
-      <div class="kyt-card-desc" data-en="17.6% of the territory has slopes above 12% (landslide risk). Extreme rainfall deviation +1.2% above 5-year average. R$ 587k in natural disaster losses. Directly threatens the Piracanga River basin.">17,6% do território tem declividade acima de 12% (risco de deslizamento). Desvio de chuva extrema +1,2% acima da média de 5 anos. R$587k em perdas por desastres. Ameaça direta à bacia hidrográfica.</div>
-    </div>
-    <div class="kyt-card green">
-      <div class="kyt-card-icon">🌱</div>
-      <div class="kyt-card-title" data-en="Carbon Opportunity">Oportunidade de Carbono</div>
-      <div class="kyt-card-val">42,2 <span>tC/ha</span></div>
-      <div class="kyt-card-desc" data-en="Average above-ground carbon stock of 42.2 tC/ha in primary vegetation + 16,695 ha of Legal Reserve surplus. Structural foundation for a REDD+/VCS carbon project that can generate permanent revenue for Piracanga.">Estoque médio de carbono acima do solo de 42,2 tC/ha na vegetação primária + 16.695 ha de Reserva Legal excedente. Base estrutural para projeto de carbono REDD+/VCS que pode gerar renda permanente para Piracanga.</div>
-      <div class="kyt-card-note" data-en="→ Strategic: Permanence Fund via carbon credits">→ Estratégico: Fundo de Permanência via créditos de carbono</div>
-    </div>
-    <div class="kyt-card red">
-      <div class="kyt-card-icon">🚰</div>
-      <div class="kyt-card-title" data-en="Critical Sanitation Gap">Saneamento Crítico</div>
-      <div class="kyt-card-val">7,75% <span data-en="sewage coverage">rede de esgoto</span></div>
-      <div class="kyt-card-desc" data-en="Only 7.75% of households connected to sewage — one of Bahia's lowest. Direct threat to the river basin that is Piracanga's core ecological asset. Waste collection reaches only 53.5% of households.">Apenas 7,75% dos domicílios com rede de esgoto — um dos menores da Bahia. Ameaça direta à bacia hidrográfica que é o bem ecológico central de Piracanga. Coleta de lixo alcança apenas 53,5% dos domicílios.</div>
-      <div class="kyt-card-note" data-en="→ Direct risk to Piracanga River water quality" style="color:#c0392b;">→ Risco direto à qualidade da água do Rio Piracanga</div>
-    </div>
-    <div class="kyt-card blue">
-      <div class="kyt-card-icon">📶</div>
-      <div class="kyt-card-title" data-en="Connectivity Gap">Lacuna de Conectividade</div>
-      <div class="kyt-card-val">46% <span data-en="4G/5G coverage">cobertura 4G/5G</span></div>
-      <div class="kyt-card-desc" data-en="Only 46% of the population has 4G/5G coverage — well below the Bahia average. The census confirms this gap directly limits remote work income (R$7,067/mo vs R$3,839/mo in-person), affecting 35% of Piracanga residents.">Apenas 46% da população com cobertura 4G/5G — bem abaixo da média baiana. O censo confirma que essa lacuna limita diretamente a renda de trabalho remoto (R$7.067/mês vs R$3.839/mês presencial), afetando 35% dos moradores de Piracanga.</div>
-    </div>
-    <div class="kyt-card orange">
-      <div class="kyt-card-icon">⚠️</div>
-      <div class="kyt-card-title" data-en="Social &amp; Security Vulnerabilities">Vulnerabilidades Sociais e Segurança</div>
-      <div class="kyt-card-val" data-en="HIGH risk in 2 dimensions" style="font-size:1rem;">Risco ALTO em 2 dimensões</div>
-      <div class="kyt-card-desc" data-en="Social Fabric: 340 malnourished children (0–5y), 7 cases of slave labor, 10 suicide deaths. Security: 9 violent crimes/year, 1 land/water conflict/year (confirmed by census: 71% of residents are non-owners — high displacement risk).">Tecido Social: 340 crianças com desnutrição (0–5a), 7 casos de trabalho escravo, 10 óbitos por lesão autoprovocada. Segurança: 9 crimes violentos/ano, 1 conflito de terra/água/ano (confirmado pelo censo: 71% dos moradores sem propriedade — risco alto de deslocamento).</div>
-    </div>
-    <div class="kyt-card green">
-      <div class="kyt-card-icon">🌾</div>
-      <div class="kyt-card-title" data-en="Green Bioeconomy Signal">Sinal de Bioeconomia Verde</div>
-      <div class="kyt-card-val">68 <span data-en="green establishments">estabelecimentos verdes</span></div>
-      <div class="kyt-card-desc" data-en="68 establishments classified under FEBRABAN Green Taxonomy (9% of workers). Agricultural production grew 66.9%. R$2.3M in federal grants for sustainable agriculture. Piracanga is already operating within this emerging green economy.">68 estabelecimentos classificados na Taxonomia Verde FEBRABAN (9% dos trabalhadores). Produção agrícola cresceu 66,9%. R$2,3M em repasses federais para agricultura sustentável. Piracanga já opera dentro dessa bioeconomia emergente.</div>
-    </div>
-    <div class="kyt-card blue">
-      <div class="kyt-card-icon">🏛️</div>
-      <div class="kyt-card-title" data-en="Institutional Gaps">Lacunas Institucionais</div>
-      <div class="kyt-card-val">0 <span data-en="public banks · 0 universities">bancos públicos · 0 universidades</span></div>
-      <div class="kyt-card-desc" data-en="No Banco do Brasil or Caixa branches. No federal university. 15 municipal councils active (a positive signal). IDEB high school: 3.3/10 (below national floor). For Piracanga, this reinforces the need to build internal institutional capacity.">Nenhuma agência de Banco do Brasil ou Caixa. Nenhuma universidade federal. 15 conselhos municipais ativos (sinal positivo). IDEB ensino médio: 3,3/10 (abaixo do piso nacional). Para Piracanga, isso reforça a necessidade de construir capacidade institucional interna.</div>
+  <!-- D2: Climate -->
+  <div style="background:white;border-radius:14px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);border-left:4px solid #e67e22;margin-bottom:16px;">
+    <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:220px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+          <span style="font-size:1.3rem;">🌦️</span>
+          <span style="font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#063e51;" data-en="2. Climate &amp; Nature — HIGH RISK · HIGH OPP">2. Clima e Natureza — RISCO ALTO · OPP ALTA</span>
+          <span class="kyt-pill risk-high" style="font-size:.65rem;" data-en="Risk 51.18">Risco 51,18</span>
+          <span class="kyt-pill opp-med" style="font-size:.65rem;" data-en="Opp 29.05 ★">Oport. 29,05 ★</span>
+        </div>
+        <p style="font-size:.85rem;color:#445a4a;line-height:1.6;margin:0 0 10px;" data-en="Sharpest tension: climate opportunity far above Bahia average (29.05 vs. 14.23) but HIGH climate risk (51.18 vs. 48.92). 42.2 tC/ha carbon stock + 1,460mm/year rainfall + 5.47 suitable months for agriculture. Key risk: 17.63% of territory has slopes above 12% (landslide/erosion risk directly threatening the Piracanga River basin).">Maior tensão: oportunidade climática muito acima da média baiana (29,05 vs. 14,23), mas risco climático ALTO (51,18 vs. 48,92). Estoque de carbono 42,2 tC/ha + 1.460mm/ano + 5,47 meses adequados para agricultura. Risco principal: 17,63% do território com declividade >12% — risco de erosão e deslizamentos que ameaçam diretamente a bacia do Rio Piracanga.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="background:#e8f5e9;color:#2a7a4a;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="42.2 tC/ha carbon stock">42,2 tC/ha estoque carbono</span>
+          <span style="background:#e8f5e9;color:#2a7a4a;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="1,460mm/year rainfall">1.460mm/ano pluviosidade</span>
+          <span style="background:#e8f5e9;color:#2a7a4a;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="0 frost days/year">0 dias de geada/ano</span>
+          <span style="background:#ffe4e4;color:#a0392b;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="17.63% slopes > 12%">17,63% decliv. >12%</span>
+          <span style="background:#ffe4e4;color:#a0392b;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="R$ 587k disaster losses">R$587k perdas desastres</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Priority Actions -->
-  <div class="kyt-actions">
-    <h3 data-en="⚡ Priority Actions — KYT × Census 2025–2026">⚡ Ações Prioritárias — KYT × Censo 2025–2026</h3>
-    <ul class="kyt-action-list">
-      <li><b>1.</b> <span data-en="Land protection pact: Right of First Refusal between aligned owners + A.MOR (addresses KYT land conflict + 71% non-owner risk from census)">Pacto fundiário: Direito de Preferência entre proprietários alinhados + A.MOR (endereça risco de conflito KYT + 71% não-proprietários do censo)</span></li>
-      <li><b>2.</b> <span data-en="REDD+ carbon project: Structure using 16,695 ha RL surplus + 42.2 tC/ha stock. Revenue for a Permanence Fund.">Projeto de carbono REDD+: Estruturar usando 16.695 ha de RL excedente + estoque de 42,2 tC/ha. Receita para Fundo de Permanência.</span></li>
-      <li><b>3.</b> <span data-en="Water monitoring protocol: Convert existing analysis into continuous monitoring with governance-linked alerts (7.75% sewage coverage = direct river risk).">Protocolo de monitoramento hídrico: Transformar análises existentes em sistema contínuo com alertas de governança (7,75% de esgoto = risco direto ao rio).</span></li>
-      <li><b>4.</b> <span data-en="RPPN registration: Map eligible properties and initiate at least 3 RPPN processes in 2026 (locks in carbon assets permanently).">Registro de RPPNs: Mapear propriedades elegíveis e iniciar ao menos 3 processos em 2026 (trava ativos de carbono permanentemente).</span></li>
-      <li><b>5.</b> <span data-en="Connectivity: Partner with municipal/state govt to expand 4G/5G — direct impact on R$7,067/mo remote work income for 35% of residents.">Conectividade: Parceria com prefeitura/estado para ampliar 4G/5G — impacto direto na renda de R$7.067/mês dos trabalhadores remotos (35% dos moradores).</span></li>
-      <li><b>6.</b> <span data-en="Territorial Foundation: Constitute a private foundation to hold land permanently off the market. First acquisition target: 2027.">Fundação Territorial: Constituir fundação privada para retirar terra permanentemente do mercado. Meta: primeira aquisição em 2027.</span></li>
+  <!-- D3: Economic -->
+  <div style="background:white;border-radius:14px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);border-left:4px solid #1d6fa4;margin-bottom:16px;">
+    <div style="flex:1;min-width:220px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+        <span style="font-size:1.3rem;">🌾</span>
+        <span style="font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#063e51;" data-en="3. Economic Context — MED.HIGH OPP">3. Contexto Econômico — OPP MÉDIA ALTA</span>
+        <span class="kyt-pill opp-med" style="font-size:.65rem;" data-en="22.73 ↑ Bahia 20.56">22,73 ↑ Bahia 20,56</span>
+      </div>
+      <p style="font-size:.85rem;color:#445a4a;line-height:1.6;margin:0 0 10px;" data-en="Maraú slightly above Bahia average (22.73 vs. 20.56). Agricultural production grew 66.9% (2011–2023). R$4.9M in agricultural credit + R$2.32M in federal sustainable agriculture transfers available. 68 FEBRABAN Green Taxonomy establishments (9% of workers). Bottleneck: no logistics terminals, no university, negative economic complexity index.">Maraú ligeiramente acima da média baiana (22,73 vs. 20,56). Produção agrícola cresceu 66,9% (2011–2023). R$4,9M em crédito agrícola + R$2,32M em transferências federais para agricultura sustentável disponíveis. 68 estabelecimentos da Taxonomia Verde FEBRABAN (9% dos trabalhadores). Gargalo: sem terminais logísticos, sem universidade, ICE-R negativo.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#e8f5e9;color:#2a7a4a;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="+66.9% agri production growth">+66,9% produção agrícola</span>
+        <span style="background:#e8f5e9;color:#2a7a4a;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="R$ 4.9M agricultural credit">R$4,9M crédito agrícola</span>
+        <span style="background:#e8f5e9;color:#2a7a4a;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="68 green establishments">68 estab. verdes (FEBRABAN)</span>
+        <span style="background:#fff3cd;color:#7a5a00;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="0 logistics terminals · 0 universities">0 terminais logísticos · 0 universidades</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- D4: Social -->
+  <div style="background:white;border-radius:14px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);border-left:4px solid #c0392b;margin-bottom:16px;">
+    <div style="flex:1;min-width:220px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+        <span style="font-size:1.3rem;">👥</span>
+        <span style="font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#063e51;" data-en="4. Social Fabric — HIGH RISK">4. Tecido Social — RISCO ALTO</span>
+        <span class="kyt-pill risk-high" style="font-size:.65rem;" data-en="2.86 ↑ Bahia 2.51">2,86 ↑ Bahia 2,51</span>
+      </div>
+      <p style="font-size:.85rem;color:#445a4a;line-height:1.6;margin:0 0 10px;" data-en="KYT flags HIGH social risk for Maraú — but the census shows Piracanga diverges sharply from the municipal average on most social indicators. Key vulnerabilities: 340 malnourished children (0–5y), BCG vaccination coverage only 60% (minimum 95%), 46% 4G/5G connectivity, 10 suicide deaths (2013–2023). Positive asset: 6,086 youth (15–29y) — strategic capacity for agroecology and ecotourism.">KYT aponta risco social ALTO para Maraú — mas o censo mostra que Piracanga diverge muito da média municipal. Vulnerabilidades-chave: 340 crianças com baixo peso (0–5a), cobertura vacinal BCG apenas 60% (mínimo 95%), 46% cobertura 4G/5G, 10 óbitos por automutilação (2013–2023). Ativo: 6.086 jovens (15–29a) — capital humano estratégico para agroecologia e ecoturismo.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#ffe4e4;color:#a0392b;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="340 malnourished children (0–5y)">340 crianças desnutridas</span>
+        <span style="background:#ffe4e4;color:#a0392b;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="BCG coverage: 60% (min 95%)">BCG 60% (mín. 95%)</span>
+        <span style="background:#ffe4e4;color:#a0392b;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="7 rescued from slave labor">7 resgatados trabalho escravo</span>
+        <span style="background:#e8f5e9;color:#2a7a4a;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="6,086 youth (15–29y)">6.086 jovens (15–29a)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- D5: Institutional -->
+  <div style="background:white;border-radius:14px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);border-left:4px solid #e67e22;margin-bottom:16px;">
+    <div style="flex:1;min-width:220px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+        <span style="font-size:1.3rem;">🏛️</span>
+        <span style="font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#063e51;" data-en="5. Institutional Presence — MED.LOW">5. Presença Institucional — MÉD. BAIXA</span>
+        <span class="kyt-pill risk-med" style="font-size:.65rem;" data-en="Risk 41.98">Risco 41,98</span>
+      </div>
+      <p style="font-size:.85rem;color:#445a4a;line-height:1.6;margin:0 0 10px;" data-en="Critical gap: only 7.75% of households connected to sewage (Bahia's lowest tier) — direct contamination risk to the Piracanga River basin. Waste collection covers only 53.5% of households. No Banco do Brasil or Caixa branches (severe financial exclusion). Positive signals: 15 active municipal councils, IGD-M 0.88 (good social management), 60 schools, 26 health facilities.">Lacuna crítica: apenas 7,75% dos domicílios com rede de esgoto (um dos piores da Bahia) — risco direto de contaminação do Rio Piracanga. Coleta de lixo atinge 53,5% dos domicílios. Sem agências do BB ou Caixa (exclusão financeira severa). Sinais positivos: 15 conselhos municipais ativos, IGD-M 0,88, 60 escolas, 26 estabelecimentos de saúde.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#ffe4e4;color:#a0392b;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="7.75% sewage (direct river risk)">7,75% esgoto — risco ao rio</span>
+        <span style="background:#ffe4e4;color:#a0392b;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="0 public banks">0 bancos públicos</span>
+        <span style="background:#fff3cd;color:#7a5a00;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="53.5% waste collection">53,5% coleta de lixo</span>
+        <span style="background:#e8f5e9;color:#2a7a4a;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="15 active councils · IGD-M 0.88">15 conselhos · IGD-M 0,88</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- D6: Security -->
+  <div style="background:white;border-radius:14px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);border-left:4px solid #c0392b;margin-bottom:32px;">
+    <div style="flex:1;min-width:220px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+        <span style="font-size:1.3rem;">⚠️</span>
+        <span style="font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#063e51;" data-en="6. Security — HIGH RISK">6. Segurança — RISCO ALTO</span>
+        <span class="kyt-pill risk-high" style="font-size:.65rem;" data-en="4.08 ↑ Bahia 3.36">4,08 ↑ Bahia 3,36</span>
+      </div>
+      <p style="font-size:.85rem;color:#445a4a;line-height:1.6;margin:0 0 10px;" data-en="HIGH security risk above Bahia average (4.08 vs. 3.36). 9 violent crimes/year average (2020–2024), 12 deaths by assault (weighted). Most relevant for Piracanga: 1 land/water conflict/year (CPT data, 2012–2023) — confirmed and amplified by the census (71% of residents are non-owners, high displacement risk).">Risco de segurança ALTO acima da média baiana (4,08 vs. 3,36). Média de 9 crimes violentos/ano (2020–2024), 12 óbitos por agressões. Mais relevante para Piracanga: 1 conflito de terra/água/ano (CPT, 2012–2023) — confirmado e amplificado pelo censo (71% dos moradores sem título de propriedade, alto risco de deslocamento).</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#ffe4e4;color:#a0392b;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="9 violent crimes/year avg">9 crimes violentos/ano</span>
+        <span style="background:#ffe4e4;color:#a0392b;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="1 land/water conflict/year">1 conflito terra/água/ano</span>
+        <span style="background:#fff3cd;color:#7a5a00;border-radius:6px;padding:3px 8px;font-size:.75rem;font-weight:600;" data-en="2 political violence events/year">2 eventos violência política/ano</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3-TIER PRIORITY ACTIONS ── -->
+  <div style="margin-bottom:12px;font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;" data-en="PRIORITY ACTIONS — KYT × CENSUS 2025–2026 (3-TIER FRAMEWORK)">AÇÕES PRIORITÁRIAS — KYT × CENSO 2025–2026 (FRAMEWORK 3 NÍVEIS)</div>
+
+  <!-- Tier 1 -->
+  <div style="background:#063e51;color:white;border-radius:14px;padding:24px 28px;margin-bottom:12px;">
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#63c5ab;margin-bottom:8px;" data-en="TIER 1 — IMMEDIATE (2026) · STRUCTURAL RISK MITIGATION">NÍVEL 1 — IMEDIATO (2026) · MITIGAÇÃO DE RISCO ESTRUTURAL</div>
+    <ul style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <li style="font-size:.83rem;line-height:1.5;color:rgba(255,255,255,0.88);padding-left:16px;position:relative;" data-en="Land protection pact: Right of First Refusal between aligned owners + A.MOR. Target: 25% of properties in year 1. (KYT land conflict + census 71% non-owners)"><span style="position:absolute;left:0;color:#63c5ab;font-weight:700;">1.</span>Pacto fundiário: Direito de Preferência entre proprietários alinhados + A.MOR. Meta: 25% das propriedades no ano 1. (Conflito KYT + 71% não-proprietários censo)</li>
+      <li style="font-size:.83rem;line-height:1.5;color:rgba(255,255,255,0.88);padding-left:16px;position:relative;" data-en="Territorial Assembly: Quarterly assembly with binding deliberation authority — governs 42 orgs + 110+ landowners. (KYT institutional gap + census governance deficit)"><span style="position:absolute;left:0;color:#63c5ab;font-weight:700;">2.</span>Assembleia Territorial: Encontro trimestral com autoridade deliberativa vinculante — governa 42 orgs + 110+ proprietários. (KYT lacuna institucional + déficit de governança censo)</li>
+      <li style="font-size:.83rem;line-height:1.5;color:rgba(255,255,255,0.88);padding-left:16px;position:relative;" data-en="RPPN registration: Map eligible properties + initiate at least 3 processes in 2026. Locks in carbon assets permanently. (KYT carbon opportunity + RL surplus)"><span style="position:absolute;left:0;color:#63c5ab;font-weight:700;">3.</span>Registro de RPPNs: Mapear propriedades elegíveis + iniciar ao menos 3 processos em 2026. Trava ativos de carbono permanentemente. (Oportunidade carbono KYT + excedente RL)</li>
+      <li style="font-size:.83rem;line-height:1.5;color:rgba(255,255,255,0.88);padding-left:16px;position:relative;" data-en="Water monitoring protocol: Continuous monitoring system with governance-linked alerts. (KYT HIGH climate risk + 7.75% sewage = direct river risk)"><span style="position:absolute;left:0;color:#63c5ab;font-weight:700;">4.</span>Monitoramento hídrico: Sistema contínuo de monitoramento com alertas vinculados à governança. (Risco climático ALTO KYT + 7,75% esgoto = risco direto ao rio)</li>
+      <li style="font-size:.83rem;line-height:1.5;color:rgba(255,255,255,0.88);padding-left:16px;position:relative;grid-column:1/-1;" data-en="Racial equity in economic strategy: Address the documented R$2,100/month racial income gap in all income programmes. (Census-specific — invisible to KYT)"><span style="position:absolute;left:0;color:#63c5ab;font-weight:700;">5.</span>Equidade racial na estratégia econômica: Endereçar explicitamente o gap racial de renda de R$2.100/mês em todos os programas de geração de renda. (Específico do censo — invisível ao KYT)</li>
+    </ul>
+  </div>
+
+  <!-- Tier 2 -->
+  <div style="background:#0a5a6e;color:white;border-radius:14px;padding:24px 28px;margin-bottom:12px;">
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#63c5ab;margin-bottom:8px;" data-en="TIER 2 — SHORT TERM (2026–2028) · ECONOMIC RESILIENCE">NÍVEL 2 — CURTO PRAZO (2026–2028) · RESILIÊNCIA ECONÔMICA</div>
+    <ul style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <li style="font-size:.83rem;line-height:1.5;color:rgba(255,255,255,0.88);padding-left:16px;position:relative;" data-en="REDD+/VCS carbon project: Structure using 16,695 ha RL surplus + 42.2 tC/ha. Revenue for a Permanence Fund + habitat restoration."><span style="position:absolute;left:0;color:#63c5ab;font-weight:700;">6.</span>Projeto de carbono REDD+/VCS: Estruturar com 16.695 ha RL + 42,2 tC/ha. Receita para Fundo de Permanência + restauração de habitat.</li>
+      <li style="font-size:.83rem;line-height:1.5;color:rgba(255,255,255,0.88);padding-left:16px;position:relative;" data-en="Tourism carrying capacity policy: Define max visitors + direct % of revenue to the Permanence Fund. (KYT economic opp + census 55% tourism dependency)"><span style="position:absolute;left:0;color:#63c5ab;font-weight:700;">7.</span>Política de capacidade de carga turística: Definir máx. de visitantes + destinar % da receita ao Fundo de Permanência. (Oport. econômica KYT + 55% dependência turismo censo)</li>
+      <li style="font-size:.83rem;line-height:1.5;color:rgba(255,255,255,0.88);padding-left:16px;position:relative;" data-en="Talent activation platform: Internal skills marketplace connecting 71 management, 55 arts, 48 therapy, 25 agroforestry talents (census data)."><span style="position:absolute;left:0;color:#63c5ab;font-weight:700;">8.</span>Plataforma de talentos: Mercado interno de habilidades conectando 71 talentos em gestão, 55 artes, 48 terapias, 25 agrofloresta (dados censo).</li>
+      <li style="font-size:.83rem;line-height:1.5;color:rgba(255,255,255,0.88);padding-left:16px;position:relative;" data-en="Land Foundation (Fundação Territorial): Private non-profit foundation to hold land permanently off market. First acquisition target: 2027."><span style="position:absolute;left:0;color:#63c5ab;font-weight:700;">9.</span>Fundação Territorial: Fundação privada sem fins lucrativos para retirar terra permanentemente do mercado. Meta: 1ª aquisição em 2027.</li>
+      <li style="font-size:.83rem;line-height:1.5;color:rgba(255,255,255,0.88);padding-left:16px;position:relative;grid-column:1/-1;" data-en="Connectivity: Partner with municipal/state govt to expand 4G/5G. Direct impact: R$7,067/mo remote work income vs R$3,839 in-person (35% of residents)."><span style="position:absolute;left:0;color:#63c5ab;font-weight:700;">10.</span>Conectividade: Parceria com prefeitura/estado para ampliar 4G/5G. Impacto direto: R$7.067/mês renda remota vs R$3.839 presencial (35% dos moradores).</li>
+    </ul>
+  </div>
+
+  <!-- Tier 3 -->
+  <div style="background:#1a5a4a;color:white;border-radius:14px;padding:24px 28px;margin-bottom:32px;">
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#63c5ab;margin-bottom:8px;" data-en="TIER 3 — MEDIUM TERM (2028–2031) · CONSOLIDATION">NÍVEL 3 — MÉDIO PRAZO (2028–2031) · CONSOLIDAÇÃO</div>
+    <ul style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <li style="font-size:.83rem;line-height:1.5;color:rgba(255,255,255,0.88);padding-left:16px;position:relative;" data-en="Community housing (15 units): Community Land Trust model, accessible to essential workers at income-based rents by 2031."><span style="position:absolute;left:0;color:#63c5ab;font-weight:700;">11.</span>Habitação comunitária (15 unidades): Modelo Community Land Trust, acessível a trabalhadores essenciais com aluguel baseado na renda até 2031.</li>
+      <li style="font-size:.83rem;line-height:1.5;color:rgba(255,255,255,0.88);padding-left:16px;position:relative;" data-en="Municipal ZEICA zoning: Work with Maraú to create a Special Cultural and Environmental Interest Zone covering Piracanga."><span style="position:absolute;left:0;color:#63c5ab;font-weight:700;">12.</span>Zoneamento ZEICA Municipal: Trabalhar com Maraú para criar Zona Especial de Interesse Cultural e Ambiental cobrindo Piracanga.</li>
+      <li style="font-size:.83rem;line-height:1.5;color:rgba(255,255,255,0.88);padding-left:16px;position:relative;" data-en="Annual census + territorial dashboard: Simplified annual census (15–20 indicators) + quarterly dashboard updates."><span style="position:absolute;left:0;color:#63c5ab;font-weight:700;">13.</span>Censo anual + dashboard territorial: Censo anual simplificado (15–20 indicadores) + atualizações trimestrais do painel.</li>
+      <li style="font-size:.83rem;line-height:1.5;color:rgba(255,255,255,0.88);padding-left:16px;position:relative;" data-en="International positioning: Publish the Piracanga model (BIOMAS + KYT + Census) for GEN, UNESCO, climate finance. Target: GEN recognition by 2031."><span style="position:absolute;left:0;color:#63c5ab;font-weight:700;">14.</span>Posicionamento internacional: Publicar o modelo Piracanga (BIOMAS + KYT + Censo) para GEN, UNESCO e finanças climáticas. Meta: reconhecimento GEN até 2031.</li>
     </ul>
   </div>
 
   <!-- Source Footer -->
-  <div style="margin-top:32px;padding:16px 20px;background:#f0f7f4;border-radius:10px;border:1px solid #d0e8d8;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-    <span style="font-size:.8rem;color:#5a7a60;line-height:1.5;" data-en="Source: KYT-e Index · Green Bridge Facility / Instituto Igarapé · Maraú (BA) · Dec 2025 · Cross-referenced with Piracanga Community Census 2025–2026 (BIOMAS)">Fonte: Índice KYT-e · Green Bridge Facility / Instituto Igarapé · Maraú (BA) · Dez 2025 · Cruzado com Censo Comunitário Piracanga 2025–2026 (BIOMAS)</span>
-    <a href="https://app.kyt.greenbridgefacility.com/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#063e51;color:white;border-radius:8px;padding:8px 16px;font-size:.8rem;font-weight:700;text-decoration:none;" data-en="🌐 Open KYT Platform →">🌐 Acessar Plataforma KYT →</a>
+  <div style="padding:16px 20px;background:#f0f7f4;border-radius:10px;border:1px solid #d0e8d8;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <div>
+      <div style="font-size:.8rem;color:#5a7a60;line-height:1.5;margin-bottom:4px;" data-en="Source: KYT-e Index · Green Bridge Facility / Instituto Igarapé · Maraú (BA) · Dec 2025">Fonte: Índice KYT-e · Green Bridge Facility / Instituto Igarapé · Maraú (BA) · Dez 2025</div>
+      <div style="font-size:.75rem;color:#8a9a8a;" data-en="Data: IBGE, MapBiomas, PRODES/INPE, IBAMA, CAR, DATASUS, RAIS, BCB, TSE, CPT, among others.">Dados: IBGE, MapBiomas, PRODES/INPE, IBAMA, CAR, DATASUS, RAIS, BCB, TSE, CPT, entre outros.</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <a href="https://raw.githubusercontent.com/leticiacqueiroz-biomas/censopiracanga2025/main/KYT/Insights_KYT_Piracanga.pdf" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:white;border:1px solid #c0d8c0;color:#063e51;border-radius:8px;padding:8px 14px;font-size:.8rem;font-weight:700;text-decoration:none;" data-en="📄 Full Report (PDF)">📄 Relatório Completo (PDF)</a>
+      <a href="https://app.kyt.greenbridgefacility.com/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#063e51;color:white;border-radius:8px;padding:8px 14px;font-size:.8rem;font-weight:700;text-decoration:none;" data-en="🌐 KYT Platform →">🌐 Plataforma KYT →</a>
+    </div>
   </div>
 
 </div><!-- end max-width wrapper -->
 </div><!-- end pg-kyt -->
+<!-- end pg-kyt -->
 
 </body>
 </html>
